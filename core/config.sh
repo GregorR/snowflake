@@ -1,0 +1,6 @@
+SNOWFLAKE_PREFIX="$PWD/root"
+ARCH=x86_64
+TRIPLE=$ARCH-pc-linux-musl
+CC_PREFIX=/opt/cross/$TRIPLE
+MAKEFLAGS=-j8
+SUDO=sudo

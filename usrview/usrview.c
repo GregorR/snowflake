@@ -29,11 +29,12 @@
 
 #include "buffer.h"
 
-#define BASE        "/usr"
-#define PATHENV     "USR_DIRS"
-#define WRITEENV    "USR_WRITE_DIR"
-#define OKFILE      "/.usr_ok"
-#define FORCEDIR    "/pkg/core/1.0/usr"
+#define BASE                "/usr"
+#define PATHENV             "USR_DIRS"
+#define WRITEENV            "USR_WRITE_DIR"
+#define OKFILE              "/.usr_ok"
+#define FORCEDIR            "/pkg/core/1.0/usr"
+#define DEFAULTWRITEDIR     "/tmp/usr"
 #define WRITE_STR_BUFFER(buf, str) \
     WRITE_BUFFER(buf, str, sizeof(str)-1)
 
@@ -116,6 +117,7 @@ int main(int argc, char **argv)
     }
     validatePath(&wpath);
     rpaths.buf[0] = FORCEDIR;
+    if (!wpath) wpath = DEFAULTWRITEDIR;
 
     /* make sure there are no duplicates */
     for (i = 1; i < rpaths.bufused; i++) {
@@ -131,22 +133,16 @@ int main(int argc, char **argv)
     /* generate our options string */
     INIT_BUFFER(options);
     WRITE_STR_BUFFER(options, "br=");
-    if (wpath) {
-        WRITE_BUFFER(options, wpath, strlen(wpath));
-        WRITE_STR_BUFFER(options, "=rw");
-    } else {
-        mountflags |= MS_RDONLY;
-    }
+    WRITE_BUFFER(options, wpath, strlen(wpath));
     for (i = 0; i < rpaths.bufused; i++) {
         arg = rpaths.buf[i];
         if (arg) {
             if (options.bufused > 3) WRITE_STR_BUFFER(options, ":");
             WRITE_BUFFER(options, arg, strlen(arg));
-            WRITE_STR_BUFFER(options, "=ro");
         }
     }
     WRITE_STR_BUFFER(options, "\0");
-    if (!wpath && rpaths.bufused == 1) {
+    if (rpaths.bufused == 1) {
         /* no options = unmount all */
         if (!allowclear) {
             fprintf(stderr, "To explicitly clear all /usr mounts, -r must be specified\n");
@@ -195,7 +191,7 @@ int main(int argc, char **argv)
     SF(tmpi, setenv, -1, (PATHENV, options.buf, 1));
     FREE_BUFFER(options);
 
-    if (wpath) {
+    if (strcmp(wpath, DEFAULTWRITEDIR)) {
         SF(tmpi, setenv, -1, (WRITEENV, wpath, 1));
     } else {
         SF(tmpi, unsetenv, -1, (WRITEENV));

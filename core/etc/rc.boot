@@ -22,6 +22,7 @@ fsck -A -T -C -p
 mkdir -p /dev/shm /dev/pts
 mount -o remount,rw /
 mount -a
+mkdir /tmp/usr
 
 # then our usrview filesystem
 pkgresolve -m

@@ -4,6 +4,7 @@
 MUSL_VERSION=0.8.10
 BUSYBOX_VERSION=1.19.4
 USRVIEW_VERSION=0.1
+PKGRESOLVE_VERSION=0.1
 
 PATH="/pkg/busybox/$BUSYBOX_VERSION/usr/bin"
 export PATH
@@ -15,7 +16,7 @@ then
 fi
 rm -rf /usr/*
 
-for pkg in core/1.0 musl/$MUSL_VERSION busybox/$BUSYBOX_VERSION usrview/$USRVIEW_VERSION "$@"
+for pkg in core/1.0 musl/$MUSL_VERSION busybox/$BUSYBOX_VERSION usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION "$@"
 do
     echo 'Linking '"$pkg"
     cd /pkg/$pkg/usr || continue

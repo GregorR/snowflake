@@ -53,6 +53,7 @@ if [ ! -e "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin"
     cp snowflake-quicklink "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/"
+    echo busybox > "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/deps"
 fi
 
 # usrview
@@ -64,6 +65,19 @@ then
     make CC="$TRIPLE-gcc -static -s"
     popd
     cp ../usrview/usrview "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/"
+fi
+
+# pkgresolve
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin"
+    pushd ../pkgresolve
+    make clean
+    make CC="$TRIPLE-gcc -static -s"
+    popd
+    cp ../pkgresolve/pkgresolve "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/"
+    ln -s pkgresolve "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with"
+    echo usrview > "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/deps"
 fi
 
 # core files
@@ -88,6 +102,7 @@ MAKEFLAGS="$MAKEFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION" 
     buildinstall root binutils-$BINUTILS_VERSION --host=$TRIPLE --target=$TRIPLE \
         --disable-werror
 nolib64end "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/usr"
+echo musl > "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/deps"
 unset PREFIX
 
 # gcc
@@ -98,6 +113,7 @@ MAKEFLAGS="$MAKEFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION" \
     buildinstall root gcc-$GCC_VERSION --host=$TRIPLE --target=$TRIPLE \
     --enable-languages=c --disable-multilib --disable-libmudflap
 nolib64end "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
+echo musl binutils > "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/deps"
 unset PREFIX
 
 # un"fix" headers
@@ -108,9 +124,9 @@ $SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 $SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 
 # make everything mountable
-for pkg in musl/$MUSL_VERSION busybox/$BUSYBOX_VERSION \
+for pkg in core/1.0 musl/$MUSL_VERSION busybox/$BUSYBOX_VERSION \
     quicklink/$QUICKLINK_VERSION usrview/$USRVIEW_VERSION \
-    binutils/$BINUTILS_VERSION gcc/$GCC_VERSION
+    pkgresolve/$PKGRESOLVE_VERSION binutils/$BINUTILS_VERSION gcc/$GCC_VERSION
 do
     $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$pkg/usr/.usr_ok"
 done

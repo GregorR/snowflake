@@ -42,7 +42,7 @@ int main(int argc, char **argv)
     struct Buffer_char options;
     char *wpath = NULL, *arg;
     char *envpaths;
-    int i, argi, tmpi;
+    int i, j, argi, tmpi;
     unsigned long mountflags = 0;
     int allowclear = 0, clear = 0;
 
@@ -100,6 +100,17 @@ int main(int argc, char **argv)
     }
     validatePath(&wpath);
     rpaths.buf[0] = FORCEDIR;
+
+    /* make sure there are no duplicates */
+    for (i = 1; i < rpaths.bufused; i++) {
+        for (j = 0; j < i; j++) {
+            if (rpaths.buf[i] && rpaths.buf[j] &&
+                !strcmp(rpaths.buf[i], rpaths.buf[j])) {
+                rpaths.buf[i] = NULL;
+                break;
+            }
+        }
+    }
 
     /* generate our options string */
     INIT_BUFFER(options);
@@ -177,7 +188,8 @@ int main(int argc, char **argv)
     /* then run it */
     if (argi < argc) {
         execvp(argv[argi], argv + argi);
-        fprintf(stderr, "Failed to execvp\n");
+        fprintf(stderr, "[usrview] ");
+        perror(argv[argi]);
 
         return 1;
 
@@ -192,6 +204,7 @@ void validatePath(char **path)
 {
     struct Buffer_char pathok;
     struct stat sbuf;
+    char *rpath;
 
     if (!*path) return;
 

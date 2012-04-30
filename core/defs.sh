@@ -15,6 +15,18 @@ then
     exit 1
 fi
 
+# Versions of things (do this before config.sh so they can be config'd)
+BINUTILS_VERSION=2.22
+BUSYBOX_VERSION=1.19.4
+MPC_VERSION=0.9
+MPFR_VERSION=3.1.0
+GCC_VERSION=4.7.0
+GMP_VERSION=5.0.4
+LINUX_VERSION=6ee00da3eefd493456259fe774a74dfb12c49152
+MUSL_VERSION=0.8.10
+QUICKLINK_VERSION=0.1
+USRVIEW_VERSION=0.1
+
 . "$SNOWFLAKE_BASE"/config.sh
 
 PATH="$CC_PREFIX/bin:$PATH"
@@ -58,6 +70,22 @@ extract() {
 fetchextract() {
     fetch "$1" "$2""$3"
     extract "$2""$3" "$2"
+}
+
+gitfetchextract() {
+    if [ ! -e "$SRCDIR/$3".tar.gz ]
+    then
+        git archive --format=tar --remote="$1" "$2" | \
+            gzip -c > "$SRCDIR/$3".tar.gz || die "Failed to fetch $3-$2"
+    fi
+    if [ ! -e "$3/extracted" ]
+    then
+        mkdir -p "$3"
+        pushd "$3" || die "Failed to pushd $3"
+        extract "$3".tar.gz extracted
+        touch extracted
+        popd
+    fi
 }
 
 patch_source() {

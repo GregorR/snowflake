@@ -1,0 +1,26 @@
+#!/bin/sh
+PATH=/bin
+
+echo shutting down
+
+hwclock -u -w
+
+sv down /var/service/*
+
+killall5 -15
+sleep 5
+killall5 -9
+
+dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2>/dev/null
+
+swapoff -a
+
+echo mounting / read-only
+umount -a -r -t noproc
+mount -o remount,ro /
+
+sync
+sleep 1
+wait
+
+echo bye

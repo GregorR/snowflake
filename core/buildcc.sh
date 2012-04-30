@@ -14,11 +14,6 @@ set -e
 # Switch to the CC prefix for all of this
 PREFIX="$CC_PREFIX"
 
-BINUTILS_VERSION=2.22
-GCC_VERSION=4.7.0
-MUSL_VERSION=0.8.10
-LINUX_VERSION=3.3.4
-
 # binutils
 fetchextract http://ftp.gnu.org/gnu/binutils/ binutils-$BINUTILS_VERSION .tar.bz2
 buildinstall 1 binutils-$BINUTILS_VERSION --target=$TRIPLE
@@ -31,11 +26,11 @@ buildinstall 1 gcc-$GCC_VERSION --target=$TRIPLE \
     --disable-shared --disable-libmudflap --disable-libgomp
 
 # linux headers
-fetchextract http://www.kernel.org/pub/linux/kernel/v3.0/ linux-$LINUX_VERSION .tar.bz2
-cp linux.config linux-$LINUX_VERSION/.config
-if [ ! -e linux-$LINUX_VERSION/installedheaders ]
+gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION
+cp linux.config aufs3-linux-$LINUX_VERSION/.config
+if [ ! -e aufs3-linux-$LINUX_VERSION/installedheaders ]
 then
-    pushd linux-$LINUX_VERSION
+    pushd aufs3-linux-$LINUX_VERSION
     make headers_install INSTALL_HDR_PATH="$CC_PREFIX/$TRIPLE"
     touch installedheaders
     popd

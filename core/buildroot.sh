@@ -11,12 +11,6 @@ set -e
 
 . "$SNOWFLAKE_BASE"/defs.sh
 
-BINUTILS_VERSION=2.22
-GCC_VERSION=4.7.0
-MUSL_VERSION=0.8.10
-BUSYBOX_VERSION=1.19.4
-QUICKLINK_VERSION=0.1
-
 # base files
 mkdir -p "$SNOWFLAKE_PREFIX"
 if [ ! -e "$SNOWFLAKE_PREFIX/usr" ]
@@ -25,7 +19,7 @@ then
     do
         ln -s usr/$i "$SNOWFLAKE_PREFIX/$i"
     done
-    for i in boot dev pkg proc sys usr
+    for i in boot dev home local pkg proc root sys tmp usr
     do
         mkdir -p "$SNOWFLAKE_PREFIX/$i"
     done
@@ -61,6 +55,31 @@ then
     cp snowflake-quicklink "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/"
 fi
 
+# usrview
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin"
+    pushd ../usrview
+    make clean
+    make CC="$TRIPLE-gcc -static -s"
+    popd
+    cp ../usrview/usrview "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/"
+fi
+
+# core files
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc"
+    cp -a etc "$SNOWFLAKE_PREFIX/pkg/core/1.0/"
+    pushd etc
+    for i in *
+    do
+        ln -s /pkg/core/1.0/etc/$i "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc/$i"
+    done
+    popd
+    ln -s /local "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/local"
+fi
+
 # binutils
 PREFIX="/usr"
 fetchextract http://ftp.gnu.org/gnu/binutils/ binutils-$BINUTILS_VERSION .tar.bz2
@@ -83,6 +102,18 @@ unset PREFIX
 
 # un"fix" headers
 rm -rf "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/
+
+# make usrview setuid-root
+$SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
+$SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
+
+# make everything mountable
+for pkg in musl/$MUSL_VERSION busybox/$BUSYBOX_VERSION \
+    quicklink/$QUICKLINK_VERSION usrview/$USRVIEW_VERSION \
+    binutils/$BINUTILS_VERSION gcc/$GCC_VERSION
+do
+    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$pkg/usr/.usr_ok"
+done
 
 # actually perform the linking
 $SUDO chroot "$SNOWFLAKE_PREFIX" /pkg/busybox/$BUSYBOX_VERSION/usr/bin/sh \

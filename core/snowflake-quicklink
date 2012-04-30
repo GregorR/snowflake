@@ -1,0 +1,24 @@
+#!/bin/sh
+# Quick and dirty linker for snowflake, for use before the proper tools are
+# available, requires that busybox be statically linked
+MUSL_VERSION=0.8.10
+BUSYBOX_VERSION=1.19.4
+USRVIEW_VERSION=0.1
+
+PATH="/pkg/busybox/$BUSYBOX_VERSION/usr/bin"
+export PATH
+
+if [ ! -e /pkg/busybox/$BUSYBOX_VERSION ]
+then
+    echo 'This doesn'\''t seem to be a functioning Snowflake setup, bailing.'
+    exit 1
+fi
+rm -rf /usr/*
+
+for pkg in core/1.0 musl/$MUSL_VERSION busybox/$BUSYBOX_VERSION usrview/$USRVIEW_VERSION "$@"
+do
+    echo 'Linking '"$pkg"
+    cd /pkg/$pkg/usr || continue
+    find . -type d -exec mkdir -m 0755 -p '/usr/{}' ';'
+    find . '(' -type f -o -type l ')' -a ! -name '.usr_ok' -exec ln -s /pkg/"$pkg"/usr/'{}' '/usr/{}' ';'
+done

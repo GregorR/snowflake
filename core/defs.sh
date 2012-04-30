@@ -9,7 +9,7 @@ then
     SRCDIR="$SNOWFLAKE_BASE"
 fi
 
-if [ ! -e "$SNOWFLAKE_BASE/config.sh" ]
+if [ ! -e config.sh ]
 then
     echo 'Create a config.sh file.'
     exit 1
@@ -22,13 +22,14 @@ MPC_VERSION=0.9
 MPFR_VERSION=3.1.0
 GCC_VERSION=4.7.0
 GMP_VERSION=5.0.4
+LINUX_HEADERS_VERSION=3.2.15
 LINUX_VERSION=6ee00da3eefd493456259fe774a74dfb12c49152
 MUSL_VERSION=0.8.10
 PKGRESOLVE_VERSION=0.1
 QUICKLINK_VERSION=0.1
 USRVIEW_VERSION=0.1
 
-. "$SNOWFLAKE_BASE"/config.sh
+. config.sh
 
 PATH="$CC_PREFIX/bin:$PATH"
 export PATH
@@ -41,10 +42,10 @@ then
 fi
 
 case "$ARCH" in
-    x86_64) MUSL_ARCH=x86_64 ;;
-    *) MUSL_ARCH=i386 ;;
+    x86_64) LINUX_ARCH=x86_64 ;;
+    *) LINUX_ARCH=i386 ;;
 esac
-export MUSL_ARCH
+export LINUX_ARCH
 
 die() {
     echo "$@"
@@ -52,9 +53,9 @@ die() {
 }
 
 fetch() {
-    if [ ! -e "$SRCDIR/$2" ]
+    if [ ! -e "$SRCDIR/tarballs/$2" ]
     then
-        wget "$1""$2" -O "$SRCDIR/$2" || ( rm -f "$SRCDIR/$2" && return 1 )
+        wget "$1""$2" -O "$SRCDIR/tarballs/$2" || ( rm -f "$SRCDIR/tarballs/$2" && return 1 )
     fi
     return 0
 }
@@ -62,9 +63,9 @@ fetch() {
 extract() {
     if [ ! -e "$2" ]
     then
-        tar xf "$SRCDIR/$1" ||
-            tar jxf "$SRCDIR/$1" ||
-            tar zxf "$SRCDIR/$1"
+        tar xf "$SRCDIR/tarballs/$1" ||
+            tar jxf "$SRCDIR/tarballs/$1" ||
+            tar zxf "$SRCDIR/tarballs/$1"
     fi
 }
 
@@ -74,10 +75,10 @@ fetchextract() {
 }
 
 gitfetchextract() {
-    if [ ! -e "$SRCDIR/$3".tar.gz ]
+    if [ ! -e "$SRCDIR/tarballs/$3".tar.gz ]
     then
         git archive --format=tar --remote="$1" "$2" | \
-            gzip -c > "$SRCDIR/$3".tar.gz || die "Failed to fetch $3-$2"
+            gzip -c > "$SRCDIR/tarballs/$3".tar.gz || die "Failed to fetch $3-$2"
     fi
     if [ ! -e "$3/extracted" ]
     then
@@ -94,9 +95,9 @@ patch_source() {
 
     pushd "$BD" || die "Failed to pushd $BD"
 
-    if [ -e "$SRCDIR/$BD"-musl.diff -a ! -e patched ]
+    if [ -e "$SRCDIR/patches/$BD"-musl.diff -a ! -e patched ]
     then
-        patch -p1 < "$SRCDIR/$BD"-musl.diff || die "Failed to patch $BD"
+        patch -p1 < "$SRCDIR/patches/$BD"-musl.diff || die "Failed to patch $BD"
         touch patched
     fi
     popd

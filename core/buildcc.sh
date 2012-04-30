@@ -26,12 +26,12 @@ buildinstall 1 gcc-$GCC_VERSION --target=$TRIPLE \
     --disable-shared --disable-libmudflap --disable-libgomp
 
 # linux headers
-gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION
-cp linux.config aufs3-linux-$LINUX_VERSION/.config
-if [ ! -e aufs3-linux-$LINUX_VERSION/installedheaders ]
+fetchextract http://www.kernel.org/pub/linux/kernel/v3.0/ linux-$LINUX_HEADERS_VERSION .tar.bz2
+cp "$SNOWFLAKE_BASE/config/linux.config" linux-$LINUX_HEADERS_VERSION/.config
+if [ ! -e linux-$LINUX_HEADERS_VERSION/installedheaders ]
 then
-    pushd aufs3-linux-$LINUX_VERSION
-    make headers_install INSTALL_HDR_PATH="$CC_PREFIX/$TRIPLE"
+    pushd linux-$LINUX_HEADERS_VERSION
+    make headers_install ARCH=$LINUX_ARCH INSTALL_HDR_PATH="$CC_PREFIX/$TRIPLE"
     touch installedheaders
     popd
 fi
@@ -40,7 +40,7 @@ fi
 PREFIX="$CC_PREFIX/$TRIPLE"
 export PREFIX
 fetchextract http://www.etalabs.net/musl/releases/ musl-$MUSL_VERSION .tar.gz
-cp musl.config.mak musl-$MUSL_VERSION/config.mak
+cp "$SNOWFLAKE_BASE/config/musl.config.mak" musl-$MUSL_VERSION/config.mak
 buildmake musl-$MUSL_VERSION
 doinstall '' musl-$MUSL_VERSION
 unset PREFIX

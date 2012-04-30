@@ -3,7 +3,7 @@
 #
 
 # Target CPU architecture. Supported values: i386, x86_64
-ARCH = $(MUSL_ARCH)
+ARCH = $(LINUX_ARCH)
 CROSS_COMPILE = $(TRIPLE)-
 CC = $(CROSS_COMPILE)gcc
 

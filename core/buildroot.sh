@@ -33,7 +33,7 @@ fi
 PREFIX="/"
 export PREFIX
 fetchextract http://www.etalabs.net/musl/releases/ musl-$MUSL_VERSION .tar.gz
-cp musl.config.mak musl-$MUSL_VERSION/config.mak
+cp "$SNOWFLAKE_BASE/config/musl.config.mak" musl-$MUSL_VERSION/config.mak
 buildmake musl-$MUSL_VERSION
 doinstall '' musl-$MUSL_VERSION DESTDIR="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr"
 rm -rf "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin" # No musl-gcc needed or wanted
@@ -41,7 +41,8 @@ unset PREFIX
 
 # busybox
 fetchextract http://busybox.net/downloads/ busybox-$BUSYBOX_VERSION .tar.bz2
-cp busybox.config busybox-$BUSYBOX_VERSION/.config
+patch_source busybox-$BUSYBOX_VERSION
+cp "$SNOWFLAKE_BASE/config/busybox.config" busybox-$BUSYBOX_VERSION/.config
 buildmake busybox-$BUSYBOX_VERSION LDFLAGS=-static \
     CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc"
 doinstall '' busybox-$BUSYBOX_VERSION LDFLAGS=-static \
@@ -52,7 +53,7 @@ doinstall '' busybox-$BUSYBOX_VERSION LDFLAGS=-static \
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-quicklink" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin"
-    cp snowflake-quicklink "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/"
+    cp "$SNOWFLAKE_BASE/snowflake-quicklink" "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/"
     echo busybox > "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/deps"
 fi
 
@@ -60,22 +61,22 @@ fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin"
-    pushd ../usrview
+    pushd "$SNOWFLAKE_BASE/../usrview"
     make clean
     make CC="$TRIPLE-gcc -static -s"
     popd
-    cp ../usrview/usrview "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/"
+    cp "$SNOWFLAKE_BASE/../usrview/usrview" "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/"
 fi
 
 # pkgresolve
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin"
-    pushd ../pkgresolve
+    pushd "$SNOWFLAKE_BASE/../pkgresolve"
     make clean
     make CC="$TRIPLE-gcc -static -s"
     popd
-    cp ../pkgresolve/pkgresolve "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/"
+    cp "$SNOWFLAKE_BASE/../pkgresolve/pkgresolve" "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/"
     ln -s pkgresolve "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with"
     echo usrview > "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/deps"
 fi
@@ -84,14 +85,26 @@ fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc"
-    cp -a etc "$SNOWFLAKE_PREFIX/pkg/core/1.0/"
-    pushd etc
+    cp -R "$SNOWFLAKE_BASE/etc" "$SNOWFLAKE_PREFIX/pkg/core/1.0/"
+    pushd "$SNOWFLAKE_BASE/etc"
     for i in *
     do
         ln -s /pkg/core/1.0/etc/$i "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc/$i"
     done
     popd
     ln -s /local "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/local"
+fi
+
+# minimal and default metapackages
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr"
+    echo musl busybox pkgresolve > "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/deps"
+fi
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/default/1.0/usr" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/default/1.0/usr"
+    echo minimal > "$SNOWFLAKE_PREFIX/pkg/default/1.0/deps"
 fi
 
 # binutils
@@ -119,14 +132,28 @@ unset PREFIX
 # un"fix" headers
 rm -rf "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/
 
+# kernel
+gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION
+cp "$SNOWFLAKE_BASE/config/linux.config" aufs3-linux-$LINUX_VERSION/.config
+buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH
+if [ ! -e "$SNOWFLAKE_PREFIX/boot/vmlinuz" ]
+then
+    cp -L aufs3-linux-$LINUX_VERSION/arch/$LINUX_ARCH/boot/*zImage "$SNOWFLAKE_PREFIX/boot/vmlinuz"
+fi
+if [ ! -e "$SNOWFLAKE_PREFIX/boot/extlinux.conf" ]
+then
+    cp "$SNOWFLAKE_BASE/config/extlinux.conf" "$SNOWFLAKE_PREFIX/boot/"
+fi
+
 # make usrview setuid-root
 $SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 $SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 
 # make everything mountable
-for pkg in core/1.0 musl/$MUSL_VERSION busybox/$BUSYBOX_VERSION \
-    quicklink/$QUICKLINK_VERSION usrview/$USRVIEW_VERSION \
-    pkgresolve/$PKGRESOLVE_VERSION binutils/$BINUTILS_VERSION gcc/$GCC_VERSION
+for pkg in core/1.0 minimal/1.0 default/1.0 musl/$MUSL_VERSION \
+    busybox/$BUSYBOX_VERSION quicklink/$QUICKLINK_VERSION \
+    usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION \
+    binutils/$BINUTILS_VERSION gcc/$GCC_VERSION
 do
     $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$pkg/usr/.usr_ok"
 done

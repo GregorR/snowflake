@@ -23,8 +23,8 @@ mkdir -p /dev/shm /dev/pts
 mount -o remount,rw /
 mount -a
 
-# then our usrview filesystem (FIXME: get versions correctly)
-usrview /pkg/musl/0.8.10/usr /pkg/busybox/1.19.4/usr /pkg/usrview/0.1/usr
+# then our usrview filesystem
+pkgresolve -m
 
 [ -f /etc/random-seed ] && cat /etc/random-seed >/dev/urandom
 dd if=/dev/urandom of=/etc/random-seed count=1 bs=512 2>/dev/null

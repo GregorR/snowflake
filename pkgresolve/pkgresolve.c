@@ -87,7 +87,7 @@ int main(int argc, char **argv)
     struct Buffer_charp usrviewArgs;
     char *arg;
     int argi, i;
-    int execing = 0;
+    int execing = 0, nocommand = 0;
     struct PackageRequest *pkg;
     struct VersionRequest *ver;
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     /* read in all the various things that can request packages */
 
     /* first, environment variable */
-    arg = getenv("PKGENV");
+    arg = getenv(PKGENV);
     if (arg) {
         WRITE_BUFFER(packages, arg, strlen(arg));
     } else {
@@ -112,6 +112,10 @@ int main(int argc, char **argv)
             ARG(-r) {
                 /* reset! */
                 packages.bufused = 0;
+
+            } else ARG(-m) {
+                execing = 1;
+                nocommand = 1;
 
             } else ARG(-e) {
                 WRITE_STR_BUFFER(packages, "=");
@@ -132,6 +136,7 @@ int main(int argc, char **argv)
                 /* done, rest is the command */
                 argi++;
                 execing = 1;
+                nocommand = 0;
                 break;
 
             }
@@ -143,6 +148,9 @@ int main(int argc, char **argv)
         }
     }
     WRITE_STR_BUFFER(packages, "\0");
+
+    /* store it back in the environment */
+    setenv(PKGENV, packages.buf, 1);
 
     /* now, feed it into our packages list */
     readPackages(packages.buf, NULL);
@@ -184,7 +192,7 @@ int main(int argc, char **argv)
     }
 
     /* as well as the command itself */
-    if (execing) {
+    if (execing && !nocommand) {
         WRITE_ONE_BUFFER(usrviewArgs, "--");
         for (i = argi; i < argc; i++) {
             WRITE_ONE_BUFFER(usrviewArgs, argv[i]);

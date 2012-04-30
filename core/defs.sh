@@ -32,16 +32,20 @@ then
 fi
 
 # Versions of things (do this before config.sh so they can be config'd)
+AUFS_UTIL_VERSION=cc453fadac6d61dc5d14d3c905f72d01d5011049
 BINUTILS_VERSION=2.22
 BUSYBOX_VERSION=1.19.4
+MAKE_VERSION=3.82
 MPC_VERSION=0.9
 MPFR_VERSION=3.1.0
+GAWK_VERSION=4.0.1
 GCC_VERSION=4.7.0
 GMP_VERSION=5.0.4
 LINUX_HEADERS_VERSION=3.2.15
 LINUX_VERSION=6ee00da3eefd493456259fe774a74dfb12c49152
 MUSL_VERSION=0.8.10
 PKGRESOLVE_VERSION=0.1
+PKGSRC_VERSION=2012Q1
 QUICKLINK_VERSION=0.1
 USRVIEW_VERSION=0.1
 
@@ -80,6 +84,7 @@ extract() {
     if [ ! -e "$2" ]
     then
         tar xf "$SRCDIR/tarballs/$1" ||
+            tar Jxf "$SRCDIR/tarballs/$1" ||
             tar jxf "$SRCDIR/tarballs/$1" ||
             tar zxf "$SRCDIR/tarballs/$1"
     fi

@@ -18,9 +18,12 @@
 
 #include <ctype.h>
 #include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -97,11 +100,14 @@ void makeResolvable(struct PackageRequest *pkg);
 /* is this version OK for this package? */
 int versionOK(struct PackageRequest *pkg, const char *version);
 
+/* set up a quickpath for "quick" package installs */
+char *setupQuickPath(const char *qpath);
+
 int main(int argc, char **argv)
 {
     struct Buffer_char packages, path;
     struct Buffer_charp usrviewArgs;
-    char *arg, *wpath = NULL;
+    char *arg, *wpath = NULL, *qpath = NULL;
     int argi, i;
     int execing = 1, listing = 0, nocommand = 0;
     struct PackageRequest *pkg;
@@ -143,6 +149,12 @@ int main(int argc, char **argv)
                     wpath = argv[argi];
                 }
 
+            } else ARG(-q) {
+                if (argi < argc - 1) {
+                    argi++;
+                    qpath = argv[argi];
+                }
+
             } else ARG(-e) {
                 WRITE_STR_BUFFER(packages, "=");
 
@@ -174,6 +186,9 @@ int main(int argc, char **argv)
         }
     }
     WRITE_STR_BUFFER(packages, "\0");
+
+    /* if we have a qpath, set it up */
+    if (qpath) wpath = setupQuickPath(qpath);
 
     /* store it back in the environment */
     setenv(PKGENV, packages.buf, 1);
@@ -211,8 +226,7 @@ int main(int argc, char **argv)
         if (pkg->version) {
             INIT_BUFFER(path);
             if (execing) {
-                WRITE_STR_BUFFER(path, PKGBASE);
-                WRITE_STR_BUFFER(path, "/");
+                WRITE_STR_BUFFER(path, PKGBASE "/");
             }
             WRITE_BUFFER(path, pkg->name, strlen(pkg->name));
             WRITE_STR_BUFFER(path, "/");
@@ -572,8 +586,7 @@ void resolve(struct PackageRequest *pkg)
 
     /* package directory */
     INIT_BUFFER(path);
-    WRITE_STR_BUFFER(path, PKGBASE);
-    WRITE_STR_BUFFER(path, "/");
+    WRITE_STR_BUFFER(path, PKGBASE "/");
     WRITE_BUFFER(path, pkg->name, strlen(pkg->name));
     dirlen = path.bufused;
     WRITE_STR_BUFFER(path, "\0");
@@ -594,9 +607,7 @@ void resolve(struct PackageRequest *pkg)
                 path.bufused = dirlen;
                 WRITE_STR_BUFFER(path, "/");
                 WRITE_BUFFER(path, de.d_name, strlen(de.d_name));
-                WRITE_STR_BUFFER(path, "/usr");
-                WRITE_STR_BUFFER(path, OKFILE);
-                WRITE_STR_BUFFER(path, "\0");
+                WRITE_STR_BUFFER(path, "/usr" OKFILE "\0");
                 if (access(path.buf, F_OK) == 0) {
                     /* this is a valid version, does it match our requirements? */
                     if (versionOK(pkg, de.d_name)) {
@@ -622,8 +633,7 @@ void resolve(struct PackageRequest *pkg)
     path.bufused = dirlen;
     WRITE_STR_BUFFER(path, "/");
     WRITE_BUFFER(path, pkg->version, strlen(pkg->version));
-    WRITE_STR_BUFFER(path, DEPSFILE);
-    WRITE_STR_BUFFER(path, "\0");
+    WRITE_STR_BUFFER(path, DEPSFILE "\0");
     if ((depsfile = fopen(path.buf, "r"))) {
         /* OK, snag the deps */
         INIT_BUFFER(deps);
@@ -673,4 +683,69 @@ int versionOK(struct PackageRequest *pkg, const char *version)
         }
     }
     return 1;
+}
+
+/* set up a quickpath for "quick" package installs */
+char *setupQuickPath(const char *qpath)
+{
+    struct Buffer_char wpath;
+    int i;
+    const char *slash = NULL;
+    size_t wpathlen;
+
+    /* make sure it's in the right format */
+    for(i = 0; qpath[i]; i++) {
+        if (strchr(whitespace, qpath[i])) {
+            fprintf(stderr, "-q path may not contain whitespace\n");
+            exit(1);
+        }
+        if (qpath[i] == '/') {
+            if (slash) {
+                fprintf(stderr, "-q path must contain exactly one slash\n");
+                exit(1);
+            }
+            slash = qpath + i;
+        }
+    }
+    if (slash == NULL) {
+        fprintf(stderr, "-q path must contain exactly one slash\n");
+        exit(1);
+    }
+
+#define TRYMKDIR() do {\
+    if (mkdir(wpath.buf, 0755) == -1) { \
+        if (errno != EEXIST) { \
+            perror(wpath.buf); \
+            exit(1); \
+        } \
+    } \
+    } while (0)
+
+    /* then set it up */
+    INIT_BUFFER(wpath);
+    WRITE_STR_BUFFER(wpath, PKGBASE "/");
+    WRITE_BUFFER(wpath, qpath, slash - qpath);
+    WRITE_STR_BUFFER(wpath, "\0");
+    TRYMKDIR();
+    wpath.bufused--;
+    WRITE_BUFFER(wpath, slash, strlen(slash));
+    WRITE_STR_BUFFER(wpath, "\0");
+    TRYMKDIR();
+    wpath.bufused--;
+    WRITE_STR_BUFFER(wpath, "/usr\0");
+    TRYMKDIR();
+    wpath.bufused--;
+    wpathlen = wpath.bufused;
+    WRITE_STR_BUFFER(wpath, OKFILE "\0");
+    if (creat(wpath.buf, 0644) == -1) {
+        if (errno != EEXIST) {
+            perror(wpath.buf);
+            exit(1);
+        }
+    }
+
+    /* send the wpath back */
+    wpath.bufused = wpathlen;
+    WRITE_STR_BUFFER(wpath, "\0");
+    return wpath.buf;
 }

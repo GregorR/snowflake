@@ -121,7 +121,7 @@ fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr"
-    echo musl busybox pkgresolve > "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/deps"
+    echo musl libgcc busybox pkgresolve > "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/deps"
 fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/default/1.0/usr" ]
 then
@@ -137,7 +137,6 @@ MAKEFLAGS="$MAKEFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION" 
     buildinstall root binutils-$BINUTILS_VERSION --host=$TRIPLE --target=$TRIPLE \
         --disable-werror
 nolib64end "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/usr"
-echo musl > "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/deps"
 unset PREFIX
 
 # gcc
@@ -148,7 +147,13 @@ MAKEFLAGS="$MAKEFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION" \
     buildinstall root gcc-$GCC_VERSION --host=$TRIPLE --target=$TRIPLE \
     --enable-languages=c --disable-multilib --disable-libmudflap
 nolib64end "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
-echo musl binutils > "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/deps"
+# get the libs into their own path
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib"
+    mv "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib"/*.so.* "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib/"
+fi
+echo binutils > "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/deps"
 unset PREFIX
 
 # un"fix" headers
@@ -167,6 +172,28 @@ then
     cp "$SNOWFLAKE_BASE/config/extlinux.conf" "$SNOWFLAKE_PREFIX/boot/"
 fi
 
+# a few things distributed as source to be built later
+mkdir -p "$SNOWFLAKE_PREFIX/src"
+fetchextract http://ftp.gnu.org/gnu/make/ make-$MAKE_VERSION .tar.bz2
+fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
+[ "$WITH_PKGSRC" = "yes" ] && fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
+PKGSRC=
+[ "$WITH_PKGSRC" = "yes" ] && PKGSRC=pkgsrc
+patch_source pkgsrc
+for pkg in make-$MAKE_VERSION gawk-$GAWK_VERSION $PKGSRC
+do
+    if [ ! -e "$SNOWFLAKE_PREFIX/src/$pkg" ]
+    then
+        cp -a $pkg "$SNOWFLAKE_PREFIX/src/"
+    fi
+done
+if [ ! -e "$SNOWFLAKE_PREFIX/src/bootstrap.sh" ]
+then
+    sed 's/MAKE_VERSION/'$MAKE_VERSION'/g ; s/GAWK_VERSION/'$GAWK_VERSION'/ ; s/PKGSRC_VERSION/'$PKGSRC_VERSION'/' \
+        "$SNOWFLAKE_BASE/config/bootstrap.sh" > "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
+    chmod 0755 "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
+fi
+
 # make usrview setuid-root
 $SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 $SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
@@ -175,7 +202,7 @@ $SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview
 for pkg in core/1.0 minimal/1.0 default/1.0 musl/$MUSL_VERSION \
     busybox/$BUSYBOX_VERSION quicklink/$QUICKLINK_VERSION \
     usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION \
-    binutils/$BINUTILS_VERSION gcc/$GCC_VERSION
+    binutils/$BINUTILS_VERSION gcc/$GCC_VERSION libgcc/$GCC_VERSION
 do
     $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$pkg/usr/.usr_ok"
 done

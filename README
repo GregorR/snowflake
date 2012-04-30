@@ -1,0 +1,35 @@
+This is Snowflake, a highly experimental Linux distribution based on the musl C
+library, with a per-process view of the /usr filesystem, such that users may
+choose to have different perceptions of which packages are available on the
+system.
+
+Within Snowflake, users may choose to change their view of which packages and
+versions are installed. For instance, if you do not expose gcc in the default
+set of packages, a user may compile packages like so:
+
+$ gcc
+sh: gcc: not found
+$ with gcc
+$ which gcc
+/usr/bin/gcc
+$ gcc test.c
+$ ./a.out
+Hello, world!
+
+To build snowflake, use the build scripts in core/, in this order:
+
+* ./buildcc.sh: Builds a cross-compiler targeting linux-musl. Due to a bug in
+  my GCC patch (which I am investigating), you currently need a cross-compiler
+  for linux-musl. It's generally a good idea since it avoids pollution anyway.
+  Once I get my GCC patch compiling properly with the wrapper, this step will
+  not be strictly necessary.
+
+* ./build-gcc-deps.sh: Builds prerequisites to build GCC for the guest. This
+  needs to be done after buildcc and before buildroot.
+
+* ./buildroot.sh: Builds a Snowflake root filesystem.
+
+* ./mk-hd-image.sh: Builds a Snowflake HD image from a root filesystem.
+
+It is possible to build out-of-source. To do so, set the environment variable
+SNOWFLAKE_BASE to the absolute path of core/, then run the scripts as usual.

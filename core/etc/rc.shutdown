@@ -5,7 +5,7 @@ echo shutting down
 
 hwclock -u -w
 
-sv down /var/service/*
+sv down /etc/service/*
 
 killall5 -15
 sleep 5

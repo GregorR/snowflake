@@ -14,10 +14,14 @@ then
 fi
 rm -rf /usr/*
 
-for pkg in core/1.0 `/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/pkgresolve`
+for pkg in core/1.0 `/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/pkgresolve -s "$@"`
 do
     echo 'Linking '"$pkg"
     cd /pkg/$pkg/usr || continue
     find . -type d -exec mkdir -m 0755 -p '/usr/{}' ';'
     find . '(' -type f -o -type l ')' -a ! -name '.usr_ok' -exec ln -s /pkg/"$pkg"/usr/'{}' '/usr/{}' ';'
 done
+
+# Fixup the sbin link which will be broken by core
+rm -f /usr/sbin
+ln -s bin /usr/sbin

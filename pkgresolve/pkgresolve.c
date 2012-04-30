@@ -103,7 +103,7 @@ int main(int argc, char **argv)
     struct Buffer_charp usrviewArgs;
     char *arg;
     int argi, i;
-    int execing = 0, nocommand = 0;
+    int execing = 1, listing = 0, nocommand = 0;
     struct PackageRequest *pkg;
     struct VersionRequest *ver;
 
@@ -132,6 +132,10 @@ int main(int argc, char **argv)
             } else ARG(-m) {
                 execing = 1;
                 nocommand = 1;
+
+            } else ARG(-s) {
+                execing = 0;
+                listing = 1;
 
             } else ARG(-e) {
                 WRITE_STR_BUFFER(packages, "=");
@@ -189,7 +193,10 @@ int main(int argc, char **argv)
 
     /* collect them all into args for usrview */
     INIT_BUFFER(usrviewArgs);
-    if (execing) WRITE_ONE_BUFFER(usrviewArgs, "usrview");
+    if (execing) {
+        WRITE_ONE_BUFFER(usrviewArgs, "usrview");
+        WRITE_ONE_BUFFER(usrviewArgs, "-r");
+    }
     for (pkg = packageHead; pkg; pkg = pkg->next) {
         if (pkg->version) {
             INIT_BUFFER(path);
@@ -210,8 +217,15 @@ int main(int argc, char **argv)
     /* as well as the command itself */
     if (execing && !nocommand) {
         WRITE_ONE_BUFFER(usrviewArgs, "--");
-        for (i = argi; i < argc; i++) {
-            WRITE_ONE_BUFFER(usrviewArgs, argv[i]);
+        if (argi < argc) {
+            for (i = argi; i < argc; i++) {
+                WRITE_ONE_BUFFER(usrviewArgs, argv[i]);
+            }
+        } else {
+            /* use the shell */
+            arg = getenv("SHELL");
+            if (!arg) arg = "/bin/sh";
+            WRITE_ONE_BUFFER(usrviewArgs, arg);
         }
     }
 

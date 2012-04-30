@@ -2,13 +2,7 @@
 
 usage() {
 	echo "Usage: $0 <img file> <directory or tarball of content> <img size> [options]"
-	echo "options: --clear-builds --copy-tarballs --zero-fill"
-	echo
-	echo "--clear-builds will remove stuff in /src/build (butch 0.0.8+ build directory)"
-	echo '--copy-tarballs will copy tarballs from directory pointed to by "C" env var'
-	echo "--zero-fill will fill the rest of the hd image with zero for better compressability"
-	echo
-	echo "<img size> will be passed directly to dd, so you can use whatever value dd supports, i.e. 8G"
+	echo "<img size> will be passed directly to dd, so you can use any value dd supports, e.g. 8G"
 	exit 1
 }
 

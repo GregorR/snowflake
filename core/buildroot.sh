@@ -29,11 +29,13 @@ set -e
 mkdir -p "$SNOWFLAKE_PREFIX"
 if [ ! -e "$SNOWFLAKE_PREFIX/usr" ]
 then
-    for i in bin etc include lib libexec sbin
+    for i in bin etc include lib libexec
     do
         ln -s usr/$i "$SNOWFLAKE_PREFIX/$i"
     done
-    for i in boot dev home local pkg proc root sys tmp usr
+    ln -s bin "$SNOWFLAKE_PREFIX/sbin"
+    for i in boot dev home local pkg proc root sys tmp usr var/log/dmesg \
+        var/log/sshd var/log/crond var/spool/cron/crontabs
     do
         mkdir -p "$SNOWFLAKE_PREFIX/$i"
     done
@@ -59,6 +61,11 @@ patch_source busybox-$BUSYBOX_VERSION
 cp "$SNOWFLAKE_BASE/config/busybox.config" busybox-$BUSYBOX_VERSION/.config
 buildmake busybox-$BUSYBOX_VERSION LDFLAGS=-static \
     CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc"
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr/sbin" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr"
+    ln -s bin "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr/sbin"
+fi
 doinstall '' busybox-$BUSYBOX_VERSION LDFLAGS=-static \
     CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" \
     CONFIG_PREFIX="$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr"
@@ -107,6 +114,7 @@ then
     done
     popd
     ln -s /local "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/local"
+    ln -s bin "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/sbin"
 fi
 
 # minimal and default metapackages
@@ -174,5 +182,4 @@ done
 
 # actually perform the linking
 $SUDO chroot "$SNOWFLAKE_PREFIX" /pkg/busybox/$BUSYBOX_VERSION/usr/bin/sh \
-    /pkg/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-quicklink \
-    binutils/$BINUTILS_VERSION gcc/$GCC_VERSION
+    /pkg/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-quicklink

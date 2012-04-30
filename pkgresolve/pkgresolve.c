@@ -101,7 +101,7 @@ int main(int argc, char **argv)
 {
     struct Buffer_char packages, path;
     struct Buffer_charp usrviewArgs;
-    char *arg;
+    char *arg, *wpath = NULL;
     int argi, i;
     int execing = 1, listing = 0, nocommand = 0;
     struct PackageRequest *pkg;
@@ -136,6 +136,12 @@ int main(int argc, char **argv)
             } else ARG(-s) {
                 execing = 0;
                 listing = 1;
+
+            } else ARG(-w) {
+                if (argi < argc - 1) {
+                    argi++;
+                    wpath = argv[argi];
+                }
 
             } else ARG(-e) {
                 WRITE_STR_BUFFER(packages, "=");
@@ -196,6 +202,10 @@ int main(int argc, char **argv)
     if (execing) {
         WRITE_ONE_BUFFER(usrviewArgs, "usrview");
         WRITE_ONE_BUFFER(usrviewArgs, "-r");
+        if (wpath) {
+            WRITE_ONE_BUFFER(usrviewArgs, "-w");
+            WRITE_ONE_BUFFER(usrviewArgs, wpath);
+        }
     }
     for (pkg = packageHead; pkg; pkg = pkg->next) {
         if (pkg->version) {

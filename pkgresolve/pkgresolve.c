@@ -503,11 +503,11 @@ int versionNumeric(const char *vers, char **endptr)
 {
     int vernum;
 
+    /* skip separators */
+    while (*vers && !isalnum(*vers)) vers++;
+
     /* if the string is over, it's 0 */
     if (!*vers) return 0;
-
-    /* skip dots */
-    while (*vers == '.') vers++;
 
     /* accept digits directly */
     if (isdigit(*vers))

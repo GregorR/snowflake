@@ -14,7 +14,7 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#define _XOPEN_SOURCE 500 /* for strtok_r, readdir_r */
+#define _XOPEN_SOURCE 600 /* for strtok_r, readdir_r, setenv */
 
 #include <ctype.h>
 #include <dirent.h>
@@ -103,15 +103,15 @@ int versionOK(struct PackageRequest *pkg, const char *version);
 /* set up a quickpath for "quick" package installs */
 char *setupQuickPath(const char *qpath);
 
+#if !defined(TEST)
 int main(int argc, char **argv)
 {
     struct Buffer_char packages, path;
     struct Buffer_charp usrviewArgs;
     char *arg, *wpath = NULL, *qpath = NULL;
     int argi, i;
-    int execing = 1, listing = 0, nocommand = 0;
+    int execing = 1, nocommand = 0;
     struct PackageRequest *pkg;
-    struct VersionRequest *ver;
 
     INIT_BUFFER(packages);
 
@@ -141,7 +141,6 @@ int main(int argc, char **argv)
 
             } else ARG(-s) {
                 execing = 0;
-                listing = 1;
 
             } else ARG(-w) {
                 if (argi < argc - 1) {
@@ -286,6 +285,27 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+#elif defined(TEST_VERSION)
+int main(int argc, char **argv)
+{
+    char *v;
+    int pos = 0;
+
+    if (argc == 2) {
+        v = argv[1];
+        while (*v)
+            printf("%s%d", (pos++ == 0) ? "" : ".", versionNumeric(v, &v));
+        printf("\n");
+    } else if (argc == 4) {
+        printf("%d\n", versionCmp(comparatorToInt(argv[2], strlen(argv[2])), argv[1], argv[3]));
+    } else {
+        return 1;
+    }
+    return 0;
+}
+
+#endif
 
 /* read in a list of package requests; note: destroys the string */
 void readPackages(const char *packages, void (*foreach)(struct PackageRequest *))
@@ -495,7 +515,7 @@ struct PackageRequest *getPackage(const char *name)
 /* comparator for versions */
 int versionCmp(int cmp, const char *vera, const char *verb)
 {
-    while (*vera && *verb) {
+    while (*vera || *verb) {
         int verca = versionNumeric(vera, (char **) &vera);
         int vercb = versionNumeric(verb, (char **) &verb);
 
@@ -521,7 +541,10 @@ int versionNumeric(const char *vers, char **endptr)
     while (*vers && !isalnum(*vers)) vers++;
 
     /* if the string is over, it's 0 */
-    if (!*vers) return 0;
+    if (!*vers) {
+        *endptr = (char *) vers;
+        return 0;
+    }
 
     /* accept digits directly */
     if (isdigit(*vers))

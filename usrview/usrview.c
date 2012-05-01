@@ -61,7 +61,7 @@ int main(int argc, char **argv)
     char *envpaths;
     int i, j, argi, tmpi;
     unsigned long mountflags = 0;
-    int allowclear = 0, clear = 0;
+    int allowclear = 0, clear = 0, userwpath = 1;
 
     INIT_BUFFER(rpaths);
     WRITE_ONE_BUFFER(rpaths, NULL); /* filled in by forced dir later */
@@ -117,10 +117,17 @@ int main(int argc, char **argv)
     }
     validatePath(&wpath);
     rpaths.buf[0] = FORCEDIR;
-    if (!wpath) wpath = DEFAULTWRITEDIR;
+    if (!wpath) {
+        wpath = DEFAULTWRITEDIR;
+        userwpath = 0;
+    }
 
     /* make sure there are no duplicates */
     for (i = 1; i < rpaths.bufused; i++) {
+        if (!strcmp(rpaths.buf[i], wpath)) {
+            rpaths.buf[i] = NULL;
+            continue;
+        }
         for (j = 0; j < i; j++) {
             if (rpaths.buf[i] && rpaths.buf[j] &&
                 !strcmp(rpaths.buf[i], rpaths.buf[j])) {
@@ -137,8 +144,10 @@ int main(int argc, char **argv)
     for (i = 0; i < rpaths.bufused; i++) {
         arg = rpaths.buf[i];
         if (arg) {
-            if (options.bufused > 3) WRITE_STR_BUFFER(options, ":");
+            WRITE_STR_BUFFER(options, ":");
             WRITE_BUFFER(options, arg, strlen(arg));
+            if (!userwpath)
+                WRITE_STR_BUFFER(options, "=rw");
         }
     }
     WRITE_STR_BUFFER(options, "\0");
@@ -191,7 +200,7 @@ int main(int argc, char **argv)
     SF(tmpi, setenv, -1, (PATHENV, options.buf, 1));
     FREE_BUFFER(options);
 
-    if (strcmp(wpath, DEFAULTWRITEDIR)) {
+    if (userwpath) {
         SF(tmpi, setenv, -1, (WRITEENV, wpath, 1));
     } else {
         SF(tmpi, unsetenv, -1, (WRITEENV));

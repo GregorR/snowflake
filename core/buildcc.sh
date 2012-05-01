@@ -62,7 +62,7 @@ PREFIX="$CC_PREFIX"
 
 # gcc 2
 buildinstall 2 gcc-$GCC_VERSION --target=$TRIPLE \
-    --enable-languages=c --disable-multilib --disable-libmudflap
+    --enable-languages=c,c++ --disable-multilib --disable-libmudflap
 
 # un"fix" headers
 rm -rf "$CC_PREFIX/lib/gcc/$TRIPLE"/*/include-fixed/

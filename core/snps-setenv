@@ -1,0 +1,27 @@
+#!/bin/sh
+die() {
+    echo "$1"
+    exit 1
+}
+
+todeps() {
+    sed 's/^/ / ; s/ [^=><:]*\([^:]*\):[^ ]*\/\([^\/ ]*\)/ \2\1/g ; s/^ *//'
+}
+
+PKGNAME="$1"
+DEPENDS="$2"
+BUILD_DEPENDS="$3"
+shift; shift; shift
+
+SNPS_DEPENDS=`echo "$DEPENDS" | todeps`
+export SNPS_DEPENDS
+SNPS_BUILD_DEPENDS=`echo "$BUILD_DEPENDS" | todeps`
+export SNPS_BUILD_DEPENDS
+SNPS_PKGNAME="$PKGNAME"
+export SNPS_PKGNAME
+SNPS_PKG="`echo $SNPS_PKGNAME | sed 's/-[^-]*$//'`"
+export SNPS_PKG
+SNPS_PKG_VER="`echo $SNPS_PKGNAME | sed 's/^.*-//'`"
+export SNPS_PKG_VER
+
+exec with -r minimal pkgsrc $SNPS_DEPENDS $SNPS_BUILD_DEPENDS -q $SNPS_PKG/a.$SNPS_PKG_VER -- env "$@"

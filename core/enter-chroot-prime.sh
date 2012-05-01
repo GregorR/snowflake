@@ -35,7 +35,7 @@ if [ "$1" ]
 then
     inchroot pkgresolve -- "$@"
 else
-    inchroot pkgresolve -- sh -l
+    inchroot pkgresolve -- su -
 fi
 
 $SUDO umount "$SNOWFLAKE_PREFIX"/{proc,sys,dev,tmp}

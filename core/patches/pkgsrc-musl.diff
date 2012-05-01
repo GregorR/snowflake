@@ -1,6 +1,6 @@
-diff -r ee94013015bb Makefile
---- a/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/Makefile b/Makefile
+--- a/Makefile
++++ b/Makefile
 @@ -91,6 +91,7 @@
  SUBDIR+=	wm
  SUBDIR+=	www
@@ -9,9 +9,9 @@ diff -r ee94013015bb Makefile
  
  SUBDIR+=	${USER_ADDITIONAL_PKGS}
  
-diff -r ee94013015bb archivers/pax/files/getid.c
---- a/archivers/pax/files/getid.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/archivers/pax/files/getid.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/archivers/pax/files/getid.c b/archivers/pax/files/getid.c
+--- a/archivers/pax/files/getid.c
++++ b/archivers/pax/files/getid.c
 @@ -152,12 +152,14 @@
  	if (!grstart() || !pwstart())
  		return (0);
@@ -27,9 +27,9 @@ diff -r ee94013015bb archivers/pax/files/getid.c
  
  	return (1);
  }
-diff -r ee94013015bb archivers/pax/files/options.c
---- a/archivers/pax/files/options.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/archivers/pax/files/options.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/archivers/pax/files/options.c b/archivers/pax/files/options.c
+--- a/archivers/pax/files/options.c
++++ b/archivers/pax/files/options.c
 @@ -107,6 +107,8 @@
  #include "mtree.h"
  #endif	/* SMALL */
@@ -39,9 +39,9 @@ diff -r ee94013015bb archivers/pax/files/options.c
  /*
   * Routines which handle command line options
   */
-diff -r ee94013015bb chat/irssi/Makefile
---- a/chat/irssi/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/chat/irssi/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/chat/irssi/Makefile b/chat/irssi/Makefile
+--- a/chat/irssi/Makefile
++++ b/chat/irssi/Makefile
 @@ -20,9 +20,9 @@
  USE_LIBTOOL=		yes
  USE_TOOLS+=		pkg-config
@@ -53,32 +53,17 @@ diff -r ee94013015bb chat/irssi/Makefile
  			--sysconfdir=${PKG_SYSCONFDIR}
  
  EGDIR=		${PREFIX}/share/examples/irssi
-diff -r ee94013015bb databases/db4/distinfo
---- a/databases/db4/distinfo	Sat Apr 28 14:40:44 2012 +0000
-+++ b/databases/db4/distinfo	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/databases/db4/distinfo b/databases/db4/distinfo
+--- a/databases/db4/distinfo
++++ b/databases/db4/distinfo
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = 8f9ecc47527d338e28ee1ce71e694eaf2bdceb92
  SHA1 (patch-ac) = 045a3b83b9c6c164382ec546b06ae248620552cf
  SHA1 (patch-ae) = 43e574154de93dba60392b09d6ebddbca1036849
 +SHA1 (patch-aq) = 3baa90e922dc9cb075deee2a2a37d607affead9b
-diff -r ee94013015bb databases/db4/patches/patch-aq
---- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/databases/db4/patches/patch-aq	Sat Apr 28 17:23:40 2012 +0000
-@@ -0,0 +1,11 @@
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-diff -r ee94013015bb devel/bison/Makefile
---- a/devel/bison/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/bison/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/bison/Makefile b/devel/bison/Makefile
+--- a/devel/bison/Makefile
++++ b/devel/bison/Makefile
 @@ -28,6 +28,7 @@
  # Avoid rebuilding manpage
  pre-build:
@@ -87,9 +72,9 @@ diff -r ee94013015bb devel/bison/Makefile
  
  # "bison" wants a recent version of "gettext" which at least some
  # NetBSD versions don't provide. Figure out whether it will install
-diff -r ee94013015bb devel/bmake/files/configure
---- a/devel/bmake/files/configure	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/bmake/files/configure	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/bmake/files/configure b/devel/bmake/files/configure
+--- a/devel/bmake/files/configure
++++ b/devel/bmake/files/configure
 @@ -3535,7 +3535,7 @@
    $as_echo "#define _ALL_SOURCE 1" >>confdefs.h
  
@@ -99,9 +84,9 @@ diff -r ee94013015bb devel/bmake/files/configure
    $as_echo "#define _POSIX_PTHREAD_SEMANTICS 1" >>confdefs.h
  
    $as_echo "#define _TANDEM_SOURCE 1" >>confdefs.h
-diff -r ee94013015bb devel/bmake/files/suff.c
---- a/devel/bmake/files/suff.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/bmake/files/suff.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/bmake/files/suff.c b/devel/bmake/files/suff.c
+--- a/devel/bmake/files/suff.c
++++ b/devel/bmake/files/suff.c
 @@ -67,6 +67,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.
@@ -111,9 +96,9 @@ diff -r ee94013015bb devel/bmake/files/suff.c
  
  #ifndef MAKE_NATIVE
  static char rcsid[] = "$NetBSD: suff.c,v 1.4 2009/09/18 21:27:25 joerg Exp $";
-diff -r ee94013015bb devel/bmake/files/targ.c
---- a/devel/bmake/files/targ.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/bmake/files/targ.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/bmake/files/targ.c b/devel/bmake/files/targ.c
+--- a/devel/bmake/files/targ.c
++++ b/devel/bmake/files/targ.c
 @@ -67,6 +67,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.
@@ -123,9 +108,9 @@ diff -r ee94013015bb devel/bmake/files/targ.c
  
  #ifndef MAKE_NATIVE
  static char rcsid[] = "$NetBSD: targ.c,v 1.5 2011/06/18 22:39:46 bsiegert Exp $";
-diff -r ee94013015bb devel/bmake/files/unit-tests/test.exp
---- a/devel/bmake/files/unit-tests/test.exp	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/bmake/files/unit-tests/test.exp	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/bmake/files/unit-tests/test.exp b/devel/bmake/files/unit-tests/test.exp
+--- a/devel/bmake/files/unit-tests/test.exp
++++ b/devel/bmake/files/unit-tests/test.exp
 @@ -27,6 +27,7 @@
  make: "error" line 3: just FYI
  make: "error" line 4: warning: this could be serious
@@ -163,9 +148,9 @@ diff -r ee94013015bb devel/bmake/files/unit-tests/test.exp
  show-v v=override k=override
  *** Error code 1 (ignored)
 -*** Error code 1 (ignored)
-diff -r ee94013015bb devel/flex/PLIST
---- a/devel/flex/PLIST	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/flex/PLIST	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/flex/PLIST b/devel/flex/PLIST
+--- a/devel/flex/PLIST
++++ b/devel/flex/PLIST
 @@ -6,19 +6,3 @@
  lib/libfl.a
  lib/libfl_pic.a
@@ -186,9 +171,9 @@ diff -r ee94013015bb devel/flex/PLIST
 -share/locale/tr/LC_MESSAGES/flex.mo
 -share/locale/vi/LC_MESSAGES/flex.mo
 -share/locale/zh_CN/LC_MESSAGES/flex.mo
-diff -r ee94013015bb devel/glib2/Makefile
---- a/devel/glib2/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/glib2/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/glib2/Makefile b/devel/glib2/Makefile
+--- a/devel/glib2/Makefile
++++ b/devel/glib2/Makefile
 @@ -46,6 +46,10 @@
  
  LIBS.SunOS+=	-lnsl -lsocket
@@ -200,9 +185,21 @@ diff -r ee94013015bb devel/glib2/Makefile
  .include "../../converters/libiconv/buildlink3.mk"
  .include "../../devel/gettext-lib/buildlink3.mk"
  .include "../../devel/pcre/buildlink3.mk"
-diff -r ee94013015bb devel/imake/Makefile
---- a/devel/imake/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/imake/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/gmake/Makefile b/devel/gmake/Makefile
+--- a/devel/gmake/Makefile
++++ b/devel/gmake/Makefile
+@@ -47,6 +47,8 @@
+ CONFIGURE_ARGS+=	ac_cv_func_strndup=no
+ .endif
+ 
++CONFIGURE_ARGS+=	CFLAGS="-O2 -g -D__BEOS__"
++
+ post-install:
+ 	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
+ 	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
+diff --git a/devel/imake/Makefile b/devel/imake/Makefile
+--- a/devel/imake/Makefile
++++ b/devel/imake/Makefile
 @@ -42,6 +42,9 @@
  SUBST_FILES.xmkmf=	xmkmf
  SUBST_SED.xmkmf=	-e "s/^configdirspec= */configdirspec=/"
@@ -213,9 +210,17 @@ diff -r ee94013015bb devel/imake/Makefile
  .include "../../x11/xproto/buildlink3.mk"
  
  .include "../../mk/bsd.pkg.mk"
-diff -r ee94013015bb devel/ncurses/Makefile
---- a/devel/ncurses/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/ncurses/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/m4/distinfo b/devel/m4/distinfo
+--- a/devel/m4/distinfo
++++ b/devel/m4/distinfo
+@@ -6,3 +6,4 @@
+ SHA1 (patch-aa) = ef316620b49f78f46e9dea47032b0141814c1f43
+ SHA1 (patch-ab) = b29840365e983623bce64e84ceab3504b8270b32
+ SHA1 (patch-ac) = 7bd9164c659727a906ef54a2f1027e9fd19315ba
++SHA1 (patch-aq) = 361e3294fe76fd67087d4fb212fd16c79462a953
+diff --git a/devel/ncurses/Makefile b/devel/ncurses/Makefile
+--- a/devel/ncurses/Makefile
++++ b/devel/ncurses/Makefile
 @@ -38,6 +38,9 @@
  
  PLIST_SRC=	${PKGDIR}/PLIST ${WRKDIR}/PLIST.terminfo
@@ -226,9 +231,9 @@ diff -r ee94013015bb devel/ncurses/Makefile
  post-configure:
  	cd ${WRKSRC}/man;					\
  	for f in *.1m; do					\
-diff -r ee94013015bb devel/ncurses/Makefile.common
---- a/devel/ncurses/Makefile.common	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/ncurses/Makefile.common	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/ncurses/Makefile.common b/devel/ncurses/Makefile.common
+--- a/devel/ncurses/Makefile.common
++++ b/devel/ncurses/Makefile.common
 @@ -16,14 +16,15 @@
  PKG_INSTALLATION_TYPES=	overwrite pkgviews
  PKG_DESTDIR_SUPPORT=	user-destdir
@@ -247,9 +252,9 @@ diff -r ee94013015bb devel/ncurses/Makefile.common
  CONFIGURE_ARGS+=	--without-ada
  CONFIGURE_ARGS+=	--without-gpm
  CONFIGURE_ARGS+=	--with-manpage-format=normal
-diff -r ee94013015bb devel/ncurses/PLIST
---- a/devel/ncurses/PLIST	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/ncurses/PLIST	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/ncurses/PLIST b/devel/ncurses/PLIST
+--- a/devel/ncurses/PLIST
++++ b/devel/ncurses/PLIST
 @@ -11,14 +11,7 @@
  bin/tput
  bin/tset
@@ -273,9 +278,9 @@ diff -r ee94013015bb devel/ncurses/PLIST
  lib/libncurses.la
  lib/libpanel.la
  man/man1/captoinfo.1
-diff -r ee94013015bb devel/pcre/Makefile
---- a/devel/pcre/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/pcre/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/pcre/Makefile b/devel/pcre/Makefile
+--- a/devel/pcre/Makefile
++++ b/devel/pcre/Makefile
 @@ -21,6 +21,8 @@
  CONFIGURE_ARGS+=	--enable-utf8 --enable-unicode-properties
  CONFIGURE_ARGS+=	--enable-pcre16
@@ -285,9 +290,9 @@ diff -r ee94013015bb devel/pcre/Makefile
  SUBST_CLASSES+=		rpath
  SUBST_STAGE.rpath=	pre-configure
  SUBST_MESSAGE.rpath=	Fixing rpath output in pcre-config
-diff -r ee94013015bb devel/pcre/PLIST
---- a/devel/pcre/PLIST	Sat Apr 28 14:40:44 2012 +0000
-+++ b/devel/pcre/PLIST	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/devel/pcre/PLIST b/devel/pcre/PLIST
+--- a/devel/pcre/PLIST
++++ b/devel/pcre/PLIST
 @@ -3,18 +3,12 @@
  bin/pcregrep
  bin/pcretest
@@ -323,9 +328,9 @@ diff -r ee94013015bb devel/pcre/PLIST
  share/doc/pcre/html/pcredemo.html
  share/doc/pcre/html/pcregrep.html
  share/doc/pcre/html/pcrejit.html
-diff -r ee94013015bb graphics/MesaLib/Makefile
---- a/graphics/MesaLib/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/graphics/MesaLib/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/graphics/MesaLib/Makefile b/graphics/MesaLib/Makefile
+--- a/graphics/MesaLib/Makefile
++++ b/graphics/MesaLib/Makefile
 @@ -72,6 +72,7 @@
  
  pre-build:
@@ -334,9 +339,9 @@ diff -r ee94013015bb graphics/MesaLib/Makefile
  
  .include "../../mk/compiler.mk"
  
-diff -r ee94013015bb graphics/cairo/Makefile
---- a/graphics/cairo/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/graphics/cairo/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/graphics/cairo/Makefile b/graphics/cairo/Makefile
+--- a/graphics/cairo/Makefile
++++ b/graphics/cairo/Makefile
 @@ -38,6 +38,8 @@
  # For snprintf() and ctime_r()
  CPPFLAGS.SunOS+=		-D__EXTENSIONS__ -D_POSIX_PTHREAD_SEMANTICS
@@ -346,9 +351,9 @@ diff -r ee94013015bb graphics/cairo/Makefile
  TEST_TARGET=			check
  
  # PR#43928
-diff -r ee94013015bb graphics/gdk-pixbuf2/PLIST
---- a/graphics/gdk-pixbuf2/PLIST	Sat Apr 28 14:40:44 2012 +0000
-+++ b/graphics/gdk-pixbuf2/PLIST	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/graphics/gdk-pixbuf2/PLIST b/graphics/gdk-pixbuf2/PLIST
+--- a/graphics/gdk-pixbuf2/PLIST
++++ b/graphics/gdk-pixbuf2/PLIST
 @@ -72,104 +72,3 @@
  share/gtk-doc/html/gdk-pixbuf/rn02.html
  share/gtk-doc/html/gdk-pixbuf/style.css
@@ -454,34 +459,17 @@ diff -r ee94013015bb graphics/gdk-pixbuf2/PLIST
 -share/locale/zh_CN/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/zh_HK/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/zh_TW/LC_MESSAGES/gdk-pixbuf.mo
-diff -r ee94013015bb lang/f2c/distinfo
---- a/lang/f2c/distinfo	Sat Apr 28 14:40:44 2012 +0000
-+++ b/lang/f2c/distinfo	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/lang/f2c/distinfo b/lang/f2c/distinfo
+--- a/lang/f2c/distinfo
++++ b/lang/f2c/distinfo
 @@ -6,3 +6,4 @@
  SHA1 (patch-aa) = f1224ff17cdc96f083a247dce88b690e8b939eb0
  SHA1 (patch-ad) = 7f204a45891e3632589ea8fb0e4e379a0a792dea
  SHA1 (patch-ak) = 8652a54df300ddd60d9b1a9594d312349b782cf4
 +SHA1 (patch-aq) = dd5d4e79bd1d61d7ce152b0934667ba4a1888692
-diff -r ee94013015bb lang/f2c/patches/patch-aq
---- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/lang/f2c/patches/patch-aq	Sat Apr 28 17:23:40 2012 +0000
-@@ -0,0 +1,13 @@
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-diff -r ee94013015bb lang/perl5/Makefile
---- a/lang/perl5/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/lang/perl5/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/lang/perl5/Makefile b/lang/perl5/Makefile
+--- a/lang/perl5/Makefile
++++ b/lang/perl5/Makefile
 @@ -50,6 +50,7 @@
  CONFIGURE_ARGS+=	-sde
  CONFIGURE_ARGS+=	-D ccflags=${CFLAGS:Q}
@@ -501,9 +489,9 @@ diff -r ee94013015bb lang/perl5/Makefile
  
  post-build:
  	${SED}	-e "s,@PERL5@,"${PERL5:Q}",g"				\
-diff -r ee94013015bb lang/python26/Makefile
---- a/lang/python26/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/lang/python26/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/lang/python26/Makefile b/lang/python26/Makefile
+--- a/lang/python26/Makefile
++++ b/lang/python26/Makefile
 @@ -118,22 +118,7 @@
  .endif
  
@@ -527,9 +515,9 @@ diff -r ee94013015bb lang/python26/Makefile
  
  .include "../../mk/bdb.buildlink3.mk"
  MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
-diff -r ee94013015bb net/libfetch/files/ftp.c
---- a/net/libfetch/files/ftp.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/net/libfetch/files/ftp.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/net/libfetch/files/ftp.c b/net/libfetch/files/ftp.c
+--- a/net/libfetch/files/ftp.c
++++ b/net/libfetch/files/ftp.c
 @@ -59,8 +59,10 @@
  
  #ifdef __linux__
@@ -541,9 +529,9 @@ diff -r ee94013015bb net/libfetch/files/ftp.c
  
  #if HAVE_CONFIG_H
  #include "config.h"
-diff -r ee94013015bb net/libfetch/files/http.c
---- a/net/libfetch/files/http.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/net/libfetch/files/http.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/net/libfetch/files/http.c b/net/libfetch/files/http.c
+--- a/net/libfetch/files/http.c
++++ b/net/libfetch/files/http.c
 @@ -65,8 +65,10 @@
  
  #if defined(__linux__) || defined(__MINT__)
@@ -555,9 +543,9 @@ diff -r ee94013015bb net/libfetch/files/http.c
  
  /* Needed for gmtime_r on Interix */
  #define _REENTRANT
-diff -r ee94013015bb net/tightvnc/Makefile
---- a/net/tightvnc/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/net/tightvnc/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/net/tightvnc/Makefile b/net/tightvnc/Makefile
+--- a/net/tightvnc/Makefile
++++ b/net/tightvnc/Makefile
 @@ -28,6 +28,7 @@
  .if !empty(MACHINE_PLATFORM:MNetBSD-*-x86_64)
  _WRAP_EXTRA_ARGS.CC+=	-DDDXTIME -D_XSERVER64 -DGCCUSESGAS
@@ -578,9 +566,9 @@ diff -r ee94013015bb net/tightvnc/Makefile
  do-install:
  	${INSTALL_PROGRAM} ${WRKSRC}/Xvnc/programs/Xserver/Xvnc \
  	    ${DESTDIR}${PREFIX}/bin/Xvnc
-diff -r ee94013015bb net/tnftp/files/libedit/tty.c
---- a/net/tnftp/files/libedit/tty.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/net/tnftp/files/libedit/tty.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/net/tnftp/files/libedit/tty.c b/net/tnftp/files/libedit/tty.c
+--- a/net/tnftp/files/libedit/tty.c
++++ b/net/tnftp/files/libedit/tty.c
 @@ -40,6 +40,7 @@
   * tty.c: tty interface stuff
   */
@@ -589,9 +577,9 @@ diff -r ee94013015bb net/tnftp/files/libedit/tty.c
  #include "tty.h"
  #include "el.h"
  
-diff -r ee94013015bb pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
---- a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
+--- a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
++++ b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
 @@ -13,6 +13,7 @@
  .endif
  
@@ -615,9 +603,9 @@ diff -r ee94013015bb pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
  TBL?=		tbl
  
  
-diff -r ee94013015bb pkgtools/libnbcompat/files/lchflags.c
---- a/pkgtools/libnbcompat/files/lchflags.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/libnbcompat/files/lchflags.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/libnbcompat/files/lchflags.c b/pkgtools/libnbcompat/files/lchflags.c
+--- a/pkgtools/libnbcompat/files/lchflags.c
++++ b/pkgtools/libnbcompat/files/lchflags.c
 @@ -39,6 +39,7 @@
  int
  lchflags(const char *path, unsigned long flags)
@@ -633,9 +621,9 @@ diff -r ee94013015bb pkgtools/libnbcompat/files/lchflags.c
 +#endif
 +	return -1;
  }
-diff -r ee94013015bb pkgtools/libnbcompat/files/unvis.c
---- a/pkgtools/libnbcompat/files/unvis.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/libnbcompat/files/unvis.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/libnbcompat/files/unvis.c b/pkgtools/libnbcompat/files/unvis.c
+--- a/pkgtools/libnbcompat/files/unvis.c
++++ b/pkgtools/libnbcompat/files/unvis.c
 @@ -83,6 +83,8 @@
  #define	isoctal(c)	(((unsigned char)(c)) >= '0' && ((unsigned char)(c)) <= '7')
  #define xtod(c)		(isdigit(c) ? (c - '0') : ((tolower(c) - 'a') + 10))
@@ -645,9 +633,9 @@ diff -r ee94013015bb pkgtools/libnbcompat/files/unvis.c
  int
  unvis(cp, c, astate, flag)
  	char *cp;
-diff -r ee94013015bb pkgtools/pkg_install-info/files/install-info.c
---- a/pkgtools/pkg_install-info/files/install-info.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/install-info.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/pkg_install-info/files/install-info.c b/pkgtools/pkg_install-info/files/install-info.c
+--- a/pkgtools/pkg_install-info/files/install-info.c
++++ b/pkgtools/pkg_install-info/files/install-info.c
 @@ -21,6 +21,8 @@
  #include "system.h"
  #include <getopt.h>
@@ -657,9 +645,9 @@ diff -r ee94013015bb pkgtools/pkg_install-info/files/install-info.c
  static char *progname = "install-info";
  
  int menu_line_equal (), menu_line_lessp ();
-diff -r ee94013015bb pkgtools/pkg_install-info/files/system.h
---- a/pkgtools/pkg_install-info/files/system.h	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/system.h	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/pkg_install-info/files/system.h b/pkgtools/pkg_install-info/files/system.h
+--- a/pkgtools/pkg_install-info/files/system.h
++++ b/pkgtools/pkg_install-info/files/system.h
 @@ -21,7 +21,9 @@
  #ifndef TEXINFO_SYSTEM_H
  #define TEXINFO_SYSTEM_H
@@ -670,9 +658,9 @@ diff -r ee94013015bb pkgtools/pkg_install-info/files/system.h
  
  #include <config.h>
  
-diff -r ee94013015bb pkgtools/pkg_install-info/files/xexit.c
---- a/pkgtools/pkg_install-info/files/xexit.c	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/xexit.c	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/pkg_install-info/files/xexit.c b/pkgtools/pkg_install-info/files/xexit.c
+--- a/pkgtools/pkg_install-info/files/xexit.c
++++ b/pkgtools/pkg_install-info/files/xexit.c
 @@ -19,6 +19,8 @@
  
  #include "system.h"
@@ -682,9 +670,9 @@ diff -r ee94013015bb pkgtools/pkg_install-info/files/xexit.c
  /* SunOS 4.1.1 gets STDC_HEADERS defined, but it doesn't provide
     EXIT_FAILURE.  So far no system has defined one of EXIT_FAILURE and
     EXIT_SUCCESS without the other.  */
-diff -r ee94013015bb pkgtools/pkg_install/files/add/Makefile.in
---- a/pkgtools/pkg_install/files/add/Makefile.in	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/pkg_install/files/add/Makefile.in	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/pkg_install/files/add/Makefile.in b/pkgtools/pkg_install/files/add/Makefile.in
+--- a/pkgtools/pkg_install/files/add/Makefile.in
++++ b/pkgtools/pkg_install/files/add/Makefile.in
 @@ -22,7 +22,7 @@
  
  LIBS=		-linstall -lfetch
@@ -694,9 +682,9 @@ diff -r ee94013015bb pkgtools/pkg_install/files/add/Makefile.in
  .endif
  LIBS+=		@LIBS@
  
-diff -r ee94013015bb pkgtools/pkg_install/files/admin/Makefile.in
---- a/pkgtools/pkg_install/files/admin/Makefile.in	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/pkg_install/files/admin/Makefile.in	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/pkg_install/files/admin/Makefile.in b/pkgtools/pkg_install/files/admin/Makefile.in
+--- a/pkgtools/pkg_install/files/admin/Makefile.in
++++ b/pkgtools/pkg_install/files/admin/Makefile.in
 @@ -30,7 +30,7 @@
  .if empty(BOOTSTRAP)
  LIBS=		-linstall -lfetch
@@ -706,9 +694,9 @@ diff -r ee94013015bb pkgtools/pkg_install/files/admin/Makefile.in
  CFLAGS+=	-DHAVE_SSL
  .endif
  LIBS+=		@LIBS@
-diff -r ee94013015bb pkgtools/pkg_install/files/info/Makefile.in
---- a/pkgtools/pkg_install/files/info/Makefile.in	Sat Apr 28 14:40:44 2012 +0000
-+++ b/pkgtools/pkg_install/files/info/Makefile.in	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/pkgtools/pkg_install/files/info/Makefile.in b/pkgtools/pkg_install/files/info/Makefile.in
+--- a/pkgtools/pkg_install/files/info/Makefile.in
++++ b/pkgtools/pkg_install/files/info/Makefile.in
 @@ -19,7 +19,7 @@
  .if empty(BOOTSTRAP)
  LIBS=		-linstall -lfetch @LIBS@
@@ -718,9 +706,9 @@ diff -r ee94013015bb pkgtools/pkg_install/files/info/Makefile.in
  .endif
  CPPFLAGS=	@CPPFLAGS@ -I. -I$(srcdir) -I../lib
  .else
-diff -r ee94013015bb security/libgpg-error/PLIST
---- a/security/libgpg-error/PLIST	Sat Apr 28 14:40:44 2012 +0000
-+++ b/security/libgpg-error/PLIST	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/security/libgpg-error/PLIST b/security/libgpg-error/PLIST
+--- a/security/libgpg-error/PLIST
++++ b/security/libgpg-error/PLIST
 @@ -8,13 +8,3 @@
  share/common-lisp/source/gpg-error/gpg-error-package.lisp
  share/common-lisp/source/gpg-error/gpg-error.asd
@@ -735,9 +723,9 @@ diff -r ee94013015bb security/libgpg-error/PLIST
 -share/locale/sv/LC_MESSAGES/libgpg-error.mo
 -share/locale/vi/LC_MESSAGES/libgpg-error.mo
 -share/locale/zh_CN/LC_MESSAGES/libgpg-error.mo
-diff -r ee94013015bb security/openssl/Makefile
---- a/security/openssl/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/security/openssl/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/security/openssl/Makefile b/security/openssl/Makefile
+--- a/security/openssl/Makefile
++++ b/security/openssl/Makefile
 @@ -61,6 +61,7 @@
  # back to ./config's autodetection if not.
  .  if defined(OPENSSL_MACHINE_ARCH) && !empty(OPENSSL_MACHINE_ARCH)
@@ -764,9 +752,19 @@ diff -r ee94013015bb security/openssl/Makefile
 +	sed -i 's/\!defined(_UNICOS)/0/' ${WRKSRC}/apps/speed.c
 +	
  .include "../../mk/bsd.pkg.mk"
-diff -r ee94013015bb textproc/groff/PLIST
---- a/textproc/groff/PLIST	Sat Apr 28 14:40:44 2012 +0000
-+++ b/textproc/groff/PLIST	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/shells/dash/Makefile b/shells/dash/Makefile
+--- a/shells/dash/Makefile
++++ b/shells/dash/Makefile
+@@ -16,4 +16,6 @@
+ USE_TOOLS+=		gmake
+ PKG_SHELL=		bin/dash
+ 
++CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DEXECCMD=1 -DCOMMANDCMD=2"
++
+ .include "../../mk/bsd.pkg.mk"
+diff --git a/textproc/groff/PLIST b/textproc/groff/PLIST
+--- a/textproc/groff/PLIST
++++ b/textproc/groff/PLIST
 @@ -15,9 +15,6 @@
  bin/grops
  bin/grotty
@@ -785,9 +783,26 @@ diff -r ee94013015bb textproc/groff/PLIST
  bin/roff2dvi
  bin/roff2html
  bin/roff2pdf
-diff -r ee94013015bb textproc/libxml2/Makefile
---- a/textproc/libxml2/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/textproc/libxml2/Makefile	Sat Apr 28 17:23:40 2012 +0000
+@@ -40,11 +36,11 @@
+ bin/tfmtodit
+ bin/${GNU_PREFIX}troff
+ info/groff.info
+-lib/groff/groffer/func.pl
+-lib/groff/groffer/man.pl
+-lib/groff/groffer/perl_test.pl
+-lib/groff/groffer/split_env.sh
+-lib/groff/groffer/version.sh
++@comment lib/groff/groffer/func.pl
++@comment lib/groff/groffer/man.pl
++@comment lib/groff/groffer/perl_test.pl
++@comment lib/groff/groffer/split_env.sh
++@comment lib/groff/groffer/version.sh
+ man/man1/addftinfo.1
+ man/man1/afmtodit.1
+ man/man1/chem.1
+diff --git a/textproc/libxml2/Makefile b/textproc/libxml2/Makefile
+--- a/textproc/libxml2/Makefile
++++ b/textproc/libxml2/Makefile
 @@ -24,6 +24,7 @@
  CONFIGURE_ARGS+=	--with-iconv=${BUILDLINK_PREFIX.iconv}
  CONFIGURE_ARGS+=	--with-html-subdir=libxml2
@@ -806,9 +821,9 @@ diff -r ee94013015bb textproc/libxml2/Makefile
  .include "../../mk/pthread.buildlink3.mk"
  .include "../../devel/zlib/buildlink3.mk"
  .include "../../converters/libiconv/buildlink3.mk"
-diff -r ee94013015bb textproc/xmlto/Makefile
---- a/textproc/xmlto/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/textproc/xmlto/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/textproc/xmlto/Makefile b/textproc/xmlto/Makefile
+--- a/textproc/xmlto/Makefile
++++ b/textproc/xmlto/Makefile
 @@ -16,6 +16,7 @@
  DEPENDS+=		getopt-[0-9]*:../../misc/getopt
  DEPENDS+=		docbook-xsl>=1.67.0nb1:../../textproc/docbook-xsl
@@ -826,9 +841,9 @@ diff -r ee94013015bb textproc/xmlto/Makefile
 +
  .include "../../textproc/libxslt/buildlink3.mk"
  .include "../../mk/bsd.pkg.mk"
-diff -r ee94013015bb wm/bsetroot/PLIST
---- a/wm/bsetroot/PLIST	Sat Apr 28 14:40:44 2012 +0000
-+++ b/wm/bsetroot/PLIST	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/wm/bsetroot/PLIST b/wm/bsetroot/PLIST
+--- a/wm/bsetroot/PLIST
++++ b/wm/bsetroot/PLIST
 @@ -3,37 +3,3 @@
  bin/bsetroot
  man/man1/bsetbg.1
@@ -867,9 +882,9 @@ diff -r ee94013015bb wm/bsetroot/PLIST
 -share/bsetroot/nls/uk_UA/blackbox.cat
 -share/bsetroot/nls/zh_CN/blackbox.cat
 -share/bsetroot/nls/zh_TW/blackbox.cat
-diff -r ee94013015bb x11/libFS/Makefile
---- a/x11/libFS/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/x11/libFS/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/x11/libFS/Makefile b/x11/libFS/Makefile
+--- a/x11/libFS/Makefile
++++ b/x11/libFS/Makefile
 @@ -25,6 +25,8 @@
  CONFIGURE_ARGS+=	--disable-malloc0returnsnull
  .endif
@@ -879,9 +894,9 @@ diff -r ee94013015bb x11/libFS/Makefile
  .include "../../x11/fontsproto/buildlink3.mk"
  .include "../../x11/xproto/buildlink3.mk"
  .include "../../x11/xtrans/buildlink3.mk"
-diff -r ee94013015bb x11/libXfont/Makefile
---- a/x11/libXfont/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/x11/libXfont/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/x11/libXfont/Makefile b/x11/libXfont/Makefile
+--- a/x11/libXfont/Makefile
++++ b/x11/libXfont/Makefile
 @@ -20,6 +20,7 @@
  PKGCONFIG_OVERRIDE+=	xfont.pc.in
  
@@ -890,9 +905,9 @@ diff -r ee94013015bb x11/libXfont/Makefile
  
  .include "../../devel/zlib/buildlink3.mk"
  .include "../../graphics/freetype2/buildlink3.mk"
-diff -r ee94013015bb x11/pixman/Makefile
---- a/x11/pixman/Makefile	Sat Apr 28 14:40:44 2012 +0000
-+++ b/x11/pixman/Makefile	Sat Apr 28 17:23:40 2012 +0000
+diff --git a/x11/pixman/Makefile b/x11/pixman/Makefile
+--- a/x11/pixman/Makefile
++++ b/x11/pixman/Makefile
 @@ -42,5 +42,8 @@
  post-extract:
  	${CP} ${FILESDIR}/pixman.sym ${WRKDIR}

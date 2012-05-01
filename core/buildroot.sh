@@ -145,7 +145,7 @@ fetchextract http://ftp.gnu.org/gnu/gcc/gcc-$GCC_VERSION/ gcc-$GCC_VERSION .tar.
 nolib64 "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
 MAKEFLAGS="$MAKEFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION" \
     buildinstall root gcc-$GCC_VERSION --host=$TRIPLE --target=$TRIPLE \
-    --enable-languages=c --disable-multilib --disable-libmudflap
+    --enable-languages=c,c++ --disable-multilib --disable-libmudflap
 nolib64end "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
 # get the libs into their own path
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib" ]
@@ -173,25 +173,44 @@ then
 fi
 
 # a few things distributed as source to be built later
-mkdir -p "$SNOWFLAKE_PREFIX/src"
-fetchextract http://ftp.gnu.org/gnu/make/ make-$MAKE_VERSION .tar.bz2
-fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
-[ "$WITH_PKGSRC" = "yes" ] && fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
-PKGSRC=
-[ "$WITH_PKGSRC" = "yes" ] && PKGSRC=pkgsrc
-patch_source pkgsrc
-for pkg in make-$MAKE_VERSION gawk-$GAWK_VERSION $PKGSRC
-do
-    if [ ! -e "$SNOWFLAKE_PREFIX/src/$pkg" ]
-    then
-        cp -a $pkg "$SNOWFLAKE_PREFIX/src/"
-    fi
-done
-if [ ! -e "$SNOWFLAKE_PREFIX/src/bootstrap.sh" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/sed/$SED_VERSION/usr" ]
 then
-    sed 's/MAKE_VERSION/'$MAKE_VERSION'/g ; s/GAWK_VERSION/'$GAWK_VERSION'/ ; s/PKGSRC_VERSION/'$PKGSRC_VERSION'/' \
-        "$SNOWFLAKE_BASE/config/bootstrap.sh" > "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
-    chmod 0755 "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
+    mkdir -p "$SNOWFLAKE_PREFIX/src"
+    fetchextract http://ftp.gnu.org/gnu/make/ make-$MAKE_VERSION .tar.bz2
+    fetchextract http://ftp.gnu.org/gnu/sed/ sed-$SED_VERSION .tar.bz2
+    fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
+    fetchextract http://ftp.gnu.org/pub/gnu/ncurses/ ncurses-$NCURSES_VERSION .tar.gz
+    [ "$WITH_PKGSRC" = "yes" ] && fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
+    PKGSRC=
+    [ "$WITH_PKGSRC" = "yes" ] && PKGSRC=pkgsrc
+    patch_source pkgsrc
+    for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION ncurses-$NCURSES_VERSION $PKGSRC
+    do
+        if [ ! -e "$SNOWFLAKE_PREFIX/src/$pkg" ]
+        then
+            cp -a $pkg "$SNOWFLAKE_PREFIX/src/"
+        fi
+    done
+    cp "$SNOWFLAKE_BASE/config/ncurses-fallback.c" "$SNOWFLAKE_PREFIX/src/ncurses-$NCURSES_VERSION/ncurses/fallback.c"
+    if [ ! -e "$SNOWFLAKE_PREFIX/src/bootstrap.sh" ]
+    then
+        sed 's/MAKE_VERSION/'$MAKE_VERSION'/g ; s/SED_VERSION/'$SED_VERSION'/ ;
+        s/GAWK_VERSION/'$GAWK_VERSION'/g ; s/NCURSES_VERSION/'$NCURSES_VERSION'/g ;
+        s/PKGSRC_VERSION/'$PKGSRC_VERSION'/g' \
+            "$SNOWFLAKE_BASE/config/bootstrap.sh" > "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
+        chmod 0755 "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
+    fi
+fi
+
+# helpers for pkgsrc
+if [ "$WITH_PKGSRC" = "yes" -a ! -e "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/snps-setenv" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin"
+    for i in snps-clean snps-pkgsrc-install snps-setenv
+    do
+        cp "$SNOWFLAKE_BASE/$i" "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/"
+    done
+    chmod 0755 "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin"/*
 fi
 
 # make usrview setuid-root

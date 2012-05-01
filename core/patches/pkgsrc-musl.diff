@@ -61,6 +61,22 @@ diff --git a/databases/db4/distinfo b/databases/db4/distinfo
  SHA1 (patch-ac) = 045a3b83b9c6c164382ec546b06ae248620552cf
  SHA1 (patch-ae) = 43e574154de93dba60392b09d6ebddbca1036849
 +SHA1 (patch-aq) = 3baa90e922dc9cb075deee2a2a37d607affead9b
+diff --git a/databases/db4/patches/patch-aq b/databases/db4/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/databases/db4/patches/patch-aq
+@@ -0,0 +1,11 @@
++diff -r 7a6cd6105754 dist/configure
++--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
+++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
++@@ -18792,6 +18792,7 @@
++ /* end confdefs.h.  */
++ 
++ #include <pthread.h>
+++#include <stdlib.h>
++ main() {
++ 	pthread_cond_t cond;
++ 	pthread_mutex_t mutex;
 diff --git a/devel/bison/Makefile b/devel/bison/Makefile
 --- a/devel/bison/Makefile
 +++ b/devel/bison/Makefile
@@ -218,6 +234,21 @@ diff --git a/devel/m4/distinfo b/devel/m4/distinfo
  SHA1 (patch-ab) = b29840365e983623bce64e84ceab3504b8270b32
  SHA1 (patch-ac) = 7bd9164c659727a906ef54a2f1027e9fd19315ba
 +SHA1 (patch-aq) = 361e3294fe76fd67087d4fb212fd16c79462a953
+diff --git a/devel/m4/patches/patch-aq b/devel/m4/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/devel/m4/patches/patch-aq
+@@ -0,0 +1,10 @@
++--- lib/freadahead.c
+++++ lib/freadahead.c
++@@ -80,6 +80,6 @@
++   abort ();
++   return 0;
++ #else
++- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
+++  return 1;
++ #endif
++ }
 diff --git a/devel/ncurses/Makefile b/devel/ncurses/Makefile
 --- a/devel/ncurses/Makefile
 +++ b/devel/ncurses/Makefile
@@ -467,6 +498,24 @@ diff --git a/lang/f2c/distinfo b/lang/f2c/distinfo
  SHA1 (patch-ad) = 7f204a45891e3632589ea8fb0e4e379a0a792dea
  SHA1 (patch-ak) = 8652a54df300ddd60d9b1a9594d312349b782cf4
 +SHA1 (patch-aq) = dd5d4e79bd1d61d7ce152b0934667ba4a1888692
+diff --git a/lang/f2c/patches/patch-aq b/lang/f2c/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/lang/f2c/patches/patch-aq
+@@ -0,0 +1,13 @@
++diff -r 6bba7eaf719c src/sysdep.c
++--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
+++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
++@@ -83,6 +83,9 @@
++ #include <sys/wait.h>
++ #include <unistd.h>
++ 
+++#include <sys/types.h>
+++#include <sys/stat.h>
+++
++  void
++ #ifdef KR_headers
++ Un_link_all(cdelete)
 diff --git a/lang/perl5/Makefile b/lang/perl5/Makefile
 --- a/lang/perl5/Makefile
 +++ b/lang/perl5/Makefile

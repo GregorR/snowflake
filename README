@@ -16,7 +16,8 @@ $ gcc test.c
 $ ./a.out
 Hello, world!
 
-To build snowflake, use the build scripts in core/, in this order:
+To build snowflake, make a config.sh (or use the existing one), and use the
+build scripts in core/, in this order:
 
 * ./buildcc.sh: Builds a cross-compiler targeting linux-musl. Due to a bug in
   my GCC patch (which I am investigating), you currently need a cross-compiler
@@ -29,7 +30,14 @@ To build snowflake, use the build scripts in core/, in this order:
 
 * ./buildroot.sh: Builds a Snowflake root filesystem.
 
+* ./bootstraproot.sh: Builds the last few packages from within Snowflake.
+
 * ./mk-hd-image.sh: Builds a Snowflake HD image from a root filesystem.
 
 It is possible to build out-of-source. To do so, set the environment variable
 SNOWFLAKE_BASE to the absolute path of core/, then run the scripts as usual.
+
+Snowflake supports the NetBSD pkgsrc as a source of packages. The integration
+is imperfect but working. To include pkgsrc, set WITH_PKGSRC=yes in your
+config.sh. To use it, just `with pkgsrc` then build in /var/pkgsrc.
+Installation will automatically go into separated packages in /pkg.

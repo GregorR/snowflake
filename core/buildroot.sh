@@ -225,6 +225,10 @@ for pkg in core/1.0 minimal/1.0 default/1.0 musl/$MUSL_VERSION \
 do
     $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$pkg/usr/.usr_ok"
 done
+if [ "$WITH_PKGSRC" = "yes" ]
+then
+    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/.usr_ok"
+fi
 
 # actually perform the linking
 $SUDO chroot "$SNOWFLAKE_PREFIX" /pkg/busybox/$BUSYBOX_VERSION/usr/bin/sh \

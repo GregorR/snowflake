@@ -179,19 +179,20 @@ then
     fetchextract http://ftp.gnu.org/gnu/make/ make-$MAKE_VERSION .tar.bz2
     fetchextract http://ftp.gnu.org/gnu/sed/ sed-$SED_VERSION .tar.bz2
     fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
-    fetchextract http://ftp.gnu.org/pub/gnu/ncurses/ ncurses-$NCURSES_VERSION .tar.gz
+    #fetchextract http://ftp.gnu.org/pub/gnu/ncurses/ ncurses-$NCURSES_VERSION .tar.gz
     [ "$WITH_PKGSRC" = "yes" ] && fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
     PKGSRC=
     [ "$WITH_PKGSRC" = "yes" ] && PKGSRC=pkgsrc
     patch_source pkgsrc
-    for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION ncurses-$NCURSES_VERSION $PKGSRC
+    #for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION ncurses-$NCURSES_VERSION $PKGSRC
+    for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION $PKGSRC
     do
         if [ ! -e "$SNOWFLAKE_PREFIX/src/$pkg" ]
         then
             cp -a $pkg "$SNOWFLAKE_PREFIX/src/"
         fi
     done
-    cp "$SNOWFLAKE_BASE/config/ncurses-fallback.c" "$SNOWFLAKE_PREFIX/src/ncurses-$NCURSES_VERSION/ncurses/fallback.c"
+    #cp "$SNOWFLAKE_BASE/config/ncurses-fallback.c" "$SNOWFLAKE_PREFIX/src/ncurses-$NCURSES_VERSION/ncurses/fallback.c"
     if [ ! -e "$SNOWFLAKE_PREFIX/src/bootstrap.sh" ]
     then
         sed 's/MAKE_VERSION/'$MAKE_VERSION'/g ; s/SED_VERSION/'$SED_VERSION'/ ;

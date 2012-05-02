@@ -33,7 +33,11 @@ then
     with gcc make sed gawk -q pkgsrc/PKGSRC_VERSION -- env \
         CC='gcc -D_GNU_SOURCE -D_BSD_SOURCE' USE_NATIVE_GCC=yes NOGCCERROR=yes \
         ./bootstrap --prefix=/usr --varbase=/var
-    echo snps gcc sed gawk > /pkg/pkgsrc/PKGSRC_VERSION/deps
+
+    # we inject a dependency on gzip, as some packages require gzip (and not
+    # busybox gzip) to extract due to .Z files. This is harmless if gzip
+    # doesn't exist
+    echo snps gcc sed gawk gzip > /pkg/pkgsrc/PKGSRC_VERSION/deps
 
     # snowflake-ize it
     echo 'CFLAGS+=-D_GNU_SOURCE -D_BSD_SOURCE

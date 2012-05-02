@@ -35,7 +35,12 @@ build scripts in core/, in this order:
 
 * ./buildroot.sh: Builds a Snowflake root filesystem.
 
-* ./bootstraproot.sh: Builds the last few packages from within Snowflake.
+* ./bootstraproot.sh: Builds the last few packages from within Snowflake. Note
+  that this will only work if your host kernel supports the necessary modules,
+  otherwise you will need to run Snowflake in a VM and bootstrap with
+  /src/bootstrap.sh.
+
+* ./enter-chroot.sh: chroots into a Snowflake root filesystem.
 
 * ./mk-hd-image.sh: Builds a Snowflake HD image from a root filesystem.
 

@@ -162,7 +162,7 @@ rm -rf "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fi
 # kernel
 gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION
 cp "$SNOWFLAKE_BASE/config/linux.config" aufs3-linux-$LINUX_VERSION/.config
-buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH
+buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE-
 if [ ! -e "$SNOWFLAKE_PREFIX/boot/vmlinuz" ]
 then
     cp -L aufs3-linux-$LINUX_VERSION/arch/$LINUX_ARCH/boot/*zImage "$SNOWFLAKE_PREFIX/boot/vmlinuz"

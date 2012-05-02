@@ -26,6 +26,18 @@ inchroot() {
     $SUDO chroot "$SNOWFLAKE_PREFIX" "$@"
 }
 
+# check that we have all the filesystems we need
+FILESYSTEMS="proc sysfs devtmpfs tmpfs aufs"
+for fs in $FILESYSTEMS
+do
+    $SUDO modprobe $fs 2> /dev/null
+    if [ ! "`grep '\s'$fs'$' /proc/filesystems`" ]
+    then
+        echo 'To chroot into Snowflake, your host kernel must support the following filesystems: '"$FILESYSTEMS"
+        exit 1
+    fi
+done
+
 inchroot sh -c 'mount -t proc proc /proc;
                 mount -t sysfs sys /sys;
                 mount -t devtmpfs dev /dev;

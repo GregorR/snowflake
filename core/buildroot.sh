@@ -180,10 +180,13 @@ then
     fetchextract http://ftp.gnu.org/gnu/sed/ sed-$SED_VERSION .tar.bz2
     fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
     #fetchextract http://ftp.gnu.org/pub/gnu/ncurses/ ncurses-$NCURSES_VERSION .tar.gz
-    [ "$WITH_PKGSRC" = "yes" ] && fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
     PKGSRC=
-    [ "$WITH_PKGSRC" = "yes" ] && PKGSRC=pkgsrc
-    patch_source pkgsrc
+    if [ "$WITH_PKGSRC" = "yes" ]
+    then
+        PKGSRC=pkgsrc
+        fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
+        patch_source pkgsrc
+    fi
     #for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION ncurses-$NCURSES_VERSION $PKGSRC
     for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION $PKGSRC
     do

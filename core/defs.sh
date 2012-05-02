@@ -212,8 +212,11 @@ buildinstall() {
 }
 
 nolib64() {
-    mkdir -p "$1"/lib
-    ln -s lib "$1"/lib64
+    if [ ! -e "$1"/lib64 ]
+    then
+        mkdir -p "$1"/lib
+        ln -s lib "$1"/lib64
+    fi
 }
 
 nolib64end() {

@@ -19,11 +19,16 @@ Hello, world!
 To build snowflake, make a config.sh (or use the existing one), and use the
 build scripts in core/, in this order:
 
-* ./buildcc.sh: Builds a cross-compiler targeting linux-musl. Due to a bug in
-  my GCC patch (which I am investigating), you currently need a cross-compiler
-  for linux-musl. It's generally a good idea since it avoids pollution anyway.
-  Once I get my GCC patch compiling properly with the wrapper, this step will
-  not be strictly necessary.
+* ./buildcc.sh: Builds a cross-compiler targeting linux-musl. Due to a
+  confluence of bugs, including possibly a bug in my GCC patch (which I'm
+  investigating) as well as a pseudo-bug in GCC (GCC 4.7.0 can only be
+  cross-built with GCC >=4.7.0), you currently need a cross-compiler for
+  linux-musl. It's generally a good idea since it avoids pollution anyway. If
+  at some point I figure out how to get GCC 4.7.0 to reliably compile with the
+  musl-gcc wrapper instead of a cross-compiler, this step will not be strictly
+  necessary, but will still be recommended. As a point of comparison, note that
+  most other musl distributions require that you compile GCC 3.6 for musl
+  before compiling GCC 4, so the number of GCC compiles is the same.
 
 * ./build-gcc-deps.sh: Builds prerequisites to build GCC for the guest. This
   needs to be done after buildcc and before buildroot.

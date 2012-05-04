@@ -568,16 +568,12 @@ int versionNumeric(const char *vers, char **endptr)
         return -1;
     }
 
-    /* otherwise, accept the string component as an odd encoding */
-    vernum = 0;
-    while (isalpha(*vers)) {
-        unsigned char verc = *vers++;
-        vernum *= 27;
-        if (verc >= 'A' && verc <= 'Z') verc += 'a' - 'A';
-        verc -= 'a' - 1;
-        vernum += verc;
-    }
-    *endptr = (char *) vers;
+    /* otherwise, accept one character as number from 1-26 (1 for A, 2 for B,
+     * as only a and b are considered alpha and beta) */
+    *endptr = (char *) vers + 1;
+    vernum = *vers;
+    if (vernum >= 'A' && vernum <= 'Z') vernum += 'a' - 'A';
+    vernum -= 'a' - 1;
     return vernum;
 }
 

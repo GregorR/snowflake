@@ -6,8 +6,6 @@ die() {
 
 [ -z "$SNPS_PKG" ] && exit 1
 
-sync
-
 set -ex
 [ ! -e /pkg/$SNPS_PKG/$SNPS_PKG_VER ]
 echo $SNPS_DEPENDS > /pkg/$SNPS_PKG/a.$SNPS_PKG_VER/deps

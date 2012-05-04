@@ -1,0 +1,15 @@
+#!/bin/sh
+for file in "$@"
+do
+    for dep in `readelf -d /usr/bin/bmake | grep 'Shared library:' | sed 's/.*Shared library: \[// ; s/\]$//'`
+    do
+        echo -n "$dep => "
+        if [ -e "/usr/lib/$dep" ]
+        then
+            echo "/usr/lib/$dep"
+        else
+            echo "not found"
+        fi
+    done
+done
+

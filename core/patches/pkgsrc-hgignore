@@ -1,0 +1,4 @@
+.hgignore
+work
+^packages
+^distfiles

@@ -41,6 +41,17 @@ then
     done
 fi
 
+# linux headers
+fetchextract http://www.kernel.org/pub/linux/kernel/v3.0/ linux-$LINUX_HEADERS_VERSION .tar.bz2
+cp "$SNOWFLAKE_BASE/config/linux.config" linux-$LINUX_HEADERS_VERSION/.config
+if [ ! -e linux-$LINUX_HEADERS_VERSION/installedrootheaders ]
+then
+    pushd linux-$LINUX_HEADERS_VERSION
+    make headers_install ARCH=$LINUX_ARCH INSTALL_HDR_PATH="$SNOWFLAKE_PREFIX/pkg/linux-headers/$LINUX_HEADERS_VERSION/usr"
+    touch installedrootheaders
+    popd
+fi
+
 # musl
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/libc.so" ]
 then
@@ -53,7 +64,16 @@ cp "$SNOWFLAKE_BASE/config/musl.config.mak" musl-$MUSL_VERSION/config.mak
 buildmake musl-$MUSL_VERSION
 doinstall '' musl-$MUSL_VERSION DESTDIR="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr"
 rm -rf "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin" # No musl-gcc needed or wanted
+echo linux-headers > "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/deps"
 unset PREFIX
+
+# fake ldd (remove this when musl has its own)
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/ldd/$LDD_VERSION/usr/bin/ldd" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/ldd/$LDD_VERSION/usr/bin"
+    cp "$SNOWFLAKE_BASE/ldd" "$SNOWFLAKE_PREFIX/pkg/ldd/$LDD_VERSION/usr/bin/"
+    chmod 0755 "$SNOWFLAKE_PREFIX/pkg/ldd/$LDD_VERSION/usr/bin/ldd"
+fi
 
 # busybox
 fetchextract http://busybox.net/downloads/ busybox-$BUSYBOX_VERSION .tar.bz2
@@ -121,7 +141,7 @@ fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr"
-    echo musl libgcc busybox pkgresolve > "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/deps"
+    echo musl libgcc busybox pkgresolve ldd > "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/deps"
 fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/default/1.0/usr" ]
 then
@@ -210,7 +230,7 @@ fi
 if [ "$WITH_PKGSRC" = "yes" -a ! -e "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/snps-setenv" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin"
-    for i in snps-clean snps-pkgsrc-install snps-setenv
+    for i in snps-clean snps-pkgsrc-install snps-setenv snps-update-tools-list
     do
         cp "$SNOWFLAKE_BASE/$i" "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/"
     done
@@ -222,7 +242,9 @@ $SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 $SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 
 # make everything mountable
-for pkg in core/1.0 minimal/1.0 default/1.0 musl/$MUSL_VERSION \
+for pkg in core/1.0 minimal/1.0 default/1.0 \
+    linux-headers/$LINUX_HEADERS_VERSION musl/$MUSL_VERSION \
+    ldd/$LDD_VERSION \
     busybox/$BUSYBOX_VERSION quicklink/$QUICKLINK_VERSION \
     usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION \
     binutils/$BINUTILS_VERSION gcc/$GCC_VERSION libgcc/$GCC_VERSION

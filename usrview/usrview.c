@@ -126,12 +126,13 @@ int main(int argc, char **argv)
 
     /* make sure there are no duplicates */
     for (i = 1; i < rpaths.bufused; i++) {
+        if (!rpaths.buf[i]) continue;
         if (!strcmp(rpaths.buf[i], wpath)) {
             rpaths.buf[i] = NULL;
             continue;
         }
         for (j = 0; j < i; j++) {
-            if (rpaths.buf[i] && rpaths.buf[j] &&
+            if (rpaths.buf[j] &&
                 !strcmp(rpaths.buf[i], rpaths.buf[j])) {
                 rpaths.buf[i] = NULL;
                 break;

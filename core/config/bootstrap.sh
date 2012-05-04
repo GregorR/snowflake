@@ -40,13 +40,24 @@ then
     echo snps gcc sed gawk gzip > /pkg/pkgsrc/PKGSRC_VERSION/deps
 
     # snowflake-ize it
-    echo 'CFLAGS+=-D_GNU_SOURCE -D_BSD_SOURCE
-SETENV=snps-setenv "${PKGNAME}" "${DEPENDS}" "${BUILD_DEPENDS} ${BOOTSTRAP_DEPENDS}"
+    echo '
+# musl is very ... conservative about what symbols it exposes    
+CFLAGS+=-D_GNU_SOURCE -D_BSD_SOURCE
+
+# snps-setenv cleverly translates pkgsrc packages to Snowflake usrviews
+SETENV=snps-setenv "${PKGNAME}" "${DEPENDS}" "${BUILD_DEPENDS} ${BOOTSTRAP_DEPENDS}" "${USE_TOOLS}"
+
+# Circular depends if you don'\''t have builtin things
+FETCH_USING=fetch
+PKG_OPTIONS.groff=-groff-docs -x11
+
+# pkgsrc doesn'\''t know how to build a musl GCC
 USE_NATIVE_GCC=yes
 NOGCCERROR=yes
-FETCH_USING=fetch
+
+# Using /usr as pkgsrc'\''s install prefix breaks some tests, so insist that these are builtin
 IS_BUILTIN.dl=yes
-PKG_OPTIONS.groff=-groff-docs -x11
+IS_BUILTIN.pthread=yes
 ' >> \
         /pkg/pkgsrc/PKGSRC_VERSION/usr/etc/mk.conf
     echo -e '\tsnps-pkgsrc-install' >> /var/pkgsrc/mk/pkgformat/pkg/package.mk

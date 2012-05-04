@@ -12,3 +12,4 @@ set -ex
 [ ! -e /pkg/$SNPS_PKG/$SNPS_PKG_VER ]
 echo $SNPS_DEPENDS > /pkg/$SNPS_PKG/a.$SNPS_PKG_VER/deps
 mv /pkg/$SNPS_PKG/a.$SNPS_PKG_VER /pkg/$SNPS_PKG/$SNPS_PKG_VER
+snps-update-tools-list

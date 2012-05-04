@@ -38,6 +38,7 @@
 #define WRITE_STR_BUFFER(buf, str) \
     WRITE_BUFFER(buf, str, sizeof(str)-1)
 
+#ifndef __GLIBC__
 /* FIXME: we shouldn't need this, once musl gets it */
 static int unshare(int flags)
 {
@@ -48,6 +49,7 @@ static int unshare(int flags)
     }
     return ret;
 }
+#endif
 
 BUFFER(charp, char *);
 

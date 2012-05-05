@@ -1,6 +1,6 @@
-diff -r b8dd8f580a1f Makefile
---- a/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca Makefile
+--- a/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -91,6 +91,7 @@
  SUBDIR+=	wm
  SUBDIR+=	www
@@ -9,9 +9,9 @@ diff -r b8dd8f580a1f Makefile
  
  SUBDIR+=	${USER_ADDITIONAL_PKGS}
  
-diff -r b8dd8f580a1f archivers/pax/files/getid.c
---- a/archivers/pax/files/getid.c	Fri May 04 03:01:29 2012 +0000
-+++ b/archivers/pax/files/getid.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca archivers/pax/files/getid.c
+--- a/archivers/pax/files/getid.c	Fri May 04 14:07:09 2012 +0000
++++ b/archivers/pax/files/getid.c	Sat May 05 22:05:07 2012 +0000
 @@ -152,12 +152,14 @@
  	if (!grstart() || !pwstart())
  		return (0);
@@ -27,9 +27,9 @@ diff -r b8dd8f580a1f archivers/pax/files/getid.c
  
  	return (1);
  }
-diff -r b8dd8f580a1f archivers/pax/files/options.c
---- a/archivers/pax/files/options.c	Fri May 04 03:01:29 2012 +0000
-+++ b/archivers/pax/files/options.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca archivers/pax/files/options.c
+--- a/archivers/pax/files/options.c	Fri May 04 14:07:09 2012 +0000
++++ b/archivers/pax/files/options.c	Sat May 05 22:05:07 2012 +0000
 @@ -107,6 +107,8 @@
  #include "mtree.h"
  #endif	/* SMALL */
@@ -39,9 +39,9 @@ diff -r b8dd8f580a1f archivers/pax/files/options.c
  /*
   * Routines which handle command line options
   */
-diff -r b8dd8f580a1f chat/irssi/Makefile
---- a/chat/irssi/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/chat/irssi/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca chat/irssi/Makefile
+--- a/chat/irssi/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/chat/irssi/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -20,9 +20,9 @@
  USE_LIBTOOL=		yes
  USE_TOOLS+=		pkg-config
@@ -53,18 +53,18 @@ diff -r b8dd8f580a1f chat/irssi/Makefile
  			--sysconfdir=${PKG_SYSCONFDIR}
  
  EGDIR=		${PREFIX}/share/examples/irssi
-diff -r b8dd8f580a1f databases/db4/distinfo
---- a/databases/db4/distinfo	Fri May 04 03:01:29 2012 +0000
-+++ b/databases/db4/distinfo	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca databases/db4/distinfo
+--- a/databases/db4/distinfo	Fri May 04 14:07:09 2012 +0000
++++ b/databases/db4/distinfo	Sat May 05 22:05:07 2012 +0000
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = 8f9ecc47527d338e28ee1ce71e694eaf2bdceb92
  SHA1 (patch-ac) = 045a3b83b9c6c164382ec546b06ae248620552cf
  SHA1 (patch-ae) = 43e574154de93dba60392b09d6ebddbca1036849
 +SHA1 (patch-aq) = 3baa90e922dc9cb075deee2a2a37d607affead9b
-diff -r b8dd8f580a1f databases/db4/patches/patch-aq
+diff -r b7cf414332ca databases/db4/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/databases/db4/patches/patch-aq	Fri May 04 03:35:16 2012 +0000
-@@ -0,0 +1,88 @@
++++ b/databases/db4/patches/patch-aq	Sat May 05 22:05:07 2012 +0000
+@@ -0,0 +1,11 @@
 +diff -r 7a6cd6105754 dist/configure
 +--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
 ++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
@@ -76,86 +76,9 @@ diff -r b8dd8f580a1f databases/db4/patches/patch-aq
 + main() {
 + 	pthread_cond_t cond;
 + 	pthread_mutex_t mutex;
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-+diff -r 7a6cd6105754 dist/configure
-+--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
-++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
-+@@ -18792,6 +18792,7 @@
-+ /* end confdefs.h.  */
-+ 
-+ #include <pthread.h>
-++#include <stdlib.h>
-+ main() {
-+ 	pthread_cond_t cond;
-+ 	pthread_mutex_t mutex;
-diff -r b8dd8f580a1f devel/bison/Makefile
---- a/devel/bison/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/bison/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/bison/Makefile
+--- a/devel/bison/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/devel/bison/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -28,6 +28,7 @@
  # Avoid rebuilding manpage
  pre-build:
@@ -164,9 +87,9 @@ diff -r b8dd8f580a1f devel/bison/Makefile
  
  # "bison" wants a recent version of "gettext" which at least some
  # NetBSD versions don't provide. Figure out whether it will install
-diff -r b8dd8f580a1f devel/bmake/files/suff.c
---- a/devel/bmake/files/suff.c	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/bmake/files/suff.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/bmake/files/suff.c
+--- a/devel/bmake/files/suff.c	Fri May 04 14:07:09 2012 +0000
++++ b/devel/bmake/files/suff.c	Sat May 05 22:05:07 2012 +0000
 @@ -67,6 +67,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.
@@ -176,9 +99,9 @@ diff -r b8dd8f580a1f devel/bmake/files/suff.c
  
  #ifndef MAKE_NATIVE
  static char rcsid[] = "$NetBSD: suff.c,v 1.4 2009/09/18 21:27:25 joerg Exp $";
-diff -r b8dd8f580a1f devel/bmake/files/targ.c
---- a/devel/bmake/files/targ.c	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/bmake/files/targ.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/bmake/files/targ.c
+--- a/devel/bmake/files/targ.c	Fri May 04 14:07:09 2012 +0000
++++ b/devel/bmake/files/targ.c	Sat May 05 22:05:07 2012 +0000
 @@ -67,6 +67,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.
@@ -188,9 +111,9 @@ diff -r b8dd8f580a1f devel/bmake/files/targ.c
  
  #ifndef MAKE_NATIVE
  static char rcsid[] = "$NetBSD: targ.c,v 1.5 2011/06/18 22:39:46 bsiegert Exp $";
-diff -r b8dd8f580a1f devel/bmake/files/unit-tests/test.exp
---- a/devel/bmake/files/unit-tests/test.exp	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/bmake/files/unit-tests/test.exp	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/bmake/files/unit-tests/test.exp
+--- a/devel/bmake/files/unit-tests/test.exp	Fri May 04 14:07:09 2012 +0000
++++ b/devel/bmake/files/unit-tests/test.exp	Sat May 05 22:05:07 2012 +0000
 @@ -27,6 +27,7 @@
  make: "error" line 3: just FYI
  make: "error" line 4: warning: this could be serious
@@ -228,9 +151,9 @@ diff -r b8dd8f580a1f devel/bmake/files/unit-tests/test.exp
  show-v v=override k=override
  *** Error code 1 (ignored)
 -*** Error code 1 (ignored)
-diff -r b8dd8f580a1f devel/flex/PLIST
---- a/devel/flex/PLIST	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/flex/PLIST	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/flex/PLIST
+--- a/devel/flex/PLIST	Fri May 04 14:07:09 2012 +0000
++++ b/devel/flex/PLIST	Sat May 05 22:05:07 2012 +0000
 @@ -6,19 +6,3 @@
  lib/libfl.a
  lib/libfl_pic.a
@@ -251,9 +174,9 @@ diff -r b8dd8f580a1f devel/flex/PLIST
 -share/locale/tr/LC_MESSAGES/flex.mo
 -share/locale/vi/LC_MESSAGES/flex.mo
 -share/locale/zh_CN/LC_MESSAGES/flex.mo
-diff -r b8dd8f580a1f devel/glib2/Makefile
---- a/devel/glib2/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/glib2/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/glib2/Makefile
+--- a/devel/glib2/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/devel/glib2/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -46,6 +46,12 @@
  
  LIBS.SunOS+=	-lnsl -lsocket
@@ -267,9 +190,9 @@ diff -r b8dd8f580a1f devel/glib2/Makefile
  .include "../../converters/libiconv/buildlink3.mk"
  .include "../../devel/gettext-lib/buildlink3.mk"
  .include "../../devel/pcre/buildlink3.mk"
-diff -r b8dd8f580a1f devel/gmake/Makefile
---- a/devel/gmake/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/gmake/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/gmake/Makefile
+--- a/devel/gmake/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/devel/gmake/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -47,6 +47,8 @@
  CONFIGURE_ARGS+=	ac_cv_func_strndup=no
  .endif
@@ -279,9 +202,9 @@ diff -r b8dd8f580a1f devel/gmake/Makefile
  post-install:
  	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
  	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
-diff -r b8dd8f580a1f devel/imake/Makefile
---- a/devel/imake/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/imake/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/imake/Makefile
+--- a/devel/imake/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/devel/imake/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -42,6 +42,9 @@
  SUBST_FILES.xmkmf=	xmkmf
  SUBST_SED.xmkmf=	-e "s/^configdirspec= */configdirspec=/"
@@ -292,18 +215,18 @@ diff -r b8dd8f580a1f devel/imake/Makefile
  .include "../../x11/xproto/buildlink3.mk"
  
  .include "../../mk/bsd.pkg.mk"
-diff -r b8dd8f580a1f devel/m4/distinfo
---- a/devel/m4/distinfo	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/m4/distinfo	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/m4/distinfo
+--- a/devel/m4/distinfo	Fri May 04 14:07:09 2012 +0000
++++ b/devel/m4/distinfo	Sat May 05 22:05:07 2012 +0000
 @@ -6,3 +6,4 @@
  SHA1 (patch-aa) = ef316620b49f78f46e9dea47032b0141814c1f43
  SHA1 (patch-ab) = b29840365e983623bce64e84ceab3504b8270b32
  SHA1 (patch-ac) = 7bd9164c659727a906ef54a2f1027e9fd19315ba
 +SHA1 (patch-aq) = 361e3294fe76fd67087d4fb212fd16c79462a953
-diff -r b8dd8f580a1f devel/m4/patches/patch-aq
+diff -r b7cf414332ca devel/m4/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/devel/m4/patches/patch-aq	Fri May 04 03:35:16 2012 +0000
-@@ -0,0 +1,80 @@
++++ b/devel/m4/patches/patch-aq	Sat May 05 22:05:07 2012 +0000
+@@ -0,0 +1,10 @@
 +--- lib/freadahead.c
 ++++ lib/freadahead.c
 +@@ -80,6 +80,6 @@
@@ -314,79 +237,9 @@ diff -r b8dd8f580a1f devel/m4/patches/patch-aq
 ++  return 1;
 + #endif
 + }
-+--- lib/freadahead.c
-++++ lib/freadahead.c
-+@@ -80,6 +80,6 @@
-+   abort ();
-+   return 0;
-+ #else
-+- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
-++  return 1;
-+ #endif
-+ }
-+--- lib/freadahead.c
-++++ lib/freadahead.c
-+@@ -80,6 +80,6 @@
-+   abort ();
-+   return 0;
-+ #else
-+- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
-++  return 1;
-+ #endif
-+ }
-+--- lib/freadahead.c
-++++ lib/freadahead.c
-+@@ -80,6 +80,6 @@
-+   abort ();
-+   return 0;
-+ #else
-+- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
-++  return 1;
-+ #endif
-+ }
-+--- lib/freadahead.c
-++++ lib/freadahead.c
-+@@ -80,6 +80,6 @@
-+   abort ();
-+   return 0;
-+ #else
-+- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
-++  return 1;
-+ #endif
-+ }
-+--- lib/freadahead.c
-++++ lib/freadahead.c
-+@@ -80,6 +80,6 @@
-+   abort ();
-+   return 0;
-+ #else
-+- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
-++  return 1;
-+ #endif
-+ }
-+--- lib/freadahead.c
-++++ lib/freadahead.c
-+@@ -80,6 +80,6 @@
-+   abort ();
-+   return 0;
-+ #else
-+- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
-++  return 1;
-+ #endif
-+ }
-+--- lib/freadahead.c
-++++ lib/freadahead.c
-+@@ -80,6 +80,6 @@
-+   abort ();
-+   return 0;
-+ #else
-+- #error "Please port gnulib freadahead.c to your platform! Look at the definition of fflush, fread, ungetc on your system, then report this to bug-gnulib."
-++  return 1;
-+ #endif
-+ }
-diff -r b8dd8f580a1f devel/ncurses/Makefile
---- a/devel/ncurses/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/ncurses/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/ncurses/Makefile
+--- a/devel/ncurses/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/devel/ncurses/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -38,6 +38,9 @@
  
  PLIST_SRC=	${PKGDIR}/PLIST ${WRKDIR}/PLIST.terminfo
@@ -397,9 +250,9 @@ diff -r b8dd8f580a1f devel/ncurses/Makefile
  post-configure:
  	cd ${WRKSRC}/man;					\
  	for f in *.1m; do					\
-diff -r b8dd8f580a1f devel/ncurses/Makefile.common
---- a/devel/ncurses/Makefile.common	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/ncurses/Makefile.common	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/ncurses/Makefile.common
+--- a/devel/ncurses/Makefile.common	Fri May 04 14:07:09 2012 +0000
++++ b/devel/ncurses/Makefile.common	Sat May 05 22:05:07 2012 +0000
 @@ -16,14 +16,15 @@
  PKG_INSTALLATION_TYPES=	overwrite pkgviews
  PKG_DESTDIR_SUPPORT=	user-destdir
@@ -418,9 +271,9 @@ diff -r b8dd8f580a1f devel/ncurses/Makefile.common
  CONFIGURE_ARGS+=	--without-ada
  CONFIGURE_ARGS+=	--without-gpm
  CONFIGURE_ARGS+=	--with-manpage-format=normal
-diff -r b8dd8f580a1f devel/ncurses/PLIST
---- a/devel/ncurses/PLIST	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/ncurses/PLIST	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/ncurses/PLIST
+--- a/devel/ncurses/PLIST	Fri May 04 14:07:09 2012 +0000
++++ b/devel/ncurses/PLIST	Sat May 05 22:05:07 2012 +0000
 @@ -11,14 +11,7 @@
  bin/tput
  bin/tset
@@ -444,9 +297,9 @@ diff -r b8dd8f580a1f devel/ncurses/PLIST
  lib/libncurses.la
  lib/libpanel.la
  man/man1/captoinfo.1
-diff -r b8dd8f580a1f devel/pcre/Makefile
---- a/devel/pcre/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/pcre/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/pcre/Makefile
+--- a/devel/pcre/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/devel/pcre/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -21,6 +21,8 @@
  CONFIGURE_ARGS+=	--enable-utf8 --enable-unicode-properties
  CONFIGURE_ARGS+=	--enable-pcre16
@@ -456,9 +309,9 @@ diff -r b8dd8f580a1f devel/pcre/Makefile
  SUBST_CLASSES+=		rpath
  SUBST_STAGE.rpath=	pre-configure
  SUBST_MESSAGE.rpath=	Fixing rpath output in pcre-config
-diff -r b8dd8f580a1f devel/pcre/PLIST
---- a/devel/pcre/PLIST	Fri May 04 03:01:29 2012 +0000
-+++ b/devel/pcre/PLIST	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca devel/pcre/PLIST
+--- a/devel/pcre/PLIST	Fri May 04 14:07:09 2012 +0000
++++ b/devel/pcre/PLIST	Sat May 05 22:05:07 2012 +0000
 @@ -3,18 +3,12 @@
  bin/pcregrep
  bin/pcretest
@@ -494,9 +347,9 @@ diff -r b8dd8f580a1f devel/pcre/PLIST
  share/doc/pcre/html/pcredemo.html
  share/doc/pcre/html/pcregrep.html
  share/doc/pcre/html/pcrejit.html
-diff -r b8dd8f580a1f graphics/MesaLib/Makefile
---- a/graphics/MesaLib/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/graphics/MesaLib/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca graphics/MesaLib/Makefile
+--- a/graphics/MesaLib/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/graphics/MesaLib/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -72,6 +72,7 @@
  
  pre-build:
@@ -505,9 +358,9 @@ diff -r b8dd8f580a1f graphics/MesaLib/Makefile
  
  .include "../../mk/compiler.mk"
  
-diff -r b8dd8f580a1f graphics/cairo/Makefile
---- a/graphics/cairo/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/graphics/cairo/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca graphics/cairo/Makefile
+--- a/graphics/cairo/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/graphics/cairo/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -38,6 +38,8 @@
  # For snprintf() and ctime_r()
  CPPFLAGS.SunOS+=		-D__EXTENSIONS__ -D_POSIX_PTHREAD_SEMANTICS
@@ -517,9 +370,9 @@ diff -r b8dd8f580a1f graphics/cairo/Makefile
  TEST_TARGET=			check
  
  # PR#43928
-diff -r b8dd8f580a1f graphics/gdk-pixbuf2/PLIST
---- a/graphics/gdk-pixbuf2/PLIST	Fri May 04 03:01:29 2012 +0000
-+++ b/graphics/gdk-pixbuf2/PLIST	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca graphics/gdk-pixbuf2/PLIST
+--- a/graphics/gdk-pixbuf2/PLIST	Fri May 04 14:07:09 2012 +0000
++++ b/graphics/gdk-pixbuf2/PLIST	Sat May 05 22:05:07 2012 +0000
 @@ -72,104 +72,3 @@
  share/gtk-doc/html/gdk-pixbuf/rn02.html
  share/gtk-doc/html/gdk-pixbuf/style.css
@@ -625,18 +478,35 @@ diff -r b8dd8f580a1f graphics/gdk-pixbuf2/PLIST
 -share/locale/zh_CN/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/zh_HK/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/zh_TW/LC_MESSAGES/gdk-pixbuf.mo
-diff -r b8dd8f580a1f lang/f2c/distinfo
---- a/lang/f2c/distinfo	Fri May 04 03:01:29 2012 +0000
-+++ b/lang/f2c/distinfo	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca graphics/jpeg/buildlink3.mk
+--- a/graphics/jpeg/buildlink3.mk	Fri May 04 14:07:09 2012 +0000
++++ b/graphics/jpeg/buildlink3.mk	Sat May 05 22:05:07 2012 +0000
+@@ -5,9 +5,10 @@
+ .if !defined(JPEG_BUILDLINK3_MK)
+ JPEG_BUILDLINK3_MK:=
+ 
+-BUILDLINK_API_DEPENDS.jpeg+=	jpeg>=8nb1
+-#BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8nb1
+-BUILDLINK_ABI_DEPENDS.jpeg?=	jpeg>=8nb1
++# [Gregor] Reduced to 8 due to version diffs between pkgresolve and pkgsrc
++BUILDLINK_API_DEPENDS.jpeg+=	jpeg>=8
++#BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8
++BUILDLINK_ABI_DEPENDS.jpeg?=	jpeg>=8
+ BUILDLINK_PKGSRCDIR.jpeg?=	../../graphics/jpeg
+ .endif # JPEG_BUILDLINK3_MK
+ 
+diff -r b7cf414332ca lang/f2c/distinfo
+--- a/lang/f2c/distinfo	Fri May 04 14:07:09 2012 +0000
++++ b/lang/f2c/distinfo	Sat May 05 22:05:07 2012 +0000
 @@ -6,3 +6,4 @@
  SHA1 (patch-aa) = f1224ff17cdc96f083a247dce88b690e8b939eb0
  SHA1 (patch-ad) = 7f204a45891e3632589ea8fb0e4e379a0a792dea
  SHA1 (patch-ak) = 8652a54df300ddd60d9b1a9594d312349b782cf4
 +SHA1 (patch-aq) = dd5d4e79bd1d61d7ce152b0934667ba4a1888692
-diff -r b8dd8f580a1f lang/f2c/patches/patch-aq
+diff -r b7cf414332ca lang/f2c/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/lang/f2c/patches/patch-aq	Fri May 04 03:35:16 2012 +0000
-@@ -0,0 +1,104 @@
++++ b/lang/f2c/patches/patch-aq	Sat May 05 22:05:07 2012 +0000
+@@ -0,0 +1,13 @@
 +diff -r 6bba7eaf719c src/sysdep.c
 +--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
 ++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
@@ -650,100 +520,9 @@ diff -r b8dd8f580a1f lang/f2c/patches/patch-aq
 +  void
 + #ifdef KR_headers
 + Un_link_all(cdelete)
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-+diff -r 6bba7eaf719c src/sysdep.c
-+--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
-++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
-+@@ -83,6 +83,9 @@
-+ #include <sys/wait.h>
-+ #include <unistd.h>
-+ 
-++#include <sys/types.h>
-++#include <sys/stat.h>
-++
-+  void
-+ #ifdef KR_headers
-+ Un_link_all(cdelete)
-diff -r b8dd8f580a1f lang/perl5/Makefile
---- a/lang/perl5/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/lang/perl5/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca lang/perl5/Makefile
+--- a/lang/perl5/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/lang/perl5/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -50,6 +50,7 @@
  CONFIGURE_ARGS+=	-sde
  CONFIGURE_ARGS+=	-D ccflags=${CFLAGS:Q}
@@ -763,9 +542,9 @@ diff -r b8dd8f580a1f lang/perl5/Makefile
  
  post-build:
  	${SED}	-e "s,@PERL5@,"${PERL5:Q}",g"				\
-diff -r b8dd8f580a1f lang/python26/Makefile
---- a/lang/python26/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/lang/python26/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca lang/python26/Makefile
+--- a/lang/python26/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/lang/python26/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -118,22 +118,7 @@
  .endif
  
@@ -789,9 +568,9 @@ diff -r b8dd8f580a1f lang/python26/Makefile
  
  .include "../../mk/bdb.buildlink3.mk"
  MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
-diff -r b8dd8f580a1f lang/python27/PLIST.common
---- a/lang/python27/PLIST.common	Fri May 04 03:01:29 2012 +0000
-+++ b/lang/python27/PLIST.common	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca lang/python27/PLIST.common
+--- a/lang/python27/PLIST.common	Fri May 04 14:07:09 2012 +0000
++++ b/lang/python27/PLIST.common	Sat May 05 22:05:07 2012 +0000
 @@ -1835,7 +1835,6 @@
  lib/python${PY_VER_SUFFIX}/lib-dynload/itertools.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/math.so
@@ -800,18 +579,18 @@ diff -r b8dd8f580a1f lang/python27/PLIST.common
  ${PLIST.no-nis}lib/python${PY_VER_SUFFIX}/lib-dynload/nis_failed.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/operator.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/parser.so
-diff -r b8dd8f580a1f misc/pty-redir/distinfo
---- a/misc/pty-redir/distinfo	Fri May 04 03:01:29 2012 +0000
-+++ b/misc/pty-redir/distinfo	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca misc/pty-redir/distinfo
+--- a/misc/pty-redir/distinfo	Fri May 04 14:07:09 2012 +0000
++++ b/misc/pty-redir/distinfo	Sat May 05 22:05:07 2012 +0000
 @@ -4,3 +4,4 @@
  RMD160 (pty-redir-0.1.tar.gz) = 75347881746dd1419e95e2ada30b23b2d9c0d223
  Size (pty-redir-0.1.tar.gz) = 8405 bytes
  SHA1 (patch-aa) = 28f8a1c22a9bf602e0e447ca45736e7cde6fddd5
 +SHA1 (patch-aq) = 17bdbfdef55312079c5ab32069556b50658dd771
-diff -r b8dd8f580a1f misc/pty-redir/patches/patch-aq
+diff -r b7cf414332ca misc/pty-redir/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/misc/pty-redir/patches/patch-aq	Fri May 04 03:35:16 2012 +0000
-@@ -0,0 +1,408 @@
++++ b/misc/pty-redir/patches/patch-aq	Sat May 05 22:05:07 2012 +0000
+@@ -0,0 +1,51 @@
 +--- pty-redir.c
 ++++ pty-redir.c
 +@@ -43,30 +43,18 @@
@@ -863,366 +642,17 @@ diff -r b8dd8f580a1f misc/pty-redir/patches/patch-aq
 + 	if(fork())
 + 	{
 + 		exit(0);
-+--- pty-redir.c
-++++ pty-redir.c
-+@@ -43,30 +43,18 @@
-+ #include <fcntl.h>
-+ 
-+ 
-+-#define PTY00 "/dev/ptyXX"
-+-#define PTY10 "pqrs"
-+-#define PTY01 "0123456789abcdef"
-++#define PTY00 "/dev/ptmx"
-+ 
-+ static int
-+ getPtyMaster(char *tty10, char *tty01)
-+ {
-+-    char *p10;
-+-    char *p01;
-+     static char dev[] = PTY00;
-+     int fd;
-+ 
-+-    for (p10 = PTY10; *p10 != '\0'; p10++) {
-+-        dev[8] = *p10;
-+-        for (p01 = PTY01; *p01 != '\0'; p01++) {
-+-            dev[9] = *p01;
-+             fd = open(dev, O_RDWR);
-+             if (fd >= 0) {
-+-                *tty10 = *p10;
-+-                *tty01 = *p01;
-+                 return fd;
-+             }
-+-        }
-+-    }
-+     fprintf(stderr,"Ran out of pty.\n");
-+     exit(1);
-+     return fd;
-+@@ -81,8 +69,6 @@
-+ 	int i;
-+ 	
-+ 	fd=getPtyMaster(&a,&b);
-+-	fprintf(stdout,"/dev/tty%c%c",a,b);
-+-	fflush(stdout);
-+ 	if(NULL==(args=malloc((argc)*sizeof(char *))))
-+ 	{
-+ 		fprintf(stderr,"Virtual memory exhausted\n");
-+@@ -95,7 +81,6 @@
-+ 	args[argc-1]=NULL; /*End of params*/
-+ 	dup2(fd,0);
-+ 	dup2(fd,1);
-+-	fflush(NULL);
-+ 	if(fork())
-+ 	{
-+ 		exit(0);
-+--- pty-redir.c
-++++ pty-redir.c
-+@@ -43,30 +43,18 @@
-+ #include <fcntl.h>
-+ 
-+ 
-+-#define PTY00 "/dev/ptyXX"
-+-#define PTY10 "pqrs"
-+-#define PTY01 "0123456789abcdef"
-++#define PTY00 "/dev/ptmx"
-+ 
-+ static int
-+ getPtyMaster(char *tty10, char *tty01)
-+ {
-+-    char *p10;
-+-    char *p01;
-+     static char dev[] = PTY00;
-+     int fd;
-+ 
-+-    for (p10 = PTY10; *p10 != '\0'; p10++) {
-+-        dev[8] = *p10;
-+-        for (p01 = PTY01; *p01 != '\0'; p01++) {
-+-            dev[9] = *p01;
-+             fd = open(dev, O_RDWR);
-+             if (fd >= 0) {
-+-                *tty10 = *p10;
-+-                *tty01 = *p01;
-+                 return fd;
-+             }
-+-        }
-+-    }
-+     fprintf(stderr,"Ran out of pty.\n");
-+     exit(1);
-+     return fd;
-+@@ -81,8 +69,6 @@
-+ 	int i;
-+ 	
-+ 	fd=getPtyMaster(&a,&b);
-+-	fprintf(stdout,"/dev/tty%c%c",a,b);
-+-	fflush(stdout);
-+ 	if(NULL==(args=malloc((argc)*sizeof(char *))))
-+ 	{
-+ 		fprintf(stderr,"Virtual memory exhausted\n");
-+@@ -95,7 +81,6 @@
-+ 	args[argc-1]=NULL; /*End of params*/
-+ 	dup2(fd,0);
-+ 	dup2(fd,1);
-+-	fflush(NULL);
-+ 	if(fork())
-+ 	{
-+ 		exit(0);
-+--- pty-redir.c
-++++ pty-redir.c
-+@@ -43,30 +43,18 @@
-+ #include <fcntl.h>
-+ 
-+ 
-+-#define PTY00 "/dev/ptyXX"
-+-#define PTY10 "pqrs"
-+-#define PTY01 "0123456789abcdef"
-++#define PTY00 "/dev/ptmx"
-+ 
-+ static int
-+ getPtyMaster(char *tty10, char *tty01)
-+ {
-+-    char *p10;
-+-    char *p01;
-+     static char dev[] = PTY00;
-+     int fd;
-+ 
-+-    for (p10 = PTY10; *p10 != '\0'; p10++) {
-+-        dev[8] = *p10;
-+-        for (p01 = PTY01; *p01 != '\0'; p01++) {
-+-            dev[9] = *p01;
-+             fd = open(dev, O_RDWR);
-+             if (fd >= 0) {
-+-                *tty10 = *p10;
-+-                *tty01 = *p01;
-+                 return fd;
-+             }
-+-        }
-+-    }
-+     fprintf(stderr,"Ran out of pty.\n");
-+     exit(1);
-+     return fd;
-+@@ -81,8 +69,6 @@
-+ 	int i;
-+ 	
-+ 	fd=getPtyMaster(&a,&b);
-+-	fprintf(stdout,"/dev/tty%c%c",a,b);
-+-	fflush(stdout);
-+ 	if(NULL==(args=malloc((argc)*sizeof(char *))))
-+ 	{
-+ 		fprintf(stderr,"Virtual memory exhausted\n");
-+@@ -95,7 +81,6 @@
-+ 	args[argc-1]=NULL; /*End of params*/
-+ 	dup2(fd,0);
-+ 	dup2(fd,1);
-+-	fflush(NULL);
-+ 	if(fork())
-+ 	{
-+ 		exit(0);
-+--- pty-redir.c
-++++ pty-redir.c
-+@@ -43,30 +43,18 @@
-+ #include <fcntl.h>
-+ 
-+ 
-+-#define PTY00 "/dev/ptyXX"
-+-#define PTY10 "pqrs"
-+-#define PTY01 "0123456789abcdef"
-++#define PTY00 "/dev/ptmx"
-+ 
-+ static int
-+ getPtyMaster(char *tty10, char *tty01)
-+ {
-+-    char *p10;
-+-    char *p01;
-+     static char dev[] = PTY00;
-+     int fd;
-+ 
-+-    for (p10 = PTY10; *p10 != '\0'; p10++) {
-+-        dev[8] = *p10;
-+-        for (p01 = PTY01; *p01 != '\0'; p01++) {
-+-            dev[9] = *p01;
-+             fd = open(dev, O_RDWR);
-+             if (fd >= 0) {
-+-                *tty10 = *p10;
-+-                *tty01 = *p01;
-+                 return fd;
-+             }
-+-        }
-+-    }
-+     fprintf(stderr,"Ran out of pty.\n");
-+     exit(1);
-+     return fd;
-+@@ -81,8 +69,6 @@
-+ 	int i;
-+ 	
-+ 	fd=getPtyMaster(&a,&b);
-+-	fprintf(stdout,"/dev/tty%c%c",a,b);
-+-	fflush(stdout);
-+ 	if(NULL==(args=malloc((argc)*sizeof(char *))))
-+ 	{
-+ 		fprintf(stderr,"Virtual memory exhausted\n");
-+@@ -95,7 +81,6 @@
-+ 	args[argc-1]=NULL; /*End of params*/
-+ 	dup2(fd,0);
-+ 	dup2(fd,1);
-+-	fflush(NULL);
-+ 	if(fork())
-+ 	{
-+ 		exit(0);
-+--- pty-redir.c
-++++ pty-redir.c
-+@@ -43,30 +43,18 @@
-+ #include <fcntl.h>
-+ 
-+ 
-+-#define PTY00 "/dev/ptyXX"
-+-#define PTY10 "pqrs"
-+-#define PTY01 "0123456789abcdef"
-++#define PTY00 "/dev/ptmx"
-+ 
-+ static int
-+ getPtyMaster(char *tty10, char *tty01)
-+ {
-+-    char *p10;
-+-    char *p01;
-+     static char dev[] = PTY00;
-+     int fd;
-+ 
-+-    for (p10 = PTY10; *p10 != '\0'; p10++) {
-+-        dev[8] = *p10;
-+-        for (p01 = PTY01; *p01 != '\0'; p01++) {
-+-            dev[9] = *p01;
-+             fd = open(dev, O_RDWR);
-+             if (fd >= 0) {
-+-                *tty10 = *p10;
-+-                *tty01 = *p01;
-+                 return fd;
-+             }
-+-        }
-+-    }
-+     fprintf(stderr,"Ran out of pty.\n");
-+     exit(1);
-+     return fd;
-+@@ -81,8 +69,6 @@
-+ 	int i;
-+ 	
-+ 	fd=getPtyMaster(&a,&b);
-+-	fprintf(stdout,"/dev/tty%c%c",a,b);
-+-	fflush(stdout);
-+ 	if(NULL==(args=malloc((argc)*sizeof(char *))))
-+ 	{
-+ 		fprintf(stderr,"Virtual memory exhausted\n");
-+@@ -95,7 +81,6 @@
-+ 	args[argc-1]=NULL; /*End of params*/
-+ 	dup2(fd,0);
-+ 	dup2(fd,1);
-+-	fflush(NULL);
-+ 	if(fork())
-+ 	{
-+ 		exit(0);
-+--- pty-redir.c
-++++ pty-redir.c
-+@@ -43,30 +43,18 @@
-+ #include <fcntl.h>
-+ 
-+ 
-+-#define PTY00 "/dev/ptyXX"
-+-#define PTY10 "pqrs"
-+-#define PTY01 "0123456789abcdef"
-++#define PTY00 "/dev/ptmx"
-+ 
-+ static int
-+ getPtyMaster(char *tty10, char *tty01)
-+ {
-+-    char *p10;
-+-    char *p01;
-+     static char dev[] = PTY00;
-+     int fd;
-+ 
-+-    for (p10 = PTY10; *p10 != '\0'; p10++) {
-+-        dev[8] = *p10;
-+-        for (p01 = PTY01; *p01 != '\0'; p01++) {
-+-            dev[9] = *p01;
-+             fd = open(dev, O_RDWR);
-+             if (fd >= 0) {
-+-                *tty10 = *p10;
-+-                *tty01 = *p01;
-+                 return fd;
-+             }
-+-        }
-+-    }
-+     fprintf(stderr,"Ran out of pty.\n");
-+     exit(1);
-+     return fd;
-+@@ -81,8 +69,6 @@
-+ 	int i;
-+ 	
-+ 	fd=getPtyMaster(&a,&b);
-+-	fprintf(stdout,"/dev/tty%c%c",a,b);
-+-	fflush(stdout);
-+ 	if(NULL==(args=malloc((argc)*sizeof(char *))))
-+ 	{
-+ 		fprintf(stderr,"Virtual memory exhausted\n");
-+@@ -95,7 +81,6 @@
-+ 	args[argc-1]=NULL; /*End of params*/
-+ 	dup2(fd,0);
-+ 	dup2(fd,1);
-+-	fflush(NULL);
-+ 	if(fork())
-+ 	{
-+ 		exit(0);
-+--- pty-redir.c
-++++ pty-redir.c
-+@@ -43,30 +43,18 @@
-+ #include <fcntl.h>
-+ 
-+ 
-+-#define PTY00 "/dev/ptyXX"
-+-#define PTY10 "pqrs"
-+-#define PTY01 "0123456789abcdef"
-++#define PTY00 "/dev/ptmx"
-+ 
-+ static int
-+ getPtyMaster(char *tty10, char *tty01)
-+ {
-+-    char *p10;
-+-    char *p01;
-+     static char dev[] = PTY00;
-+     int fd;
-+ 
-+-    for (p10 = PTY10; *p10 != '\0'; p10++) {
-+-        dev[8] = *p10;
-+-        for (p01 = PTY01; *p01 != '\0'; p01++) {
-+-            dev[9] = *p01;
-+             fd = open(dev, O_RDWR);
-+             if (fd >= 0) {
-+-                *tty10 = *p10;
-+-                *tty01 = *p01;
-+                 return fd;
-+             }
-+-        }
-+-    }
-+     fprintf(stderr,"Ran out of pty.\n");
-+     exit(1);
-+     return fd;
-+@@ -81,8 +69,6 @@
-+ 	int i;
-+ 	
-+ 	fd=getPtyMaster(&a,&b);
-+-	fprintf(stdout,"/dev/tty%c%c",a,b);
-+-	fflush(stdout);
-+ 	if(NULL==(args=malloc((argc)*sizeof(char *))))
-+ 	{
-+ 		fprintf(stderr,"Virtual memory exhausted\n");
-+@@ -95,7 +81,6 @@
-+ 	args[argc-1]=NULL; /*End of params*/
-+ 	dup2(fd,0);
-+ 	dup2(fd,1);
-+-	fflush(NULL);
-+ 	if(fork())
-+ 	{
-+ 		exit(0);
-diff -r b8dd8f580a1f net/libfetch/files/ftp.c
---- a/net/libfetch/files/ftp.c	Fri May 04 03:01:29 2012 +0000
-+++ b/net/libfetch/files/ftp.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca mk/pkgformat/pkg/package.mk
+--- a/mk/pkgformat/pkg/package.mk	Fri May 04 14:07:09 2012 +0000
++++ b/mk/pkgformat/pkg/package.mk	Sat May 05 22:05:07 2012 +0000
+@@ -157,3 +157,4 @@
+ 	*)		${PKG_ADD} ${PKGFILE} ;;			\
+ 	esac
+ .endif
++	snps-pkgsrc-install
+diff -r b7cf414332ca net/libfetch/files/ftp.c
+--- a/net/libfetch/files/ftp.c	Fri May 04 14:07:09 2012 +0000
++++ b/net/libfetch/files/ftp.c	Sat May 05 22:05:07 2012 +0000
 @@ -59,8 +59,10 @@
  
  #ifdef __linux__
@@ -1234,9 +664,9 @@ diff -r b8dd8f580a1f net/libfetch/files/ftp.c
  
  #if HAVE_CONFIG_H
  #include "config.h"
-diff -r b8dd8f580a1f net/libfetch/files/http.c
---- a/net/libfetch/files/http.c	Fri May 04 03:01:29 2012 +0000
-+++ b/net/libfetch/files/http.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca net/libfetch/files/http.c
+--- a/net/libfetch/files/http.c	Fri May 04 14:07:09 2012 +0000
++++ b/net/libfetch/files/http.c	Sat May 05 22:05:07 2012 +0000
 @@ -65,8 +65,10 @@
  
  #if defined(__linux__) || defined(__MINT__)
@@ -1248,9 +678,9 @@ diff -r b8dd8f580a1f net/libfetch/files/http.c
  
  /* Needed for gmtime_r on Interix */
  #define _REENTRANT
-diff -r b8dd8f580a1f net/tightvnc/Makefile
---- a/net/tightvnc/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/net/tightvnc/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca net/tightvnc/Makefile
+--- a/net/tightvnc/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/net/tightvnc/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -28,6 +28,7 @@
  .if !empty(MACHINE_PLATFORM:MNetBSD-*-x86_64)
  _WRAP_EXTRA_ARGS.CC+=	-DDDXTIME -D_XSERVER64 -DGCCUSESGAS
@@ -1271,9 +701,9 @@ diff -r b8dd8f580a1f net/tightvnc/Makefile
  do-install:
  	${INSTALL_PROGRAM} ${WRKSRC}/Xvnc/programs/Xserver/Xvnc \
  	    ${DESTDIR}${PREFIX}/bin/Xvnc
-diff -r b8dd8f580a1f net/tnftp/files/libedit/tty.c
---- a/net/tnftp/files/libedit/tty.c	Fri May 04 03:01:29 2012 +0000
-+++ b/net/tnftp/files/libedit/tty.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca net/tnftp/files/libedit/tty.c
+--- a/net/tnftp/files/libedit/tty.c	Fri May 04 14:07:09 2012 +0000
++++ b/net/tnftp/files/libedit/tty.c	Sat May 05 22:05:07 2012 +0000
 @@ -40,6 +40,7 @@
   * tty.c: tty interface stuff
   */
@@ -1282,9 +712,9 @@ diff -r b8dd8f580a1f net/tnftp/files/libedit/tty.c
  #include "tty.h"
  #include "el.h"
  
-diff -r b8dd8f580a1f pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
---- a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
+--- a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Sat May 05 22:05:07 2012 +0000
 @@ -13,6 +13,7 @@
  .endif
  
@@ -1308,9 +738,9 @@ diff -r b8dd8f580a1f pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
  TBL?=		tbl
  
  
-diff -r b8dd8f580a1f pkgtools/libnbcompat/files/lchflags.c
---- a/pkgtools/libnbcompat/files/lchflags.c	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/libnbcompat/files/lchflags.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/libnbcompat/files/lchflags.c
+--- a/pkgtools/libnbcompat/files/lchflags.c	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/libnbcompat/files/lchflags.c	Sat May 05 22:05:07 2012 +0000
 @@ -39,6 +39,7 @@
  int
  lchflags(const char *path, unsigned long flags)
@@ -1326,9 +756,9 @@ diff -r b8dd8f580a1f pkgtools/libnbcompat/files/lchflags.c
 +#endif
 +	return -1;
  }
-diff -r b8dd8f580a1f pkgtools/libnbcompat/files/unvis.c
---- a/pkgtools/libnbcompat/files/unvis.c	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/libnbcompat/files/unvis.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/libnbcompat/files/unvis.c
+--- a/pkgtools/libnbcompat/files/unvis.c	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/libnbcompat/files/unvis.c	Sat May 05 22:05:07 2012 +0000
 @@ -83,6 +83,8 @@
  #define	isoctal(c)	(((unsigned char)(c)) >= '0' && ((unsigned char)(c)) <= '7')
  #define xtod(c)		(isdigit(c) ? (c - '0') : ((tolower(c) - 'a') + 10))
@@ -1338,9 +768,9 @@ diff -r b8dd8f580a1f pkgtools/libnbcompat/files/unvis.c
  int
  unvis(cp, c, astate, flag)
  	char *cp;
-diff -r b8dd8f580a1f pkgtools/pkg_install-info/files/install-info.c
---- a/pkgtools/pkg_install-info/files/install-info.c	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/install-info.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/pkg_install-info/files/install-info.c
+--- a/pkgtools/pkg_install-info/files/install-info.c	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/pkg_install-info/files/install-info.c	Sat May 05 22:05:07 2012 +0000
 @@ -21,6 +21,8 @@
  #include "system.h"
  #include <getopt.h>
@@ -1350,9 +780,9 @@ diff -r b8dd8f580a1f pkgtools/pkg_install-info/files/install-info.c
  static char *progname = "install-info";
  
  int menu_line_equal (), menu_line_lessp ();
-diff -r b8dd8f580a1f pkgtools/pkg_install-info/files/system.h
---- a/pkgtools/pkg_install-info/files/system.h	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/system.h	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/pkg_install-info/files/system.h
+--- a/pkgtools/pkg_install-info/files/system.h	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/pkg_install-info/files/system.h	Sat May 05 22:05:07 2012 +0000
 @@ -21,7 +21,9 @@
  #ifndef TEXINFO_SYSTEM_H
  #define TEXINFO_SYSTEM_H
@@ -1363,9 +793,9 @@ diff -r b8dd8f580a1f pkgtools/pkg_install-info/files/system.h
  
  #include <config.h>
  
-diff -r b8dd8f580a1f pkgtools/pkg_install-info/files/xexit.c
---- a/pkgtools/pkg_install-info/files/xexit.c	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/xexit.c	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/pkg_install-info/files/xexit.c
+--- a/pkgtools/pkg_install-info/files/xexit.c	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/pkg_install-info/files/xexit.c	Sat May 05 22:05:07 2012 +0000
 @@ -19,6 +19,8 @@
  
  #include "system.h"
@@ -1375,9 +805,9 @@ diff -r b8dd8f580a1f pkgtools/pkg_install-info/files/xexit.c
  /* SunOS 4.1.1 gets STDC_HEADERS defined, but it doesn't provide
     EXIT_FAILURE.  So far no system has defined one of EXIT_FAILURE and
     EXIT_SUCCESS without the other.  */
-diff -r b8dd8f580a1f pkgtools/pkg_install/files/add/Makefile.in
---- a/pkgtools/pkg_install/files/add/Makefile.in	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/pkg_install/files/add/Makefile.in	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/pkg_install/files/add/Makefile.in
+--- a/pkgtools/pkg_install/files/add/Makefile.in	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/pkg_install/files/add/Makefile.in	Sat May 05 22:05:07 2012 +0000
 @@ -22,7 +22,7 @@
  
  LIBS=		-linstall -lfetch
@@ -1387,9 +817,9 @@ diff -r b8dd8f580a1f pkgtools/pkg_install/files/add/Makefile.in
  .endif
  LIBS+=		@LIBS@
  
-diff -r b8dd8f580a1f pkgtools/pkg_install/files/admin/Makefile.in
---- a/pkgtools/pkg_install/files/admin/Makefile.in	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/pkg_install/files/admin/Makefile.in	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/pkg_install/files/admin/Makefile.in
+--- a/pkgtools/pkg_install/files/admin/Makefile.in	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/pkg_install/files/admin/Makefile.in	Sat May 05 22:05:07 2012 +0000
 @@ -30,7 +30,7 @@
  .if empty(BOOTSTRAP)
  LIBS=		-linstall -lfetch
@@ -1399,9 +829,9 @@ diff -r b8dd8f580a1f pkgtools/pkg_install/files/admin/Makefile.in
  CFLAGS+=	-DHAVE_SSL
  .endif
  LIBS+=		@LIBS@
-diff -r b8dd8f580a1f pkgtools/pkg_install/files/info/Makefile.in
---- a/pkgtools/pkg_install/files/info/Makefile.in	Fri May 04 03:01:29 2012 +0000
-+++ b/pkgtools/pkg_install/files/info/Makefile.in	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/pkg_install/files/info/Makefile.in
+--- a/pkgtools/pkg_install/files/info/Makefile.in	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/pkg_install/files/info/Makefile.in	Sat May 05 22:05:07 2012 +0000
 @@ -19,7 +19,7 @@
  .if empty(BOOTSTRAP)
  LIBS=		-linstall -lfetch @LIBS@
@@ -1411,9 +841,20 @@ diff -r b8dd8f580a1f pkgtools/pkg_install/files/info/Makefile.in
  .endif
  CPPFLAGS=	@CPPFLAGS@ -I. -I$(srcdir) -I../lib
  .else
-diff -r b8dd8f580a1f security/libgpg-error/PLIST
---- a/security/libgpg-error/PLIST	Fri May 04 03:01:29 2012 +0000
-+++ b/security/libgpg-error/PLIST	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca pkgtools/pkg_install/files/lib/dewey.c
+--- a/pkgtools/pkg_install/files/lib/dewey.c	Fri May 04 14:07:09 2012 +0000
++++ b/pkgtools/pkg_install/files/lib/dewey.c	Sat May 05 22:05:07 2012 +0000
+@@ -39,6 +39,7 @@
+ #if HAVE_STDLIB_H
+ #include <stdlib.h>
+ #endif
++#include <unistd.h> /* for ssize_t */
+ 
+ #include "defs.h"
+ #include "dewey.h"
+diff -r b7cf414332ca security/libgpg-error/PLIST
+--- a/security/libgpg-error/PLIST	Fri May 04 14:07:09 2012 +0000
++++ b/security/libgpg-error/PLIST	Sat May 05 22:05:07 2012 +0000
 @@ -8,13 +8,3 @@
  share/common-lisp/source/gpg-error/gpg-error-package.lisp
  share/common-lisp/source/gpg-error/gpg-error.asd
@@ -1428,9 +869,9 @@ diff -r b8dd8f580a1f security/libgpg-error/PLIST
 -share/locale/sv/LC_MESSAGES/libgpg-error.mo
 -share/locale/vi/LC_MESSAGES/libgpg-error.mo
 -share/locale/zh_CN/LC_MESSAGES/libgpg-error.mo
-diff -r b8dd8f580a1f security/openssl/Makefile
---- a/security/openssl/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/security/openssl/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca security/openssl/Makefile
+--- a/security/openssl/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/security/openssl/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -61,6 +61,7 @@
  # back to ./config's autodetection if not.
  .  if defined(OPENSSL_MACHINE_ARCH) && !empty(OPENSSL_MACHINE_ARCH)
@@ -1457,9 +898,22 @@ diff -r b8dd8f580a1f security/openssl/Makefile
 +	sed -i 's/\!defined(_UNICOS)/0/' ${WRKSRC}/apps/speed.c
 +	
  .include "../../mk/bsd.pkg.mk"
-diff -r b8dd8f580a1f shells/dash/Makefile
---- a/shells/dash/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/shells/dash/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca shells/bash/Makefile
+--- a/shells/bash/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/shells/bash/Makefile	Sat May 05 22:05:07 2012 +0000
+@@ -78,6 +78,9 @@
+ .include "../../devel/readline/buildlink3.mk"
+ .endif
+ 
++# [Gregor] mischeck for musl, safe everywhere
++CONFIGURE_ARGS+=		--without-bash-malloc
++
+ post-install:
+ 	${INSTALL_MAN} ${WRKSRC}/doc/bash.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+ 	${INSTALL_MAN} ${WRKSRC}/doc/bashbug.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+diff -r b7cf414332ca shells/dash/Makefile
+--- a/shells/dash/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/shells/dash/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -16,4 +16,6 @@
  USE_TOOLS+=		gmake
  PKG_SHELL=		bin/dash
@@ -1467,9 +921,56 @@ diff -r b8dd8f580a1f shells/dash/Makefile
 +CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DEXECCMD=1 -DCOMMANDCMD=2"
 +
  .include "../../mk/bsd.pkg.mk"
-diff -r b8dd8f580a1f textproc/groff/PLIST
---- a/textproc/groff/PLIST	Fri May 04 03:01:29 2012 +0000
-+++ b/textproc/groff/PLIST	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca sysutils/coreutils/Makefile
+--- a/sysutils/coreutils/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/sysutils/coreutils/Makefile	Sat May 05 22:05:07 2012 +0000
+@@ -39,6 +39,8 @@
+ #MESSAGE_SUBST+=	OPSYS=${OPSYS:Q}
+ #.endif
+ 
++CFLAGS+=		-DSLOW_BUT_NO_HACKS
++
+ .include "../../converters/libiconv/buildlink3.mk"
+ .include "../../devel/gettext-lib/buildlink3.mk"
+ .include "../../mk/bsd.pkg.mk"
+diff -r b7cf414332ca sysutils/coreutils/distinfo
+--- a/sysutils/coreutils/distinfo	Fri May 04 14:07:09 2012 +0000
++++ b/sysutils/coreutils/distinfo	Sat May 05 22:05:07 2012 +0000
+@@ -5,3 +5,4 @@
+ Size (coreutils-8.13.tar.gz) = 11660808 bytes
+ SHA1 (patch-lib-fflush.c) = e52e0da2127c5debbb14e967b1e206226efdaa4a
+ SHA1 (patch-lib-fseeko.c) = ab62b8c7faa9a601191475c040c7466e1bd52fe1
++SHA1 (patch-aq) = 02186df2372b3317cc2df6a8230cc198ac3eb4e9
+diff -r b7cf414332ca sysutils/coreutils/patches/patch-aq
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/sysutils/coreutils/patches/patch-aq	Sat May 05 22:05:07 2012 +0000
+@@ -0,0 +1,23 @@
++diff -r fb0a1c120d18 lib/fseterr.c
++--- lib/fseterr.c	Sat May 05 16:00:33 2012 +0000
+++++ lib/fseterr.c	Sat May 05 16:05:52 2012 +0000
++@@ -71,6 +71,6 @@
++     }
++   errno = saved_errno;
++ #else
++- #error "Please port gnulib fseterr.c to your platform! Look at the definitions of ferror and clearerr on your system, then report this to bug-gnulib."
+++  return 1;
++ #endif
++ }
++diff -r fb0a1c120d18 src/dd.c
++--- src/dd.c	Sat May 05 16:00:33 2012 +0000
+++++ src/dd.c	Sat May 05 16:05:52 2012 +0000
++@@ -1375,7 +1375,7 @@
++    The offending behavior has been confirmed with an Exabyte SCSI tape
++    drive accessed via /dev/nst0 on both Linux 2.2.17 and 2.4.16 kernels.  */
++ 
++-#ifdef __linux__
+++#if 0
++ 
++ # include <sys/mtio.h>
++ 
+diff -r b7cf414332ca textproc/groff/PLIST
+--- a/textproc/groff/PLIST	Fri May 04 14:07:09 2012 +0000
++++ b/textproc/groff/PLIST	Sat May 05 22:05:07 2012 +0000
 @@ -15,9 +15,6 @@
  bin/grops
  bin/grotty
@@ -1505,9 +1006,9 @@ diff -r b8dd8f580a1f textproc/groff/PLIST
  man/man1/addftinfo.1
  man/man1/afmtodit.1
  man/man1/chem.1
-diff -r b8dd8f580a1f textproc/libxml2/Makefile
---- a/textproc/libxml2/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/textproc/libxml2/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca textproc/libxml2/Makefile
+--- a/textproc/libxml2/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/textproc/libxml2/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -24,6 +24,7 @@
  CONFIGURE_ARGS+=	--with-iconv=${BUILDLINK_PREFIX.iconv}
  CONFIGURE_ARGS+=	--with-html-subdir=libxml2
@@ -1526,9 +1027,9 @@ diff -r b8dd8f580a1f textproc/libxml2/Makefile
  .include "../../mk/pthread.buildlink3.mk"
  .include "../../devel/zlib/buildlink3.mk"
  .include "../../converters/libiconv/buildlink3.mk"
-diff -r b8dd8f580a1f wm/bsetroot/PLIST
---- a/wm/bsetroot/PLIST	Fri May 04 03:01:29 2012 +0000
-+++ b/wm/bsetroot/PLIST	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca wm/bsetroot/PLIST
+--- a/wm/bsetroot/PLIST	Fri May 04 14:07:09 2012 +0000
++++ b/wm/bsetroot/PLIST	Sat May 05 22:05:07 2012 +0000
 @@ -3,37 +3,3 @@
  bin/bsetroot
  man/man1/bsetbg.1
@@ -1567,9 +1068,9 @@ diff -r b8dd8f580a1f wm/bsetroot/PLIST
 -share/bsetroot/nls/uk_UA/blackbox.cat
 -share/bsetroot/nls/zh_CN/blackbox.cat
 -share/bsetroot/nls/zh_TW/blackbox.cat
-diff -r b8dd8f580a1f x11/libFS/Makefile
---- a/x11/libFS/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/x11/libFS/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca x11/libFS/Makefile
+--- a/x11/libFS/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/x11/libFS/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -25,6 +25,8 @@
  CONFIGURE_ARGS+=	--disable-malloc0returnsnull
  .endif
@@ -1579,9 +1080,9 @@ diff -r b8dd8f580a1f x11/libFS/Makefile
  .include "../../x11/fontsproto/buildlink3.mk"
  .include "../../x11/xproto/buildlink3.mk"
  .include "../../x11/xtrans/buildlink3.mk"
-diff -r b8dd8f580a1f x11/libXfont/Makefile
---- a/x11/libXfont/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/x11/libXfont/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca x11/libXfont/Makefile
+--- a/x11/libXfont/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/x11/libXfont/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -20,6 +20,7 @@
  PKGCONFIG_OVERRIDE+=	xfont.pc.in
  
@@ -1590,9 +1091,9 @@ diff -r b8dd8f580a1f x11/libXfont/Makefile
  
  .include "../../devel/zlib/buildlink3.mk"
  .include "../../graphics/freetype2/buildlink3.mk"
-diff -r b8dd8f580a1f x11/libxcb/Makefile
---- a/x11/libxcb/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/x11/libxcb/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca x11/libxcb/Makefile
+--- a/x11/libxcb/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/x11/libxcb/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -74,6 +74,8 @@
  
  PYTHON_VERSIONS_ACCEPTED= 27 26 25
@@ -1602,9 +1103,9 @@ diff -r b8dd8f580a1f x11/libxcb/Makefile
  post-extract:
  	${CHMOD} -R go-w ${WRKSRC}
  
-diff -r b8dd8f580a1f x11/pixman/Makefile
---- a/x11/pixman/Makefile	Fri May 04 03:01:29 2012 +0000
-+++ b/x11/pixman/Makefile	Fri May 04 03:35:16 2012 +0000
+diff -r b7cf414332ca x11/pixman/Makefile
+--- a/x11/pixman/Makefile	Fri May 04 14:07:09 2012 +0000
++++ b/x11/pixman/Makefile	Sat May 05 22:05:07 2012 +0000
 @@ -42,5 +42,8 @@
  post-extract:
  	${CP} ${FILESDIR}/pixman.sym ${WRKDIR}

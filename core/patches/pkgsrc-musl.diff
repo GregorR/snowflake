@@ -642,14 +642,6 @@ diff -r b7cf414332ca misc/pty-redir/patches/patch-aq
 + 	if(fork())
 + 	{
 + 		exit(0);
-diff -r b7cf414332ca mk/pkgformat/pkg/package.mk
---- a/mk/pkgformat/pkg/package.mk	Fri May 04 14:07:09 2012 +0000
-+++ b/mk/pkgformat/pkg/package.mk	Sat May 05 22:05:07 2012 +0000
-@@ -157,3 +157,4 @@
- 	*)		${PKG_ADD} ${PKGFILE} ;;			\
- 	esac
- .endif
-+	snps-pkgsrc-install
 diff -r b7cf414332ca net/libfetch/files/ftp.c
 --- a/net/libfetch/files/ftp.c	Fri May 04 14:07:09 2012 +0000
 +++ b/net/libfetch/files/ftp.c	Sat May 05 22:05:07 2012 +0000

@@ -67,8 +67,8 @@ then
 fi
 
 case "$ARCH" in
-    x86_64) LINUX_ARCH=x86_64 ;;
-    *) LINUX_ARCH=i386 ;;
+    i*86) LINUX_ARCH=i386 ;;
+    *) LINUX_ARCH="$ARCH" ;;
 esac
 export LINUX_ARCH
 

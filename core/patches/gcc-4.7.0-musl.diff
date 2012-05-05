@@ -189,6 +189,21 @@ diff --git a/libgomp/config/posix/time.c b/libgomp/config/posix/time.c
  #include "libgomp.h"
  #include <unistd.h>
  #if TIME_WITH_SYS_TIME
+diff --git a/libitm/config/arm/hwcap.cc b/libitm/config/arm/hwcap.cc
+--- a/libitm/config/arm/hwcap.cc
++++ b/libitm/config/arm/hwcap.cc
+@@ -40,7 +40,11 @@
+ 
+ #ifdef __linux__
+ #include <unistd.h>
++#ifdef __GLIBC__
+ #include <sys/fcntl.h>
++#else
++#include <fcntl.h>
++#endif
+ #include <elf.h>
+ 
+ static void __attribute__((constructor))
 diff --git a/libitm/config/linux/x86/tls.h b/libitm/config/linux/x86/tls.h
 --- a/libitm/config/linux/x86/tls.h
 +++ b/libitm/config/linux/x86/tls.h

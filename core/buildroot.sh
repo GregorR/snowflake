@@ -43,7 +43,15 @@ fi
 
 # linux headers
 fetchextract http://www.kernel.org/pub/linux/kernel/v3.0/ linux-$LINUX_HEADERS_VERSION .tar.bz2
-cp "$SNOWFLAKE_BASE/config/linux.config" linux-$LINUX_HEADERS_VERSION/.config
+if [ ! -e linux-$LINUX_HEADERS_VERSION/configured ]
+then
+    pushd linux-$LINUX_HEADERS_VERSION
+    make defconfig ARCH=$LINUX_ARCH
+    cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
+    yes '' | make oldconfig ARCH=$LINUX_ARCH
+    touch configured
+    popd
+fi
 if [ ! -e linux-$LINUX_HEADERS_VERSION/installedrootheaders ]
 then
     pushd linux-$LINUX_HEADERS_VERSION
@@ -80,7 +88,7 @@ fetchextract http://busybox.net/downloads/ busybox-$BUSYBOX_VERSION .tar.bz2
 patch_source busybox-$BUSYBOX_VERSION
 cp "$SNOWFLAKE_BASE/config/busybox.config" busybox-$BUSYBOX_VERSION/.config
 buildmake busybox-$BUSYBOX_VERSION LDFLAGS=-static \
-    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc"
+    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip"
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr/sbin" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr"
@@ -181,7 +189,21 @@ rm -rf "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fi
 
 # kernel
 gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION
-cp "$SNOWFLAKE_BASE/config/linux.config" aufs3-linux-$LINUX_VERSION/.config
+if [ ! -e aufs3-linux-$LINUX_VERSION/configured ]
+then
+    pushd aufs3-linux-$LINUX_VERSION
+    make defconfig ARCH=$LINUX_ARCH
+    cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
+    yes '' | make oldconfig ARCH=$LINUX_ARCH
+    touch configured
+    popd
+fi
+if [ ! -e aufs3-linux-$LINUX_VERSION/configured ]
+then
+    yes '' | buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE- oldconfig
+    rm -f aufs3-linux-$LINUX_VERSION/built
+    touch aufs3-linux-$LINUX_VERSION/configured
+fi
 buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE-
 if [ ! -e "$SNOWFLAKE_PREFIX/boot/vmlinuz" ]
 then
@@ -256,6 +278,10 @@ then
     $SUDO touch "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/.usr_ok"
 fi
 
-# actually perform the linking
-$SUDO chroot "$SNOWFLAKE_PREFIX" /pkg/busybox/$BUSYBOX_VERSION/usr/bin/sh \
-    /pkg/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-quicklink
+# actually perform the linking (do this in multiple steps so we can cross-setup)
+echo '#!/pkg/busybox/'$BUSYBOX_VERSION'/usr/bin/sh
+exec /pkg/busybox/'$BUSYBOX_VERSION'/usr/bin/sh /pkg/quicklink/'$QUICKLINK_VERSION'/usr/bin/snowflake-quicklink' \
+    > "$SNOWFLAKE_PREFIX/setup_usr.sh"
+chmod a+x "$SNOWFLAKE_PREFIX/setup_usr.sh"
+$SUDO chroot "$SNOWFLAKE_PREFIX" /setup_usr.sh
+rm -f "$SNOWFLAKE_PREFIX/setup_usr.sh"

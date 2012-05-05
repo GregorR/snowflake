@@ -41,7 +41,15 @@ buildinstall 1 gcc-$GCC_VERSION --target=$TRIPLE \
 
 # linux headers
 fetchextract http://www.kernel.org/pub/linux/kernel/v3.0/ linux-$LINUX_HEADERS_VERSION .tar.bz2
-cp "$SNOWFLAKE_BASE/config/linux.config" linux-$LINUX_HEADERS_VERSION/.config
+if [ ! -e linux-$LINUX_HEADERS_VERSION/configured ]
+then
+    pushd linux-$LINUX_HEADERS_VERSION
+    make defconfig ARCH=$LINUX_ARCH
+    cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
+    yes '' | make oldconfig ARCH=$LINUX_ARCH
+    touch configured
+    popd
+fi
 if [ ! -e linux-$LINUX_HEADERS_VERSION/installedheaders ]
 then
     pushd linux-$LINUX_HEADERS_VERSION

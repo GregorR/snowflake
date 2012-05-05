@@ -174,7 +174,7 @@ int main(int argc, char **argv)
             perror("/usr");
     } else {
         tmpi = mount("none", BASE, "aufs", mountflags, options.buf);
-        if (mountflags & MS_REMOUNT) {
+        if (tmpi == -1 && (mountflags & MS_REMOUNT)) {
             /* OK, we tried to remount, maybe it just wasn't mounted though */
             mountflags &= ~(MS_REMOUNT);
             tmpi = mount("none", BASE, "aufs", mountflags, options.buf);

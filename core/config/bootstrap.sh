@@ -58,6 +58,12 @@ NOGCCERROR=yes
 # Using /usr as pkgsrc'\''s install prefix breaks some tests, so insist that these are builtin
 IS_BUILTIN.dl=yes
 IS_BUILTIN.pthread=yes
+
+# Some defaults that work better on Snowflake
+FAM_DEFAULT=gamin
+PAM_DEFAULT=openpam
+PKG_OPTIONS.xfce4-exo=-hal
+PKG_OPTIONS.xfce4-thunar=-hal
 ' >> \
         /pkg/pkgsrc/PKGSRC_VERSION/usr/etc/mk.conf
     echo -e '\tsnps-pkgsrc-install' >> /var/pkgsrc/mk/pkgformat/pkg/package.mk

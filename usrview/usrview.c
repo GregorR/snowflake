@@ -172,7 +172,7 @@ int main(int argc, char **argv)
         }
 
         /* remaining mounts */
-        for (i = 1; tmpi != -1 && i < rpaths.bufused; i++) {
+        for (i = 0; tmpi != -1 && i < rpaths.bufused; i++) {
             if (!rpaths.buf[i]) continue;
             options.bufused = 0;
             WRITE_STR_BUFFER(options, "append:");

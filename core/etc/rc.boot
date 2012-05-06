@@ -16,11 +16,18 @@ swapon -a
 hostname $(cat /etc/hostname)
 ifconfig lo up
 
-# basic filesystems
+# /
 mount -o remount,ro /
 fsck -A -T -C -p
-mkdir -p /dev/shm /dev/pts
 mount -o remount,rw /
+
+# /dev filesystems
+mount -t devtmpfs dev /dev
+mkdir -p /dev/shm /dev/pts /tmp/usr
+mount -t tmpfs -o nodev,nosuid devshm /dev/shm
+mount -t devpts devpts /dev/pts
+
+# and the rest
 mount -a
 mkdir /tmp/usr
 

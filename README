@@ -51,3 +51,5 @@ Snowflake supports the NetBSD pkgsrc as a source of packages. The integration
 is imperfect but working. To include pkgsrc, set WITH_PKGSRC=yes in your
 config.sh. To use it, just `with pkgsrc` then build in /var/pkgsrc.
 Installation will automatically go into separated packages in /pkg.
+
+The default root password is "snowflake".

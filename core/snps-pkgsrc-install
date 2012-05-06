@@ -10,4 +10,9 @@ set -ex
 [ ! -e /pkg/$SNPS_PKG/$SNPS_PKG_VER ]
 echo $SNPS_DEPENDS > /pkg/$SNPS_PKG/a.$SNPS_PKG_VER/deps
 mv /pkg/$SNPS_PKG/a.$SNPS_PKG_VER /pkg/$SNPS_PKG/$SNPS_PKG_VER
+if [ -e "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr" ]
+then
+    chmod -R a-w "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr"
+    [ -e "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr/etc" ] && chmod -R u+w "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr/etc"
+fi
 snps-update-tools-list

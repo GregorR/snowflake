@@ -1028,18 +1028,6 @@ diff -r b7cf414332ca print/a2ps/patches/patch-qq
 + /* char *malloc (); */
 + 
 + #ifndef DIRECTORY_SEPARATOR
-diff -r b7cf414332ca security/dropbear/Makefile
---- a/security/dropbear/Makefile	Fri May 04 14:07:09 2012 +0000
-+++ b/security/dropbear/Makefile	Sun May 06 13:12:36 2012 +0000
-@@ -53,6 +53,8 @@
- 
- BUILD_TARGET=		all scp
- 
-+CONFIGURE_ARGS+=	--disable-lastlog
-+
- post-install:
- 	${INSTALL_MAN} ${WRKSRC}/dbclient.1 \
- 		${DESTDIR}/${PREFIX}/${PKGMANDIR}/man1
 diff -r b7cf414332ca security/libgpg-error/PLIST
 --- a/security/libgpg-error/PLIST	Fri May 04 14:07:09 2012 +0000
 +++ b/security/libgpg-error/PLIST	Sun May 06 13:12:36 2012 +0000

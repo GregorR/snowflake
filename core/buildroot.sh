@@ -68,12 +68,12 @@ fi
 PREFIX="/"
 export PREFIX
 fetchextract http://www.etalabs.net/musl/releases/ musl-$MUSL_VERSION .tar.gz
-cp "$SNOWFLAKE_BASE/config/musl.config.mak" musl-$MUSL_VERSION/config.mak
-buildmake musl-$MUSL_VERSION
-doinstall '' musl-$MUSL_VERSION DESTDIR="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr"
+CC="$TRIPLE-gcc" DESTDIR="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr" \
+    buildinstall '' musl-$MUSL_VERSION
 rm -rf "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin" # No musl-gcc needed or wanted
 echo linux-headers > "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/deps"
 unset PREFIX
+PREFIX="$CC_PREFIX"
 
 # fake ldd (remove this when musl has its own)
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/ldd/$LDD_VERSION/usr/bin/ldd" ]

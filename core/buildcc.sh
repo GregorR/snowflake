@@ -59,12 +59,10 @@ then
 fi
 
 # musl in CC prefix
-PREFIX="$CC_PREFIX/$TRIPLE"
+PREFIX="/"
 export PREFIX
 fetchextract http://www.etalabs.net/musl/releases/ musl-$MUSL_VERSION .tar.gz
-cp "$SNOWFLAKE_BASE/config/musl.config.mak" musl-$MUSL_VERSION/config.mak
-buildmake musl-$MUSL_VERSION
-doinstall '' musl-$MUSL_VERSION
+CC="$TRIPLE-gcc" DESTDIR="$CC_PREFIX/$TRIPLE" buildinstall '' musl-$MUSL_VERSION
 unset PREFIX
 PREFIX="$CC_PREFIX"
 

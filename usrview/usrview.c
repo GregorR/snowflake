@@ -38,19 +38,6 @@
 #define WRITE_STR_BUFFER(buf, str) \
     WRITE_BUFFER(buf, str, sizeof(str)-1)
 
-#ifndef __GLIBC__
-/* FIXME: we shouldn't need this, once musl gets it */
-static int unshare(int flags)
-{
-    int ret = syscall(SYS_unshare, flags);
-    if (ret < 0) {
-        errno = -ret;
-        ret = -1;
-    }
-    return ret;
-}
-#endif
-
 BUFFER(charp, char *);
 
 void validatePath(char **path);

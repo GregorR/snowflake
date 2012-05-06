@@ -47,10 +47,6 @@ build scripts in core/, in this order:
 It is possible to build out-of-source. To do so, set the environment variable
 SNOWFLAKE_BASE to the absolute path of core/, then run the scripts as usual.
 
-As aufs can sometimes be buggy and cause instability, I would recommend you not
-do too much from the host. Get your filesystem into an HD image, then run it in
-a VM.
-
 Snowflake supports the NetBSD pkgsrc as a source of packages. The integration
 is imperfect but working. To include pkgsrc, set WITH_PKGSRC=yes in your
 config.sh. To use it, just `with pkgsrc` then build in /var/pkgsrc.

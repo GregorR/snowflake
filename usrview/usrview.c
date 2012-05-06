@@ -140,20 +140,7 @@ int main(int argc, char **argv)
         }
     }
 
-    /* generate our options string */
-    INIT_BUFFER(options);
-    WRITE_STR_BUFFER(options, "br=");
-    WRITE_BUFFER(options, wpath, strlen(wpath));
-    for (i = 0; i < rpaths.bufused; i++) {
-        arg = rpaths.buf[i];
-        if (arg) {
-            WRITE_STR_BUFFER(options, ":");
-            WRITE_BUFFER(options, arg, strlen(arg));
-            if (!userwpath)
-                WRITE_STR_BUFFER(options, "=rw");
-        }
-    }
-    WRITE_STR_BUFFER(options, "\0");
+    /* are we trying to clear /usr? */
     if (rpaths.bufused == 1) {
         /* no options = unmount all */
         if (!allowclear) {
@@ -173,22 +160,41 @@ int main(int argc, char **argv)
         if (errno != EINVAL)
             perror("/usr");
     } else {
+        /* first mount */
+        INIT_BUFFER(options);
+        WRITE_STR_BUFFER(options, "br:");
+        WRITE_BUFFER(options, wpath, strlen(wpath) + 1);
         tmpi = mount("none", BASE, "aufs", mountflags, options.buf);
         if (tmpi == -1 && (mountflags & MS_REMOUNT)) {
             /* OK, we tried to remount, maybe it just wasn't mounted though */
             mountflags &= ~(MS_REMOUNT);
             tmpi = mount("none", BASE, "aufs", mountflags, options.buf);
         }
+
+        /* remaining mounts */
+        for (i = 1; tmpi != -1 && i < rpaths.bufused; i++) {
+            if (!rpaths.buf[i]) continue;
+            options.bufused = 0;
+            WRITE_STR_BUFFER(options, "append:");
+            WRITE_BUFFER(options, rpaths.buf[i], strlen(rpaths.buf[i]));
+            if (!userwpath)
+                WRITE_STR_BUFFER(options, "=rw");
+            WRITE_STR_BUFFER(options, "\0");
+            tmpi = mount("none", BASE, "aufs", mountflags|MS_REMOUNT, options.buf);
+        }
+
         if (tmpi == -1) {
             perror("mount");
             return 1;
         }
     }
-    FREE_BUFFER(options);
 
     /* drop privs */
     SF(tmpi, setuid, -1, (getuid()));
     SF(tmpi, setgid, -1, (getgid()));
+
+    /* free our mount options */
+    FREE_BUFFER(options);
 
     /* add it to the environment */
     INIT_BUFFER(options);

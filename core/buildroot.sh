@@ -185,7 +185,15 @@ echo binutils > "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/deps"
 unset PREFIX
 
 # un"fix" headers
-rm -rf "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/
+if [ -e "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/ ]
+then
+    pushd "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/
+    for file in *
+    do
+        [ "$file" != "limits.h" -a "$file" != "syslimits.h" ] && rm -rf $file
+    done
+    popd
+fi
 
 # kernel
 gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION

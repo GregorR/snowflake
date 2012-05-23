@@ -1,7 +1,7 @@
 This is Snowflake, a highly experimental Linux distribution based on the musl C
 library, with a per-process view of the /usr filesystem, such that users may
 choose to have different perceptions of which packages are available on the
-system.
+system. Snowflake runs on i[3456]86, x86_64 and ARM.
 
 Within Snowflake, users may choose to change their view of which packages and
 versions are installed. For instance, if you do not expose gcc in the default
@@ -53,3 +53,31 @@ config.sh. To use it, just `with pkgsrc` then build in /var/pkgsrc.
 Installation will automatically go into separated packages in /pkg.
 
 The default root password is "snowflake".
+
+
+Snowflake can run on ARM, though in a fairly limited fashion. To cross-compile
+Snowflake for ARM:
+
+* Your config.sh must specify ARCH=arm and TRIPLE=arm-pc-linux-musleabi . Note
+  "eabi", it's important.
+
+* Up to buildroot is as normal. After buildroot asks you to sudo, it will have
+  some errors. These are normal.
+
+* Use mk-hd-image.sh to create an image, even though it hasn't been finalized
+  or bootstrap.
+
+* The image is usable in qemu like so:
+  qemu-system-arm -M vexpress-a9 -kernel vmlinuz \
+  -append "console=tty0 root=b302 rw" -sd snowflake.img
+
+* On the first boot, you will need to add an extra flag to -append:
+  init=/pkg/busybox/1.19.4/usr/bin/sh
+  (Update the version as appropriate)
+  Then finish setting up the system like so:
+  # /setup_usr.sh
+  # mount /proc
+  # mount -o remount,ro /
+  # sync
+
+* Finally, run /src/bootstrap.sh to finish bootstrapping.

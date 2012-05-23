@@ -200,17 +200,17 @@ gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $L
 if [ ! -e aufs3-linux-$LINUX_VERSION/configured ]
 then
     pushd aufs3-linux-$LINUX_VERSION
-    make defconfig ARCH=$LINUX_ARCH
+    EXTRA_FLAGS=
+    if [ "$LINUX_ARCH" = "arm" ]
+    then
+        EXTRA_FLAGS="KBUILD_DEFCONFIG=vexpress_defconfig"
+    fi
+    make defconfig ARCH=$LINUX_ARCH $EXTRA_FLAGS
+    unset EXTRA_FLAGS
     cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
     yes '' | make oldconfig ARCH=$LINUX_ARCH
     touch configured
     popd
-fi
-if [ ! -e aufs3-linux-$LINUX_VERSION/configured ]
-then
-    yes '' | buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE- oldconfig
-    rm -f aufs3-linux-$LINUX_VERSION/built
-    touch aufs3-linux-$LINUX_VERSION/configured
 fi
 buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE-
 if [ ! -e "$SNOWFLAKE_PREFIX/boot/vmlinuz" ]

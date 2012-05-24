@@ -55,8 +55,10 @@ Installation will automatically go into separated packages in /pkg.
 The default root password is "snowflake".
 
 
-Snowflake can run on ARM, though in a fairly limited fashion. To cross-compile
-Snowflake for ARM:
+Snowflake can run on ARM, though in a fairly limited fashion and without some
+vital tools. Due to bugs at various layers, support is very preliminary. A
+native compile on an ARM system should work just like a native compile on any
+other system. To cross-compile Snowflake for ARM:
 
 * Your config.sh must specify ARCH=arm and TRIPLE=arm-pc-linux-musleabi . Note
   "eabi", it's important.
@@ -80,4 +82,5 @@ Snowflake for ARM:
   # mount -o remount,ro /
   # sync
 
-* Finally, run /src/bootstrap.sh to finish bootstrapping.
+* Finally, run /src/bootstrap.sh to finish bootstrapping. This will not yet
+  work, but it's what you would do if it did work.

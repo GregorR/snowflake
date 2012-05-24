@@ -67,7 +67,7 @@ then
 fi
 PREFIX="/"
 export PREFIX
-fetchextract http://www.etalabs.net/musl/releases/ musl-$MUSL_VERSION .tar.gz
+muslfetchextract
 CC="$TRIPLE-gcc" DESTDIR="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr" \
     buildinstall '' musl-$MUSL_VERSION
 rm -rf "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin" # No musl-gcc needed or wanted

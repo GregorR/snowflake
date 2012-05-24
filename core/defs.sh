@@ -45,7 +45,6 @@ LINUX_VERSION=6ee00da3eefd493456259fe774a74dfb12c49152
 MAKE_VERSION=3.82
 MPC_VERSION=0.9
 MPFR_VERSION=3.1.0
-MUSL_VERSION=0.9.0
 NCURSES_VERSION=5.9
 PKGRESOLVE_VERSION=0.1
 PKGSRC_VERSION=2012Q1
@@ -54,7 +53,19 @@ SED_VERSION=4.2.1
 SNPS_VERSION=0.1
 USRVIEW_VERSION=0.1
 
+MUSL_DEFAULT_VERSION=0.9.9
+MUSL_GIT_VERSION=c37afdfdf393261e18364aed52571d0a5b01104
+MUSL_VERSION="$MUSL_DEFAULT_VERSION"
+MUSL_GIT=no
+
 . config.sh
+
+# Use musl git version on ARM, as 0.9.0 isn't new enough
+if [ "$ARCH" = "arm" -a "$MUSL_VERSION" = "$MUSL_DEFAULT_VERSION" ]
+then
+    MUSL_VERSION="$MUSL_GIT_VERSION"
+    MUSL_GIT=yes
+fi
 
 PATH="$CC_PREFIX/bin:$PATH"
 export PATH
@@ -113,6 +124,15 @@ gitfetchextract() {
         extract "$3".tar.gz extracted
         touch extracted
         popd
+    fi
+}
+
+muslfetchextract() {
+    if [ "$MUSL_GIT" = "yes" ]
+    then
+        gitfetchextract 'git://repo.or.cz/musl.git' $MUSL_VERSION musl-$MUSL_VERSION
+    else
+        fetchextract http://www.etalabs.net/musl/releases/ musl-$MUSL_VERSION .tar.gz
     fi
 }
 

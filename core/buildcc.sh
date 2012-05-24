@@ -61,7 +61,7 @@ fi
 # musl in CC prefix
 PREFIX="/"
 export PREFIX
-fetchextract http://www.etalabs.net/musl/releases/ musl-$MUSL_VERSION .tar.gz
+muslfetchextract
 CC="$TRIPLE-gcc" DESTDIR="$CC_PREFIX/$TRIPLE" buildinstall '' musl-$MUSL_VERSION
 unset PREFIX
 PREFIX="$CC_PREFIX"

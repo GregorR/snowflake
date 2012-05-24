@@ -288,8 +288,19 @@ fi
 
 # actually perform the linking (do this in multiple steps so we can cross-setup)
 echo '#!/pkg/busybox/'$BUSYBOX_VERSION'/usr/bin/sh
-exec /pkg/busybox/'$BUSYBOX_VERSION'/usr/bin/sh /pkg/quicklink/'$QUICKLINK_VERSION'/usr/bin/snowflake-quicklink' \
+/pkg/busybox/'$BUSYBOX_VERSION'/usr/bin/sh /pkg/quicklink/'$QUICKLINK_VERSION'/usr/bin/snowflake-quicklink
+if [ "$$" = "1" ]
+then
+    /bin/sync
+    /bin/reboot -f
+fi' \
     > "$SNOWFLAKE_PREFIX/setup_usr.sh"
 chmod a+x "$SNOWFLAKE_PREFIX/setup_usr.sh"
-$SUDO chroot "$SNOWFLAKE_PREFIX" /setup_usr.sh
-rm -f "$SNOWFLAKE_PREFIX/setup_usr.sh"
+if ! $SUDO chroot "$SNOWFLAKE_PREFIX" /setup_usr.sh
+then
+    # failed to setup usr, so run it as init
+    mkdir -p "$SNOWFLAKE_PREFIX"/usr/bin
+    mv "$SNOWFLAKE_PREFIX"/setup_usr.sh "$SNOWFLAKE_PREFIX"/usr/bin/init
+else
+    rm -f "$SNOWFLAKE_PREFIX/setup_usr.sh"
+fi

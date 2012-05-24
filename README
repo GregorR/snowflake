@@ -73,14 +73,5 @@ other system. To cross-compile Snowflake for ARM:
   qemu-system-arm -M vexpress-a9 -kernel vmlinuz \
   -append "console=tty0 root=b302 rw" -sd snowflake.img
 
-* On the first boot, you will need to add an extra flag to -append:
-  init=/pkg/busybox/1.19.4/usr/bin/sh
-  (Update the version as appropriate)
-  Then finish setting up the system like so:
-  # /setup_usr.sh
-  # mount /proc
-  # mount -o remount,ro /
-  # sync
-
-* Finally, run /src/bootstrap.sh to finish bootstrapping. This will not yet
+* Run /src/bootstrap.sh to finish bootstrapping. This will not yet
   work, but it's what you would do if it did work.

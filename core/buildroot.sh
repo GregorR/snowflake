@@ -69,7 +69,7 @@ PREFIX="/"
 export PREFIX
 muslfetchextract
 CC="$TRIPLE-gcc" DESTDIR="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr" \
-    buildinstall '' musl-$MUSL_VERSION
+    buildinstall '' musl-$MUSL_VERSION --enable-debug
 rm -rf "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin" # No musl-gcc needed or wanted
 echo linux-headers > "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/deps"
 unset PREFIX
@@ -95,7 +95,7 @@ then
     ln -s bin "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr/sbin"
 fi
 doinstall '' busybox-$BUSYBOX_VERSION LDFLAGS=-static \
-    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" \
+    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip" \
     CONFIG_PREFIX="$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr"
 
 # quicklink

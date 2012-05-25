@@ -62,7 +62,7 @@ fi
 PREFIX="/"
 export PREFIX
 muslfetchextract
-CC="$TRIPLE-gcc" DESTDIR="$CC_PREFIX/$TRIPLE" buildinstall '' musl-$MUSL_VERSION
+CC="$TRIPLE-gcc" DESTDIR="$CC_PREFIX/$TRIPLE" buildinstall '' musl-$MUSL_VERSION --enable-debug
 unset PREFIX
 PREFIX="$CC_PREFIX"
 

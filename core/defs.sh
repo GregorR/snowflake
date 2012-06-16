@@ -53,19 +53,12 @@ SED_VERSION=4.2.1
 SNPS_VERSION=0.1
 USRVIEW_VERSION=0.1
 
-MUSL_DEFAULT_VERSION=0.9.0
-MUSL_GIT_VERSION=8b4c232efe182f4a9c8c52c5638af8fec92987bf
+MUSL_DEFAULT_VERSION=0.9.1
+#MUSL_GIT_VERSION=8b4c232efe182f4a9c8c52c5638af8fec92987bf
 MUSL_VERSION="$MUSL_DEFAULT_VERSION"
 MUSL_GIT=no
 
 . config.sh
-
-# Use musl git version on ARM, as 0.9.0 isn't new enough
-if [ "$ARCH" = "arm" -a "$MUSL_VERSION" = "$MUSL_DEFAULT_VERSION" ]
-then
-    MUSL_VERSION="$MUSL_GIT_VERSION"
-    MUSL_GIT=yes
-fi
 
 PATH="$CC_PREFIX/bin:$PATH"
 export PATH
@@ -79,6 +72,7 @@ fi
 
 case "$ARCH" in
     i*86) LINUX_ARCH=i386 ;;
+    armeb) LINUX_ARCH=arm ;;
     *) LINUX_ARCH="$ARCH" ;;
 esac
 export LINUX_ARCH

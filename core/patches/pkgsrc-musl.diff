@@ -1,6 +1,6 @@
-diff -r 368febf1be2c Makefile
---- a/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 Makefile
+--- a/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -91,6 +91,7 @@
  SUBDIR+=	wm
  SUBDIR+=	www
@@ -9,9 +9,9 @@ diff -r 368febf1be2c Makefile
  
  SUBDIR+=	${USER_ADDITIONAL_PKGS}
  
-diff -r 368febf1be2c archivers/pax/files/getid.c
---- a/archivers/pax/files/getid.c	Mon May 21 19:35:54 2012 +0000
-+++ b/archivers/pax/files/getid.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 archivers/pax/files/getid.c
+--- a/archivers/pax/files/getid.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/archivers/pax/files/getid.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -152,12 +152,14 @@
  	if (!grstart() || !pwstart())
  		return (0);
@@ -27,9 +27,9 @@ diff -r 368febf1be2c archivers/pax/files/getid.c
  
  	return (1);
  }
-diff -r 368febf1be2c archivers/pax/files/options.c
---- a/archivers/pax/files/options.c	Mon May 21 19:35:54 2012 +0000
-+++ b/archivers/pax/files/options.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 archivers/pax/files/options.c
+--- a/archivers/pax/files/options.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/archivers/pax/files/options.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -107,6 +107,8 @@
  #include "mtree.h"
  #endif	/* SMALL */
@@ -39,17 +39,17 @@ diff -r 368febf1be2c archivers/pax/files/options.c
  /*
   * Routines which handle command line options
   */
-diff -r 368febf1be2c audio/alsa-lib/distinfo
---- a/audio/alsa-lib/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/audio/alsa-lib/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 audio/alsa-lib/distinfo
+--- a/audio/alsa-lib/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/audio/alsa-lib/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -42,3 +42,4 @@
  SHA1 (patch-bk) = 7740eea6a0d4a8ce3db3b93b2af5faacdb9424b1
  SHA1 (patch-include_pcm.h) = 1c458cd7d078356f4a970b0b3592aad139ac0918
  SHA1 (patch-src_control_control__hw.c) = 07cfe3abe586b32f6b989403cd162599da07e865
 +SHA1 (patch-qq) = a41ef5695898cde72f31489de2ed10088b0f476f
-diff -r 368febf1be2c audio/alsa-lib/patches/patch-qq
+diff -r 3f242bfbd565 audio/alsa-lib/patches/patch-qq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/audio/alsa-lib/patches/patch-qq	Mon May 21 20:28:38 2012 +0000
++++ b/audio/alsa-lib/patches/patch-qq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,72 @@
 +diff -r bb67315ed01e include/global.h
 +--- include/global.h	Mon May 07 21:37:17 2012 +0000
@@ -123,9 +123,9 @@ diff -r 368febf1be2c audio/alsa-lib/patches/patch-qq
 +   return 0;
 + }
 ++#endif
-diff -r 368febf1be2c chat/irssi/Makefile
---- a/chat/irssi/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/chat/irssi/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 chat/irssi/Makefile
+--- a/chat/irssi/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/chat/irssi/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -20,9 +20,9 @@
  USE_LIBTOOL=		yes
  USE_TOOLS+=		pkg-config
@@ -137,17 +137,17 @@ diff -r 368febf1be2c chat/irssi/Makefile
  			--sysconfdir=${PKG_SYSCONFDIR}
  
  EGDIR=		${PREFIX}/share/examples/irssi
-diff -r 368febf1be2c databases/db4/distinfo
---- a/databases/db4/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/databases/db4/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 databases/db4/distinfo
+--- a/databases/db4/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/databases/db4/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = 8f9ecc47527d338e28ee1ce71e694eaf2bdceb92
  SHA1 (patch-ac) = 045a3b83b9c6c164382ec546b06ae248620552cf
  SHA1 (patch-ae) = 43e574154de93dba60392b09d6ebddbca1036849
 +SHA1 (patch-aq) = 3baa90e922dc9cb075deee2a2a37d607affead9b
-diff -r 368febf1be2c databases/db4/patches/patch-aq
+diff -r 3f242bfbd565 databases/db4/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/databases/db4/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/databases/db4/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,11 @@
 +diff -r 7a6cd6105754 dist/configure
 +--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
@@ -160,9 +160,9 @@ diff -r 368febf1be2c databases/db4/patches/patch-aq
 + main() {
 + 	pthread_cond_t cond;
 + 	pthread_mutex_t mutex;
-diff -r 368febf1be2c devel/bison/Makefile
---- a/devel/bison/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/bison/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/bison/Makefile
+--- a/devel/bison/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/bison/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -28,6 +28,7 @@
  # Avoid rebuilding manpage
  pre-build:
@@ -171,9 +171,9 @@ diff -r 368febf1be2c devel/bison/Makefile
  
  # "bison" wants a recent version of "gettext" which at least some
  # NetBSD versions don't provide. Figure out whether it will install
-diff -r 368febf1be2c devel/bmake/files/suff.c
---- a/devel/bmake/files/suff.c	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/bmake/files/suff.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/bmake/files/suff.c
+--- a/devel/bmake/files/suff.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/bmake/files/suff.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -67,6 +67,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.
@@ -183,9 +183,9 @@ diff -r 368febf1be2c devel/bmake/files/suff.c
  
  #ifndef MAKE_NATIVE
  static char rcsid[] = "$NetBSD: suff.c,v 1.4 2009/09/18 21:27:25 joerg Exp $";
-diff -r 368febf1be2c devel/bmake/files/targ.c
---- a/devel/bmake/files/targ.c	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/bmake/files/targ.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/bmake/files/targ.c
+--- a/devel/bmake/files/targ.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/bmake/files/targ.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -67,6 +67,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.
@@ -195,9 +195,9 @@ diff -r 368febf1be2c devel/bmake/files/targ.c
  
  #ifndef MAKE_NATIVE
  static char rcsid[] = "$NetBSD: targ.c,v 1.5 2011/06/18 22:39:46 bsiegert Exp $";
-diff -r 368febf1be2c devel/bmake/files/unit-tests/test.exp
---- a/devel/bmake/files/unit-tests/test.exp	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/bmake/files/unit-tests/test.exp	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/bmake/files/unit-tests/test.exp
+--- a/devel/bmake/files/unit-tests/test.exp	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/bmake/files/unit-tests/test.exp	Mon Jul 02 12:54:47 2012 -0400
 @@ -27,6 +27,7 @@
  make: "error" line 3: just FYI
  make: "error" line 4: warning: this could be serious
@@ -235,9 +235,9 @@ diff -r 368febf1be2c devel/bmake/files/unit-tests/test.exp
  show-v v=override k=override
  *** Error code 1 (ignored)
 -*** Error code 1 (ignored)
-diff -r 368febf1be2c devel/flex/PLIST
---- a/devel/flex/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/flex/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/flex/PLIST
+--- a/devel/flex/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/flex/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -6,19 +6,3 @@
  lib/libfl.a
  lib/libfl_pic.a
@@ -258,9 +258,9 @@ diff -r 368febf1be2c devel/flex/PLIST
 -share/locale/tr/LC_MESSAGES/flex.mo
 -share/locale/vi/LC_MESSAGES/flex.mo
 -share/locale/zh_CN/LC_MESSAGES/flex.mo
-diff -r 368febf1be2c devel/glib2/Makefile
---- a/devel/glib2/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/glib2/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/glib2/Makefile
+--- a/devel/glib2/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/glib2/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -46,6 +46,12 @@
  
  LIBS.SunOS+=	-lnsl -lsocket
@@ -274,9 +274,9 @@ diff -r 368febf1be2c devel/glib2/Makefile
  .include "../../converters/libiconv/buildlink3.mk"
  .include "../../devel/gettext-lib/buildlink3.mk"
  .include "../../devel/pcre/buildlink3.mk"
-diff -r 368febf1be2c devel/gmake/Makefile
---- a/devel/gmake/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/gmake/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/gmake/Makefile
+--- a/devel/gmake/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/gmake/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -47,6 +47,8 @@
  CONFIGURE_ARGS+=	ac_cv_func_strndup=no
  .endif
@@ -286,9 +286,9 @@ diff -r 368febf1be2c devel/gmake/Makefile
  post-install:
  	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
  	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
-diff -r 368febf1be2c devel/imake/Makefile
---- a/devel/imake/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/imake/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/imake/Makefile
+--- a/devel/imake/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/imake/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -42,6 +42,9 @@
  SUBST_FILES.xmkmf=	xmkmf
  SUBST_SED.xmkmf=	-e "s/^configdirspec= */configdirspec=/"
@@ -299,17 +299,17 @@ diff -r 368febf1be2c devel/imake/Makefile
  .include "../../x11/xproto/buildlink3.mk"
  
  .include "../../mk/bsd.pkg.mk"
-diff -r 368febf1be2c devel/libblkid/distinfo
---- a/devel/libblkid/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/libblkid/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/libblkid/distinfo
+--- a/devel/libblkid/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/libblkid/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -10,3 +10,4 @@
  SHA1 (patch-ae) = df77e8c6da425609309505fd447b66ade05426a3
  SHA1 (patch-af) = ba6e34b5635437e755192064bfc5865bfa9c913a
  SHA1 (patch-ag) = 1898774d311562938281f825b50a0e9aa44a447d
 +SHA1 (patch-aq) = cb51811a855ad078e36113223c7afc3f19f5c32e
-diff -r 368febf1be2c devel/libblkid/patches/patch-aq
+diff -r 3f242bfbd565 devel/libblkid/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/devel/libblkid/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/devel/libblkid/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,56 @@
 +diff -r 4aa4d9dd485b shlibs/blkid/src/Makefile.am
 +--- shlibs/blkid/src/Makefile.am	Sun May 06 03:11:57 2012 +0000
@@ -367,17 +367,17 @@ diff -r 368febf1be2c devel/libblkid/patches/patch-aq
 + 
 + uninstall-hook:
 + 	rm -f $(DESTDIR)$(libdir)/libblkid.so*
-diff -r 368febf1be2c devel/libuuid/distinfo
---- a/devel/libuuid/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/libuuid/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/libuuid/distinfo
+--- a/devel/libuuid/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/libuuid/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -4,3 +4,4 @@
  RMD160 (util-linux-2.19.1.tar.bz2) = e4763d21a3a32029ccc525a0222e271f0946a4fd
  Size (util-linux-2.19.1.tar.bz2) = 4396543 bytes
  SHA1 (patch-aa) = 07d66ef414f5781d75159b446d6c822b1e543477
 +SHA1 (patch-aq) = f8ededcca54e2adb13f57e564623178f4d46ced6
-diff -r 368febf1be2c devel/libuuid/patches/patch-aq
+diff -r 3f242bfbd565 devel/libuuid/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/devel/libuuid/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/devel/libuuid/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,56 @@
 +diff -r f3d747a80d82 shlibs/uuid/src/Makefile.am
 +--- shlibs/uuid/src/Makefile.am	Sun May 06 03:03:55 2012 +0000
@@ -435,17 +435,17 @@ diff -r 368febf1be2c devel/libuuid/patches/patch-aq
 + 
 + uninstall-hook:
 + 	rm -f $(DESTDIR)$(libdir)/libuuid.so*
-diff -r 368febf1be2c devel/m4/distinfo
---- a/devel/m4/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/m4/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/m4/distinfo
+--- a/devel/m4/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/m4/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -6,3 +6,4 @@
  SHA1 (patch-aa) = ef316620b49f78f46e9dea47032b0141814c1f43
  SHA1 (patch-ab) = b29840365e983623bce64e84ceab3504b8270b32
  SHA1 (patch-ac) = 7bd9164c659727a906ef54a2f1027e9fd19315ba
 +SHA1 (patch-aq) = 361e3294fe76fd67087d4fb212fd16c79462a953
-diff -r 368febf1be2c devel/m4/patches/patch-aq
+diff -r 3f242bfbd565 devel/m4/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/devel/m4/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/devel/m4/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,10 @@
 +--- lib/freadahead.c
 ++++ lib/freadahead.c
@@ -457,9 +457,9 @@ diff -r 368febf1be2c devel/m4/patches/patch-aq
 ++  return 1;
 + #endif
 + }
-diff -r 368febf1be2c devel/ncurses/Makefile
---- a/devel/ncurses/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/ncurses/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/ncurses/Makefile
+--- a/devel/ncurses/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/ncurses/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -38,6 +38,9 @@
  
  PLIST_SRC=	${PKGDIR}/PLIST ${WRKDIR}/PLIST.terminfo
@@ -470,9 +470,9 @@ diff -r 368febf1be2c devel/ncurses/Makefile
  post-configure:
  	cd ${WRKSRC}/man;					\
  	for f in *.1m; do					\
-diff -r 368febf1be2c devel/ncurses/Makefile.common
---- a/devel/ncurses/Makefile.common	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/ncurses/Makefile.common	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/ncurses/Makefile.common
+--- a/devel/ncurses/Makefile.common	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/ncurses/Makefile.common	Mon Jul 02 12:54:47 2012 -0400
 @@ -16,14 +16,15 @@
  PKG_INSTALLATION_TYPES=	overwrite pkgviews
  PKG_DESTDIR_SUPPORT=	user-destdir
@@ -491,9 +491,9 @@ diff -r 368febf1be2c devel/ncurses/Makefile.common
  CONFIGURE_ARGS+=	--without-ada
  CONFIGURE_ARGS+=	--without-gpm
  CONFIGURE_ARGS+=	--with-manpage-format=normal
-diff -r 368febf1be2c devel/ncurses/PLIST
---- a/devel/ncurses/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/ncurses/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/ncurses/PLIST
+--- a/devel/ncurses/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/ncurses/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -11,14 +11,7 @@
  bin/tput
  bin/tset
@@ -517,9 +517,9 @@ diff -r 368febf1be2c devel/ncurses/PLIST
  lib/libncurses.la
  lib/libpanel.la
  man/man1/captoinfo.1
-diff -r 368febf1be2c devel/nspr/Makefile
---- a/devel/nspr/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/nspr/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/nspr/Makefile
+--- a/devel/nspr/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/nspr/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -70,6 +70,13 @@
  BUILDLINK_PASSTHRU_DIRS+=	Developer/Headers/FlatCarbon
  .endif
@@ -534,9 +534,9 @@ diff -r 368febf1be2c devel/nspr/Makefile
  pre-configure:
  # sanity check: make sure the nspr release is what we think it is.
  #	@set -e; if [ '"${NSPR_RELEASE}"' !=			\
-diff -r 368febf1be2c devel/nss/Makefile
---- a/devel/nss/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/nss/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/nss/Makefile
+--- a/devel/nss/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/nss/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -48,6 +48,17 @@
  MAKE_ENV+=	NSS_USE_SYSTEM_SQLITE=1
  MAKE_ENV+=	EXTRA_SHARED_LIBS="-Wl,-R${BUILDLINK_PREFIX.nspr}/lib/nspr -Wl,-R,${PREFIX}/lib/nss -L${BUILDLINK_PREFIX.nspr}/lib/nspr -lplc4 -lplds4 -lnspr4"
@@ -555,9 +555,9 @@ diff -r 368febf1be2c devel/nss/Makefile
  pre-configure:
  # sanity check: make sure the nss release is what we think it is.
  #	@set -e; if [ '"${NSS_RELEASE}"' !=			\
-diff -r 368febf1be2c devel/pcre/Makefile
---- a/devel/pcre/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/pcre/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/pcre/Makefile
+--- a/devel/pcre/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/pcre/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -21,6 +21,8 @@
  CONFIGURE_ARGS+=	--enable-utf8 --enable-unicode-properties
  CONFIGURE_ARGS+=	--enable-pcre16
@@ -567,9 +567,9 @@ diff -r 368febf1be2c devel/pcre/Makefile
  SUBST_CLASSES+=		rpath
  SUBST_STAGE.rpath=	pre-configure
  SUBST_MESSAGE.rpath=	Fixing rpath output in pcre-config
-diff -r 368febf1be2c devel/pcre/PLIST
---- a/devel/pcre/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/pcre/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/pcre/PLIST
+--- a/devel/pcre/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/pcre/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -3,18 +3,12 @@
  bin/pcregrep
  bin/pcretest
@@ -605,9 +605,9 @@ diff -r 368febf1be2c devel/pcre/PLIST
  share/doc/pcre/html/pcredemo.html
  share/doc/pcre/html/pcregrep.html
  share/doc/pcre/html/pcrejit.html
-diff -r 368febf1be2c devel/xulrunner/Makefile
---- a/devel/xulrunner/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/xulrunner/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/xulrunner/Makefile
+--- a/devel/xulrunner/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/xulrunner/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -34,6 +34,9 @@
  .include "mozilla-common.mk"
  .include "options.mk"
@@ -618,17 +618,17 @@ diff -r 368febf1be2c devel/xulrunner/Makefile
  pre-configure:
  	cd ${WRKSRC} && autoconf
  	cd ${WRKSRC}/js/src && autoconf
-diff -r 368febf1be2c devel/xulrunner/distinfo
---- a/devel/xulrunner/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/devel/xulrunner/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 devel/xulrunner/distinfo
+--- a/devel/xulrunner/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/devel/xulrunner/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -106,3 +106,4 @@
  SHA1 (patch-xo) = 437cbc7e0ed8777ae2313165f8754759d8eee01d
  SHA1 (patch-xpcom_Makefile.in) = ad9c0ed4347b0ed4f51a6f0f34ac48c65d2152c8
  SHA1 (patch-xpcom_idl-parser_header.py) = cd14f4056a31f15066aebb85e5c14fba2aa37f13
 +SHA1 (patch-zq) = b5705937db9663ec56962e25e1f007182174edb8
-diff -r 368febf1be2c devel/xulrunner/patches/patch-zq
+diff -r 3f242bfbd565 devel/xulrunner/patches/patch-zq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/devel/xulrunner/patches/patch-zq	Mon May 21 20:28:38 2012 +0000
++++ b/devel/xulrunner/patches/patch-zq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,450 @@
 +diff -r 39c8c27f8b14 build/unix/elfhack/elfhack.cpp
 +--- build/unix/elfhack/elfhack.cpp	Tue May 08 18:47:38 2012 +0000
@@ -1080,9 +1080,9 @@ diff -r 368febf1be2c devel/xulrunner/patches/patch-zq
 +   && defined(_GNU_SOURCE)
 + # define MOZ_CANARY
 + # include <unistd.h>
-diff -r 368febf1be2c editors/vim-share/Makefile.common
---- a/editors/vim-share/Makefile.common	Mon May 21 19:35:54 2012 +0000
-+++ b/editors/vim-share/Makefile.common	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 editors/vim-share/Makefile.common
+--- a/editors/vim-share/Makefile.common	Mon Jul 02 12:49:02 2012 -0400
++++ b/editors/vim-share/Makefile.common	Mon Jul 02 12:54:47 2012 -0400
 @@ -86,5 +86,8 @@
  CONFIGURE_ARGS+=	--enable-rubyinterp
  .endif
@@ -1092,17 +1092,17 @@ diff -r 368febf1be2c editors/vim-share/Makefile.common
 +
  post-patch:
  	find ${WRKDIR} -name '*.orig_dist' -exec rm -f {} \;
-diff -r 368febf1be2c filesystems/fuse/distinfo
---- a/filesystems/fuse/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/filesystems/fuse/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 filesystems/fuse/distinfo
+--- a/filesystems/fuse/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/filesystems/fuse/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -16,3 +16,4 @@
  SHA1 (patch-am) = 2abd07b403896bff5aad6cd865cb473553851a22
  SHA1 (patch-an) = 3f119dae5f08996dd483a0fb4fa0365507be2070
  SHA1 (patch-util_fusermount.c) = c65c377b917dc0c34cf5b8fb4d70e75075debcf9
 +SHA1 (patch-qq) = f8dc23f988fa537dcb41bdc54f4dc550eb479914
-diff -r 368febf1be2c filesystems/fuse/patches/patch-qq
+diff -r 3f242bfbd565 filesystems/fuse/patches/patch-qq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/filesystems/fuse/patches/patch-qq	Mon May 21 20:28:38 2012 +0000
++++ b/filesystems/fuse/patches/patch-qq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,48 @@
 +diff -r 18a7de07ebb3 example/fioclient.c
 +--- example/fioclient.c	Tue May 08 17:27:11 2012 +0000
@@ -1152,9 +1152,9 @@ diff -r 368febf1be2c filesystems/fuse/patches/patch-qq
 + #define FUSE_COMMFD_ENV		"_FUSE_COMMFD"
 + 
 + #define FUSE_DEV_OLD "/proc/fs/fuse/dev"
-diff -r 368febf1be2c graphics/MesaLib/Makefile
---- a/graphics/MesaLib/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/graphics/MesaLib/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 graphics/MesaLib/Makefile
+--- a/graphics/MesaLib/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/graphics/MesaLib/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -72,6 +72,7 @@
  
  pre-build:
@@ -1163,17 +1163,17 @@ diff -r 368febf1be2c graphics/MesaLib/Makefile
  
  .include "../../mk/compiler.mk"
  
-diff -r 368febf1be2c graphics/aalib/distinfo
---- a/graphics/aalib/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/graphics/aalib/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 graphics/aalib/distinfo
+--- a/graphics/aalib/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/graphics/aalib/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -6,3 +6,4 @@
  SHA1 (patch-aa) = 927d69a8f499b99f0bd5f13cf220ce8cbb7ea591
  SHA1 (patch-ab) = 272f6f10dbe7a525c582a9b4c865f0ab9b2f9fba
  SHA1 (patch-ac) = 8d9c812b9b871f44dd1285d6a635eeab6e49bf49
 +SHA1 (patch-aq) = 285c28a811719d0e83f8df29c3a6bf93fb3eef8f
-diff -r 368febf1be2c graphics/aalib/patches/patch-aq
+diff -r 3f242bfbd565 graphics/aalib/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/graphics/aalib/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/graphics/aalib/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,12 @@
 +diff -r 6fe3c134e687 src/aalinuxkbd.c
 +--- src/aalinuxkbd.c	Mon May 07 17:51:38 2012 +0000
@@ -1187,9 +1187,9 @@ diff -r 368febf1be2c graphics/aalib/patches/patch-aq
 +  SIGSEGV, SIGPIPE, SIGALRM, SIGTERM,
 +  SIGXCPU, SIGXFSZ, SIGVTALRM,
 + 	   /* SIGPROF , */ SIGPWR};
-diff -r 368febf1be2c graphics/cairo/Makefile
---- a/graphics/cairo/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/graphics/cairo/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 graphics/cairo/Makefile
+--- a/graphics/cairo/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/graphics/cairo/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -38,6 +38,8 @@
  # For snprintf() and ctime_r()
  CPPFLAGS.SunOS+=		-D__EXTENSIONS__ -D_POSIX_PTHREAD_SEMANTICS
@@ -1199,9 +1199,9 @@ diff -r 368febf1be2c graphics/cairo/Makefile
  TEST_TARGET=			check
  
  # PR#43928
-diff -r 368febf1be2c graphics/gdk-pixbuf2/PLIST
---- a/graphics/gdk-pixbuf2/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/graphics/gdk-pixbuf2/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 graphics/gdk-pixbuf2/PLIST
+--- a/graphics/gdk-pixbuf2/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/graphics/gdk-pixbuf2/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -72,104 +72,3 @@
  share/gtk-doc/html/gdk-pixbuf/rn02.html
  share/gtk-doc/html/gdk-pixbuf/style.css
@@ -1307,9 +1307,9 @@ diff -r 368febf1be2c graphics/gdk-pixbuf2/PLIST
 -share/locale/zh_CN/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/zh_HK/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/zh_TW/LC_MESSAGES/gdk-pixbuf.mo
-diff -r 368febf1be2c graphics/gimp/PLIST
---- a/graphics/gimp/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/graphics/gimp/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 graphics/gimp/PLIST
+--- a/graphics/gimp/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/graphics/gimp/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -307,7 +307,6 @@
  lib/gimp/2.0/plug-ins/file-tiff-load
  lib/gimp/2.0/plug-ins/file-tiff-save
@@ -1318,9 +1318,9 @@ diff -r 368febf1be2c graphics/gimp/PLIST
  lib/gimp/2.0/plug-ins/file-xbm
  lib/gimp/2.0/plug-ins/file-xjt
  ${PLIST.remote}lib/gimp/2.0/plug-ins/file-xpm
-diff -r 368febf1be2c graphics/jpeg/buildlink3.mk
---- a/graphics/jpeg/buildlink3.mk	Mon May 21 19:35:54 2012 +0000
-+++ b/graphics/jpeg/buildlink3.mk	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 graphics/jpeg/buildlink3.mk
+--- a/graphics/jpeg/buildlink3.mk	Mon Jul 02 12:49:02 2012 -0400
++++ b/graphics/jpeg/buildlink3.mk	Mon Jul 02 12:54:47 2012 -0400
 @@ -5,9 +5,10 @@
  .if !defined(JPEG_BUILDLINK3_MK)
  JPEG_BUILDLINK3_MK:=
@@ -1335,17 +1335,17 @@ diff -r 368febf1be2c graphics/jpeg/buildlink3.mk
  BUILDLINK_PKGSRCDIR.jpeg?=	../../graphics/jpeg
  .endif # JPEG_BUILDLINK3_MK
  
-diff -r 368febf1be2c lang/f2c/distinfo
---- a/lang/f2c/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/lang/f2c/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 lang/f2c/distinfo
+--- a/lang/f2c/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/lang/f2c/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -6,3 +6,4 @@
  SHA1 (patch-aa) = f1224ff17cdc96f083a247dce88b690e8b939eb0
  SHA1 (patch-ad) = 7f204a45891e3632589ea8fb0e4e379a0a792dea
  SHA1 (patch-ak) = 8652a54df300ddd60d9b1a9594d312349b782cf4
 +SHA1 (patch-aq) = dd5d4e79bd1d61d7ce152b0934667ba4a1888692
-diff -r 368febf1be2c lang/f2c/patches/patch-aq
+diff -r 3f242bfbd565 lang/f2c/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/lang/f2c/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/lang/f2c/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,13 @@
 +diff -r 6bba7eaf719c src/sysdep.c
 +--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
@@ -1360,9 +1360,9 @@ diff -r 368febf1be2c lang/f2c/patches/patch-aq
 +  void
 + #ifdef KR_headers
 + Un_link_all(cdelete)
-diff -r 368febf1be2c lang/perl5/Makefile
---- a/lang/perl5/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/lang/perl5/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 lang/perl5/Makefile
+--- a/lang/perl5/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/lang/perl5/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -50,6 +50,7 @@
  CONFIGURE_ARGS+=	-sde
  CONFIGURE_ARGS+=	-D ccflags=${CFLAGS:Q}
@@ -1382,9 +1382,9 @@ diff -r 368febf1be2c lang/perl5/Makefile
  
  post-build:
  	${SED}	-e "s,@PERL5@,"${PERL5:Q}",g"				\
-diff -r 368febf1be2c lang/python26/Makefile
---- a/lang/python26/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/lang/python26/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 lang/python26/Makefile
+--- a/lang/python26/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/lang/python26/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -118,22 +118,7 @@
  .endif
  
@@ -1408,9 +1408,9 @@ diff -r 368febf1be2c lang/python26/Makefile
  
  .include "../../mk/bdb.buildlink3.mk"
  MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
-diff -r 368febf1be2c lang/python27/PLIST.common
---- a/lang/python27/PLIST.common	Mon May 21 19:35:54 2012 +0000
-+++ b/lang/python27/PLIST.common	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 lang/python27/PLIST.common
+--- a/lang/python27/PLIST.common	Mon Jul 02 12:49:02 2012 -0400
++++ b/lang/python27/PLIST.common	Mon Jul 02 12:54:47 2012 -0400
 @@ -1835,7 +1835,6 @@
  lib/python${PY_VER_SUFFIX}/lib-dynload/itertools.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/math.so
@@ -1419,9 +1419,50 @@ diff -r 368febf1be2c lang/python27/PLIST.common
  ${PLIST.no-nis}lib/python${PY_VER_SUFFIX}/lib-dynload/nis_failed.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/operator.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/parser.so
-diff -r 368febf1be2c meta-pkgs/xfce4/Makefile
---- a/meta-pkgs/xfce4/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/meta-pkgs/xfce4/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 lang/ruby193-base/distinfo
+--- a/lang/ruby193-base/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/lang/ruby193-base/distinfo	Mon Jul 02 12:54:47 2012 -0400
+@@ -27,3 +27,4 @@
+ SHA1 (patch-test_rubygems_test__gem.rb) = bb6946eceed2112a7b3d8df84f59c793bdb73bb0
+ SHA1 (patch-tool_rbinstall.rb) = f0497085a09b31145f57028b30e335b09acabcff
+ SHA1 (patch-vsnprintf.c) = 7bb4ca07381536717518143ef7803634168ca9fa
++SHA1 (patch-aq) = 254f92d175ad31c3e99acb0e0ad4b6cce44e4540
+diff -r 3f242bfbd565 lang/ruby193-base/patches/patch-aq
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/lang/ruby193-base/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
+@@ -0,0 +1,29 @@
++diff -r fdf359c0709a configure
++--- configure	Mon Jul 02 14:51:59 2012 +0000
+++++ configure	Mon Jul 02 14:53:13 2012 +0000
++@@ -16017,10 +16017,10 @@
++   '^?ELF'*) :
++     rb_cv_binary_elf=yes ;; #(
++   *) :
++-    rb_cv_binary_elf=no ;;
++-esac
++-else
++-  rb_cv_binary_elf=no
+++    rb_cv_binary_elf=yes ;;
+++esac
+++else
+++  rb_cv_binary_elf=yes
++ fi
++ rm -f core conftest.err conftest.$ac_objext \
++     conftest$ac_exeext conftest.$ac_ext
++diff -r fdf359c0709a io.c
++--- io.c	Mon Jul 02 14:51:59 2012 +0000
+++++ io.c	Mon Jul 02 14:53:13 2012 +0000
++@@ -8123,6 +8123,7 @@
++     VALUE arg[8];
++ #endif
++ #if SIZEOF_VOIDP == 8 && defined(HAVE___SYSCALL) && SIZEOF_INT != 8 /* mainly *BSD */
+++#undef __syscall
++ # define SYSCALL __syscall
++ # define NUM2SYSCALLID(x) NUM2LONG(x)
++ # define RETVAL2NUM(x) LONG2NUM(x)
+diff -r 3f242bfbd565 meta-pkgs/xfce4/Makefile
+--- a/meta-pkgs/xfce4/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/meta-pkgs/xfce4/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -16,7 +16,8 @@
  .include "../../print/xfce4-print/buildlink3.mk"
  .include "../../sysutils/xfce4-appfinder/buildlink3.mk"
@@ -1432,17 +1473,17 @@ diff -r 368febf1be2c meta-pkgs/xfce4/Makefile
  .include "../../sysutils/xfce4-xarchiver/buildlink3.mk"
  .include "../../time/xfce4-orage/buildlink3.mk"
  .include "../../wm/xfce4-wm-themes/buildlink3.mk"
-diff -r 368febf1be2c misc/pty-redir/distinfo
---- a/misc/pty-redir/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/misc/pty-redir/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 misc/pty-redir/distinfo
+--- a/misc/pty-redir/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/misc/pty-redir/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -4,3 +4,4 @@
  RMD160 (pty-redir-0.1.tar.gz) = 75347881746dd1419e95e2ada30b23b2d9c0d223
  Size (pty-redir-0.1.tar.gz) = 8405 bytes
  SHA1 (patch-aa) = 28f8a1c22a9bf602e0e447ca45736e7cde6fddd5
 +SHA1 (patch-aq) = 17bdbfdef55312079c5ab32069556b50658dd771
-diff -r 368febf1be2c misc/pty-redir/patches/patch-aq
+diff -r 3f242bfbd565 misc/pty-redir/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/misc/pty-redir/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/misc/pty-redir/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,51 @@
 +--- pty-redir.c
 ++++ pty-redir.c
@@ -1495,9 +1536,9 @@ diff -r 368febf1be2c misc/pty-redir/patches/patch-aq
 + 	if(fork())
 + 	{
 + 		exit(0);
-diff -r 368febf1be2c net/libfetch/files/ftp.c
---- a/net/libfetch/files/ftp.c	Mon May 21 19:35:54 2012 +0000
-+++ b/net/libfetch/files/ftp.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 net/libfetch/files/ftp.c
+--- a/net/libfetch/files/ftp.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/net/libfetch/files/ftp.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -59,8 +59,10 @@
  
  #ifdef __linux__
@@ -1509,9 +1550,9 @@ diff -r 368febf1be2c net/libfetch/files/ftp.c
  
  #if HAVE_CONFIG_H
  #include "config.h"
-diff -r 368febf1be2c net/libfetch/files/http.c
---- a/net/libfetch/files/http.c	Mon May 21 19:35:54 2012 +0000
-+++ b/net/libfetch/files/http.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 net/libfetch/files/http.c
+--- a/net/libfetch/files/http.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/net/libfetch/files/http.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -65,8 +65,10 @@
  
  #if defined(__linux__) || defined(__MINT__)
@@ -1523,9 +1564,9 @@ diff -r 368febf1be2c net/libfetch/files/http.c
  
  /* Needed for gmtime_r on Interix */
  #define _REENTRANT
-diff -r 368febf1be2c net/tightvnc/Makefile
---- a/net/tightvnc/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/net/tightvnc/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 net/tightvnc/Makefile
+--- a/net/tightvnc/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/net/tightvnc/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -28,6 +28,7 @@
  .if !empty(MACHINE_PLATFORM:MNetBSD-*-x86_64)
  _WRAP_EXTRA_ARGS.CC+=	-DDDXTIME -D_XSERVER64 -DGCCUSESGAS
@@ -1546,9 +1587,9 @@ diff -r 368febf1be2c net/tightvnc/Makefile
  do-install:
  	${INSTALL_PROGRAM} ${WRKSRC}/Xvnc/programs/Xserver/Xvnc \
  	    ${DESTDIR}${PREFIX}/bin/Xvnc
-diff -r 368febf1be2c net/tnftp/files/libedit/tty.c
---- a/net/tnftp/files/libedit/tty.c	Mon May 21 19:35:54 2012 +0000
-+++ b/net/tnftp/files/libedit/tty.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 net/tnftp/files/libedit/tty.c
+--- a/net/tnftp/files/libedit/tty.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/net/tnftp/files/libedit/tty.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -40,6 +40,7 @@
   * tty.c: tty interface stuff
   */
@@ -1557,9 +1598,9 @@ diff -r 368febf1be2c net/tnftp/files/libedit/tty.c
  #include "tty.h"
  #include "el.h"
  
-diff -r 368febf1be2c pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
---- a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
+--- a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk	Mon Jul 02 12:54:47 2012 -0400
 @@ -13,6 +13,7 @@
  .endif
  
@@ -1583,9 +1624,9 @@ diff -r 368febf1be2c pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
  TBL?=		tbl
  
  
-diff -r 368febf1be2c pkgtools/libnbcompat/files/lchflags.c
---- a/pkgtools/libnbcompat/files/lchflags.c	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/libnbcompat/files/lchflags.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/libnbcompat/files/lchflags.c
+--- a/pkgtools/libnbcompat/files/lchflags.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/libnbcompat/files/lchflags.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -39,6 +39,7 @@
  int
  lchflags(const char *path, unsigned long flags)
@@ -1601,9 +1642,9 @@ diff -r 368febf1be2c pkgtools/libnbcompat/files/lchflags.c
 +#endif
 +	return -1;
  }
-diff -r 368febf1be2c pkgtools/libnbcompat/files/unvis.c
---- a/pkgtools/libnbcompat/files/unvis.c	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/libnbcompat/files/unvis.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/libnbcompat/files/unvis.c
+--- a/pkgtools/libnbcompat/files/unvis.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/libnbcompat/files/unvis.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -83,6 +83,8 @@
  #define	isoctal(c)	(((unsigned char)(c)) >= '0' && ((unsigned char)(c)) <= '7')
  #define xtod(c)		(isdigit(c) ? (c - '0') : ((tolower(c) - 'a') + 10))
@@ -1613,9 +1654,9 @@ diff -r 368febf1be2c pkgtools/libnbcompat/files/unvis.c
  int
  unvis(cp, c, astate, flag)
  	char *cp;
-diff -r 368febf1be2c pkgtools/pkg_install-info/files/install-info.c
---- a/pkgtools/pkg_install-info/files/install-info.c	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/install-info.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/pkg_install-info/files/install-info.c
+--- a/pkgtools/pkg_install-info/files/install-info.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/pkg_install-info/files/install-info.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -21,6 +21,8 @@
  #include "system.h"
  #include <getopt.h>
@@ -1625,9 +1666,9 @@ diff -r 368febf1be2c pkgtools/pkg_install-info/files/install-info.c
  static char *progname = "install-info";
  
  int menu_line_equal (), menu_line_lessp ();
-diff -r 368febf1be2c pkgtools/pkg_install-info/files/system.h
---- a/pkgtools/pkg_install-info/files/system.h	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/system.h	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/pkg_install-info/files/system.h
+--- a/pkgtools/pkg_install-info/files/system.h	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/pkg_install-info/files/system.h	Mon Jul 02 12:54:47 2012 -0400
 @@ -21,7 +21,9 @@
  #ifndef TEXINFO_SYSTEM_H
  #define TEXINFO_SYSTEM_H
@@ -1638,9 +1679,9 @@ diff -r 368febf1be2c pkgtools/pkg_install-info/files/system.h
  
  #include <config.h>
  
-diff -r 368febf1be2c pkgtools/pkg_install-info/files/xexit.c
---- a/pkgtools/pkg_install-info/files/xexit.c	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/pkg_install-info/files/xexit.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/pkg_install-info/files/xexit.c
+--- a/pkgtools/pkg_install-info/files/xexit.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/pkg_install-info/files/xexit.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -19,6 +19,8 @@
  
  #include "system.h"
@@ -1650,9 +1691,9 @@ diff -r 368febf1be2c pkgtools/pkg_install-info/files/xexit.c
  /* SunOS 4.1.1 gets STDC_HEADERS defined, but it doesn't provide
     EXIT_FAILURE.  So far no system has defined one of EXIT_FAILURE and
     EXIT_SUCCESS without the other.  */
-diff -r 368febf1be2c pkgtools/pkg_install/files/add/Makefile.in
---- a/pkgtools/pkg_install/files/add/Makefile.in	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/pkg_install/files/add/Makefile.in	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/pkg_install/files/add/Makefile.in
+--- a/pkgtools/pkg_install/files/add/Makefile.in	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/pkg_install/files/add/Makefile.in	Mon Jul 02 12:54:47 2012 -0400
 @@ -22,7 +22,7 @@
  
  LIBS=		-linstall -lfetch
@@ -1662,9 +1703,9 @@ diff -r 368febf1be2c pkgtools/pkg_install/files/add/Makefile.in
  .endif
  LIBS+=		@LIBS@
  
-diff -r 368febf1be2c pkgtools/pkg_install/files/admin/Makefile.in
---- a/pkgtools/pkg_install/files/admin/Makefile.in	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/pkg_install/files/admin/Makefile.in	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/pkg_install/files/admin/Makefile.in
+--- a/pkgtools/pkg_install/files/admin/Makefile.in	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/pkg_install/files/admin/Makefile.in	Mon Jul 02 12:54:47 2012 -0400
 @@ -30,7 +30,7 @@
  .if empty(BOOTSTRAP)
  LIBS=		-linstall -lfetch
@@ -1674,9 +1715,9 @@ diff -r 368febf1be2c pkgtools/pkg_install/files/admin/Makefile.in
  CFLAGS+=	-DHAVE_SSL
  .endif
  LIBS+=		@LIBS@
-diff -r 368febf1be2c pkgtools/pkg_install/files/info/Makefile.in
---- a/pkgtools/pkg_install/files/info/Makefile.in	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/pkg_install/files/info/Makefile.in	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/pkg_install/files/info/Makefile.in
+--- a/pkgtools/pkg_install/files/info/Makefile.in	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/pkg_install/files/info/Makefile.in	Mon Jul 02 12:54:47 2012 -0400
 @@ -19,7 +19,7 @@
  .if empty(BOOTSTRAP)
  LIBS=		-linstall -lfetch @LIBS@
@@ -1686,9 +1727,9 @@ diff -r 368febf1be2c pkgtools/pkg_install/files/info/Makefile.in
  .endif
  CPPFLAGS=	@CPPFLAGS@ -I. -I$(srcdir) -I../lib
  .else
-diff -r 368febf1be2c pkgtools/pkg_install/files/lib/dewey.c
---- a/pkgtools/pkg_install/files/lib/dewey.c	Mon May 21 19:35:54 2012 +0000
-+++ b/pkgtools/pkg_install/files/lib/dewey.c	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 pkgtools/pkg_install/files/lib/dewey.c
+--- a/pkgtools/pkg_install/files/lib/dewey.c	Mon Jul 02 12:49:02 2012 -0400
++++ b/pkgtools/pkg_install/files/lib/dewey.c	Mon Jul 02 12:54:47 2012 -0400
 @@ -39,6 +39,7 @@
  #if HAVE_STDLIB_H
  #include <stdlib.h>
@@ -1697,17 +1738,17 @@ diff -r 368febf1be2c pkgtools/pkg_install/files/lib/dewey.c
  
  #include "defs.h"
  #include "dewey.h"
-diff -r 368febf1be2c print/a2ps/distinfo
---- a/print/a2ps/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/print/a2ps/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 print/a2ps/distinfo
+--- a/print/a2ps/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/print/a2ps/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = 7b1f1e3ed2af47e7d9864ec2dbcd7d105f93632a
  SHA1 (patch-ac) = 8e09c4c3b320b58bf12c4266d4d22977b5f9b826
  SHA1 (patch-lib_path-concat.c) = b345a7b16559315223dcbb182e92feccca7e6e2f
 +SHA1 (patch-qq) = c6fc0a95e7003c055da2dc1ebea316638a1cc3e9
-diff -r 368febf1be2c print/a2ps/patches/patch-qq
+diff -r 3f242bfbd565 print/a2ps/patches/patch-qq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/print/a2ps/patches/patch-qq	Mon May 21 20:28:38 2012 +0000
++++ b/print/a2ps/patches/patch-qq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,23 @@
 +diff -r b585ce465a54 lib/path-concat.c
 +--- lib/path-concat.c	Sun May 06 04:40:07 2012 +0000
@@ -1732,9 +1773,9 @@ diff -r 368febf1be2c print/a2ps/patches/patch-qq
 + /* char *malloc (); */
 + 
 + #ifndef DIRECTORY_SEPARATOR
-diff -r 368febf1be2c security/libgpg-error/PLIST
---- a/security/libgpg-error/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/security/libgpg-error/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 security/libgpg-error/PLIST
+--- a/security/libgpg-error/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/security/libgpg-error/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -8,13 +8,3 @@
  share/common-lisp/source/gpg-error/gpg-error-package.lisp
  share/common-lisp/source/gpg-error/gpg-error.asd
@@ -1749,17 +1790,17 @@ diff -r 368febf1be2c security/libgpg-error/PLIST
 -share/locale/sv/LC_MESSAGES/libgpg-error.mo
 -share/locale/vi/LC_MESSAGES/libgpg-error.mo
 -share/locale/zh_CN/LC_MESSAGES/libgpg-error.mo
-diff -r 368febf1be2c security/openpam/distinfo
---- a/security/openpam/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/security/openpam/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 security/openpam/distinfo
+--- a/security/openpam/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/security/openpam/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -12,3 +12,4 @@
  SHA1 (patch-ah) = 5cef165a6986e0146f75cc4aa4fe5c0adc2d5042
  SHA1 (patch-ai) = ebd22192a6b34161feac281ade41340493142e2b
  SHA1 (patch-aj) = f106a68e24fabae7353ea4480c75ba84097ec606
 +SHA1 (patch-aq) = b8310fd7a88d4a6703ac5b724e5ca1406337b5d1
-diff -r 368febf1be2c security/openpam/patches/patch-aq
+diff -r 3f242bfbd565 security/openpam/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/security/openpam/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/security/openpam/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,12 @@
 +diff -r f26e7457d1df lib/openpam_impl.h
 +--- lib/openpam_impl.h	Sun May 06 03:31:16 2012 +0000
@@ -1773,9 +1814,9 @@ diff -r 368febf1be2c security/openpam/patches/patch-aq
 + #include <security/openpam.h>
 + 
 + extern const char *_pam_func_name[PAM_NUM_PRIMITIVES];
-diff -r 368febf1be2c security/openssl/Makefile
---- a/security/openssl/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/security/openssl/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 security/openssl/Makefile
+--- a/security/openssl/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/security/openssl/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -61,6 +61,7 @@
  # back to ./config's autodetection if not.
  .  if defined(OPENSSL_MACHINE_ARCH) && !empty(OPENSSL_MACHINE_ARCH)
@@ -1802,17 +1843,43 @@ diff -r 368febf1be2c security/openssl/Makefile
 +	sed -i 's/\!defined(_UNICOS)/0/' ${WRKSRC}/apps/speed.c
 +	
  .include "../../mk/bsd.pkg.mk"
-diff -r 368febf1be2c security/policykit/distinfo
---- a/security/policykit/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/security/policykit/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 security/p5-Crypt-Rijndael/distinfo
+--- a/security/p5-Crypt-Rijndael/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/security/p5-Crypt-Rijndael/distinfo	Mon Jul 02 12:54:47 2012 -0400
+@@ -3,3 +3,4 @@
+ SHA1 (Crypt-Rijndael-1.09.tar.gz) = 2edc7836a62c01c6db668586f907f8f57170a970
+ RMD160 (Crypt-Rijndael-1.09.tar.gz) = a0fa349631ce7a5555a3f6a9fe6c23b1a745858d
+ Size (Crypt-Rijndael-1.09.tar.gz) = 28994 bytes
++SHA1 (patch-aq) = 4780039094f3df9bde4617f4f26c11a6f23b56bf
+diff -r 3f242bfbd565 security/p5-Crypt-Rijndael/patches/patch-aq
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/security/p5-Crypt-Rijndael/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
+@@ -0,0 +1,14 @@
++diff -r d81bee0804d7 rijndael.h
++--- rijndael.h	Mon Jul 02 16:04:39 2012 +0000
+++++ rijndael.h	Mon Jul 02 16:05:26 2012 +0000
++@@ -74,8 +74,8 @@
++ /* I expect this to be the usual case */
++ #if ! defined(_CRYPT_RIJNDAEL_H_TYPES) && ( defined(_SYS_TYPES_H) || defined(_SYS_TYPES_H_) )   
++ 	#define _CRYPT_RIJNDAEL_H_TYPES
++-	typedef __uint32_t UINT32;
++-	typedef __uint8_t  UINT8;
+++	typedef uint32_t UINT32;
+++	typedef uint8_t  UINT8;
++ #endif
++ 
++ #if defined(__CYGWIN__) && ! defined(_CRYPT_RIJNDAEL_H_TYPES)
+diff -r 3f242bfbd565 security/policykit/distinfo
+--- a/security/policykit/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/security/policykit/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -19,3 +19,4 @@
  SHA1 (patch-an) = a0a54235fc72a52ace72a0d04df6c1383f7c583c
  SHA1 (patch-ao) = 0f9a87653f4902285c7420f6269e302eca896a1b
  SHA1 (patch-authdb) = 449b8ac50f81cc0234e17e64bc9892ade7119028
 +SHA1 (patch-aq) = 07d7453aba399fd3b61e05a46ec20f6080be7fde
-diff -r 368febf1be2c security/policykit/patches/patch-aq
+diff -r 3f242bfbd565 security/policykit/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/security/policykit/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/security/policykit/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,11 @@
 +diff -r 1ceaf4291bd1 src/polkit-dbus/polkit-resolve-exe-helper.c
 +--- src/polkit-dbus/polkit-resolve-exe-helper.c	Sun May 06 03:39:34 2012 +0000
@@ -1825,9 +1892,9 @@ diff -r 368febf1be2c security/policykit/patches/patch-aq
 + 
 + #include <polkit-dbus/polkit-dbus.h>
 + #include <polkit/polkit-private.h>
-diff -r 368febf1be2c shells/bash/Makefile
---- a/shells/bash/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/shells/bash/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 shells/bash/Makefile
+--- a/shells/bash/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/shells/bash/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -78,6 +78,9 @@
  .include "../../devel/readline/buildlink3.mk"
  .endif
@@ -1838,9 +1905,9 @@ diff -r 368febf1be2c shells/bash/Makefile
  post-install:
  	${INSTALL_MAN} ${WRKSRC}/doc/bash.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
  	${INSTALL_MAN} ${WRKSRC}/doc/bashbug.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
-diff -r 368febf1be2c shells/dash/Makefile
---- a/shells/dash/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/shells/dash/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 shells/dash/Makefile
+--- a/shells/dash/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/shells/dash/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -16,4 +16,6 @@
  USE_TOOLS+=		gmake
  PKG_SHELL=		bin/dash
@@ -1848,9 +1915,9 @@ diff -r 368febf1be2c shells/dash/Makefile
 +CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DEXECCMD=1 -DCOMMANDCMD=2"
 +
  .include "../../mk/bsd.pkg.mk"
-diff -r 368febf1be2c sysutils/coreutils/Makefile
---- a/sysutils/coreutils/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/sysutils/coreutils/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 sysutils/coreutils/Makefile
+--- a/sysutils/coreutils/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/sysutils/coreutils/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -39,6 +39,8 @@
  #MESSAGE_SUBST+=	OPSYS=${OPSYS:Q}
  #.endif
@@ -1860,17 +1927,17 @@ diff -r 368febf1be2c sysutils/coreutils/Makefile
  .include "../../converters/libiconv/buildlink3.mk"
  .include "../../devel/gettext-lib/buildlink3.mk"
  .include "../../mk/bsd.pkg.mk"
-diff -r 368febf1be2c sysutils/coreutils/distinfo
---- a/sysutils/coreutils/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/sysutils/coreutils/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 sysutils/coreutils/distinfo
+--- a/sysutils/coreutils/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/sysutils/coreutils/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -5,3 +5,4 @@
  Size (coreutils-8.13.tar.gz) = 11660808 bytes
  SHA1 (patch-lib-fflush.c) = e52e0da2127c5debbb14e967b1e206226efdaa4a
  SHA1 (patch-lib-fseeko.c) = ab62b8c7faa9a601191475c040c7466e1bd52fe1
 +SHA1 (patch-aq) = 02186df2372b3317cc2df6a8230cc198ac3eb4e9
-diff -r 368febf1be2c sysutils/coreutils/patches/patch-aq
+diff -r 3f242bfbd565 sysutils/coreutils/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/sysutils/coreutils/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/sysutils/coreutils/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,23 @@
 +diff -r fb0a1c120d18 lib/fseterr.c
 +--- lib/fseterr.c	Sat May 05 16:00:33 2012 +0000
@@ -1895,17 +1962,17 @@ diff -r 368febf1be2c sysutils/coreutils/patches/patch-aq
 + 
 + # include <sys/mtio.h>
 + 
-diff -r 368febf1be2c sysutils/gamin/distinfo
---- a/sysutils/gamin/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/sysutils/gamin/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 sysutils/gamin/distinfo
+--- a/sysutils/gamin/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/sysutils/gamin/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -16,3 +16,4 @@
  SHA1 (patch-server_gam__node.h) = 49a0d381b4900564c4f0ba7a654eb22e294c0a16
  SHA1 (patch-server_gam__subscription.c) = 58f6c10e4e1e899d097662536ea31bf8a692b114
  SHA1 (patch-server_gam__subscription.h) = 6347865210aa0338bc8b0a81fc671824c786fd26
 +SHA1 (patch-aq) = 6d30c2cb4ef9504a704a50168899a11c8c0db78a
-diff -r 368febf1be2c sysutils/gamin/patches/patch-aq
+diff -r 3f242bfbd565 sysutils/gamin/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/sysutils/gamin/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/sysutils/gamin/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,15 @@
 +diff -r a17041040b0f server/gam_dnotify.c
 +--- server/gam_dnotify.c	Sun May 06 05:06:48 2012 +0000
@@ -1922,17 +1989,17 @@ diff -r 368febf1be2c sysutils/gamin/patches/patch-aq
 + #include <fcntl.h>
 + #include <signal.h>
 + #include <unistd.h>
-diff -r 368febf1be2c sysutils/pciutils/distinfo
---- a/sysutils/pciutils/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/sysutils/pciutils/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 sysutils/pciutils/distinfo
+--- a/sysutils/pciutils/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/sysutils/pciutils/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = 1448bb418cdc908eb6652cc98994d23d0d78cea0
  SHA1 (patch-ac) = c917e8ad2d1e87fa65a2d8f3256afd40d5a87396
  SHA1 (patch-ad) = bfe9069e96fd46798afec73c93ad71db3a0e0e37
 +SHA1 (patch-aq) = b29a7e176a23456b6c509e5c40326d5a59050b8c
-diff -r 368febf1be2c sysutils/pciutils/patches/patch-aq
+diff -r 3f242bfbd565 sysutils/pciutils/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/sysutils/pciutils/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/sysutils/pciutils/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,12 @@
 +diff -r 63e97996f76b lib/configure
 +--- lib/configure	Sun May 06 02:42:29 2012 +0000
@@ -1946,17 +2013,17 @@ diff -r 368febf1be2c sysutils/pciutils/patches/patch-aq
 + 						echo >>$c '#define PCI_HAVE_PM_INTEL_CONF'
 + 						;;
 + 		esac
-diff -r 368febf1be2c sysutils/xfce4-thunar/distinfo
---- a/sysutils/xfce4-thunar/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/sysutils/xfce4-thunar/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 sysutils/xfce4-thunar/distinfo
+--- a/sysutils/xfce4-thunar/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/sysutils/xfce4-thunar/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = e5c3f1e853bf59f69047c7160a3e29df54298879
  SHA1 (patch-ac) = 745f240ff44b0b21eb727b0a9887c9d8f1ee8a47
  SHA1 (patch-thunar-vfs_thunar-vfs-io-jobs.c) = 8529460dea3353b7b8bb034c65c95e4561f61aab
 +SHA1 (patch-aq) = dd802620cec6c8d76a4ae09e5a155f2b01fd3558
-diff -r 368febf1be2c sysutils/xfce4-thunar/patches/patch-aq
+diff -r 3f242bfbd565 sysutils/xfce4-thunar/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/sysutils/xfce4-thunar/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/sysutils/xfce4-thunar/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,11 @@
 +diff -r f88137634fb9 tdb/tdb.h
 +--- tdb/tdb.h	Sun May 06 09:10:30 2012 +0000
@@ -1969,9 +2036,9 @@ diff -r 368febf1be2c sysutils/xfce4-thunar/patches/patch-aq
 + 
 + #ifdef  __cplusplus
 + extern "C" {
-diff -r 368febf1be2c textproc/groff/PLIST
---- a/textproc/groff/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/textproc/groff/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 textproc/groff/PLIST
+--- a/textproc/groff/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/textproc/groff/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -15,9 +15,6 @@
  bin/grops
  bin/grotty
@@ -2007,17 +2074,17 @@ diff -r 368febf1be2c textproc/groff/PLIST
  man/man1/addftinfo.1
  man/man1/afmtodit.1
  man/man1/chem.1
-diff -r 368febf1be2c textproc/hunspell/distinfo
---- a/textproc/hunspell/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/textproc/hunspell/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 textproc/hunspell/distinfo
+--- a/textproc/hunspell/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/textproc/hunspell/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -6,3 +6,4 @@
  SHA1 (patch-aa) = b03a51d88bd57786f4a0ac01a3b760b4d8ba385a
  SHA1 (patch-ab) = 01ff90fc2ebf1049d791a0669ddcc3f5495729c0
  SHA1 (patch-ac) = 27cad6078b55bce7144f462ddebac9887392c93b
 +SHA1 (patch-aq) = ac8d1f4468d017c841d33ab7cb073944921f03bf
-diff -r 368febf1be2c textproc/hunspell/patches/patch-aq
+diff -r 3f242bfbd565 textproc/hunspell/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/textproc/hunspell/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/textproc/hunspell/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,24 @@
 +diff -r 006c3f933ef3 src/tools/munch.c
 +--- src/tools/munch.c	Mon May 07 23:49:28 2012 +0000
@@ -2043,9 +2110,9 @@ diff -r 368febf1be2c textproc/hunspell/patches/patch-aq
 + #include <error.h>
 + #include <errno.h>
 + #include <sys/mman.h>
-diff -r 368febf1be2c textproc/libxml2/Makefile
---- a/textproc/libxml2/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/textproc/libxml2/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 textproc/libxml2/Makefile
+--- a/textproc/libxml2/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/textproc/libxml2/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -24,6 +24,7 @@
  CONFIGURE_ARGS+=	--with-iconv=${BUILDLINK_PREFIX.iconv}
  CONFIGURE_ARGS+=	--with-html-subdir=libxml2
@@ -2064,9 +2131,80 @@ diff -r 368febf1be2c textproc/libxml2/Makefile
  .include "../../mk/pthread.buildlink3.mk"
  .include "../../devel/zlib/buildlink3.mk"
  .include "../../converters/libiconv/buildlink3.mk"
-diff -r 368febf1be2c wm/bsetroot/PLIST
---- a/wm/bsetroot/PLIST	Mon May 21 19:35:54 2012 +0000
-+++ b/wm/bsetroot/PLIST	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 textproc/xmlrpc-c/Makefile
+--- a/textproc/xmlrpc-c/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/textproc/xmlrpc-c/Makefile	Mon Jul 02 12:54:47 2012 -0400
+@@ -40,5 +40,7 @@
+ 
+ .include "../../www/curl/buildlink3.mk"
+ .include "../../www/libwww/buildlink3.mk"
++.include "../../converters/libiconv/buildlink3.mk"
++.include "../../devel/gettext-lib/buildlink3.mk"
+ .include "../../mk/pthread.buildlink3.mk"
+ .include "../../mk/bsd.pkg.mk"
+diff -r 3f242bfbd565 textproc/xmlrpc-c/distinfo
+--- a/textproc/xmlrpc-c/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/textproc/xmlrpc-c/distinfo	Mon Jul 02 12:54:47 2012 -0400
+@@ -13,3 +13,4 @@
+ SHA1 (patch-lib_curl__transport_curlmulti.c) = 1cea4c43b1ed3dcf73827afc14d7bb9267371121
+ SHA1 (patch-lib_curl__transport_curltransaction.c) = 1dcf46c0dd1dd8e7fdfbb6c81e00b326f6d0b1f9
+ SHA1 (patch-lib_curl__transport_xmlrpc__curl__transport.c) = ea132ebb46ff0ce9893d64e9c9205d5a155220ef
++SHA1 (patch-aq) = 434c86fea4f13a8d0ba92e82b11bf3476a3017da
+diff -r 3f242bfbd565 textproc/xmlrpc-c/patches/patch-aq
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/textproc/xmlrpc-c/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
+@@ -0,0 +1,48 @@
++diff -r 89442310b346 examples/interrupted_client.c
++--- examples/interrupted_client.c	Mon Jul 02 16:31:43 2012 +0000
+++++ examples/interrupted_client.c	Mon Jul 02 16:34:32 2012 +0000
++@@ -2,6 +2,8 @@
++    both by timeout and by control-C.
++ */
++ 
+++#define _GNU_SOURCE
+++
++ #include <stdlib.h>
++ #include <unistd.h>
++ #include <stdio.h>
++diff -r 89442310b346 examples/interrupted_server.c
++--- examples/interrupted_server.c	Mon Jul 02 16:31:43 2012 +0000
+++++ examples/interrupted_server.c	Mon Jul 02 16:34:32 2012 +0000
++@@ -7,6 +7,8 @@
++    simpler code, but it is not interruptible with SIGTERM.
++ */
++ 
+++#define _GNU_SOURCE
+++
++ #include <stdlib.h>
++ #include <stdio.h>
++ #include <signal.h>
++diff -r 89442310b346 examples/xmlrpc_inetd_server.c
++--- examples/xmlrpc_inetd_server.c	Mon Jul 02 16:31:43 2012 +0000
+++++ examples/xmlrpc_inetd_server.c	Mon Jul 02 16:34:32 2012 +0000
++@@ -21,6 +21,8 @@
++    respond to the client, then exit.
++ */
++ 
+++#define _GNU_SOURCE
+++
++ #include <stdlib.h>
++ #include <stdio.h>
++ #include <signal.h>
++diff -r 89442310b346 examples/xmlrpc_loop_server.c
++--- examples/xmlrpc_loop_server.c	Mon Jul 02 16:31:43 2012 +0000
+++++ examples/xmlrpc_loop_server.c	Mon Jul 02 16:34:32 2012 +0000
++@@ -6,6 +6,8 @@
++    less control over how the requests are served.
++ */
++ 
+++#define _GNU_SOURCE
+++
++ #include <stdlib.h>
++ #include <stdio.h>
++ #include <signal.h>
+diff -r 3f242bfbd565 wm/bsetroot/PLIST
+--- a/wm/bsetroot/PLIST	Mon Jul 02 12:49:02 2012 -0400
++++ b/wm/bsetroot/PLIST	Mon Jul 02 12:54:47 2012 -0400
 @@ -3,37 +3,3 @@
  bin/bsetroot
  man/man1/bsetbg.1
@@ -2105,9 +2243,9 @@ diff -r 368febf1be2c wm/bsetroot/PLIST
 -share/bsetroot/nls/uk_UA/blackbox.cat
 -share/bsetroot/nls/zh_CN/blackbox.cat
 -share/bsetroot/nls/zh_TW/blackbox.cat
-diff -r 368febf1be2c www/firefox/Makefile
---- a/www/firefox/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/www/firefox/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 www/firefox/Makefile
+--- a/www/firefox/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/www/firefox/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -19,6 +19,7 @@
  
  LDFLAGS.DragonFly=	-lplc4 -lnspr4
@@ -2126,9 +2264,9 @@ diff -r 368febf1be2c www/firefox/Makefile
  pre-configure:
  	cd ${WRKSRC} && autoconf
  # XXX not built here, just to make check-portability.awk shut up.
-diff -r 368febf1be2c www/webkit-gtk/Makefile
---- a/www/webkit-gtk/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/www/webkit-gtk/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 www/webkit-gtk/Makefile
+--- a/www/webkit-gtk/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/www/webkit-gtk/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -9,5 +9,8 @@
  
  CONFIGURE_ARGS+=	--with-gtk=2.0
@@ -2138,9 +2276,9 @@ diff -r 368febf1be2c www/webkit-gtk/Makefile
 +
  .include "../../x11/gtk2/buildlink3.mk"
  .include "../../mk/bsd.pkg.mk"
-diff -r 368febf1be2c x11/libFS/Makefile
---- a/x11/libFS/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/libFS/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/libFS/Makefile
+--- a/x11/libFS/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/libFS/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -25,6 +25,8 @@
  CONFIGURE_ARGS+=	--disable-malloc0returnsnull
  .endif
@@ -2150,17 +2288,17 @@ diff -r 368febf1be2c x11/libFS/Makefile
  .include "../../x11/fontsproto/buildlink3.mk"
  .include "../../x11/xproto/buildlink3.mk"
  .include "../../x11/xtrans/buildlink3.mk"
-diff -r 368febf1be2c x11/libFS/distinfo
---- a/x11/libFS/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/libFS/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/libFS/distinfo
+--- a/x11/libFS/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/libFS/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -3,3 +3,4 @@
  SHA1 (libFS-1.0.3.tar.bz2) = 2b33fa17369605303ae70a7de1aa681879249c92
  RMD160 (libFS-1.0.3.tar.bz2) = a4c1811de0cba5fd40a083031c44a951c240dd3b
  Size (libFS-1.0.3.tar.bz2) = 284331 bytes
 +SHA1 (patch-aq) = 75f64d23fe0ffdc5dca48fcba982539d34caf42b
-diff -r 368febf1be2c x11/libFS/patches/patch-aq
+diff -r 3f242bfbd565 x11/libFS/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/x11/libFS/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/x11/libFS/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,12 @@
 +diff -r 5f55f742a811 src/FSConnServ.c
 +--- src/FSConnServ.c	Mon May 07 19:40:35 2012 +0000
@@ -2174,9 +2312,9 @@ diff -r 368febf1be2c x11/libFS/patches/patch-aq
 + #ifdef HAVE_CONFIG_H
 + #include <config.h>
 + #endif
-diff -r 368febf1be2c x11/libXfont/Makefile
---- a/x11/libXfont/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/libXfont/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/libXfont/Makefile
+--- a/x11/libXfont/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/libXfont/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -20,6 +20,7 @@
  PKGCONFIG_OVERRIDE+=	xfont.pc.in
  
@@ -2185,17 +2323,17 @@ diff -r 368febf1be2c x11/libXfont/Makefile
  
  .include "../../devel/zlib/buildlink3.mk"
  .include "../../graphics/freetype2/buildlink3.mk"
-diff -r 368febf1be2c x11/libdrm/distinfo
---- a/x11/libdrm/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/libdrm/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/libdrm/distinfo
+--- a/x11/libdrm/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/libdrm/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -7,3 +7,4 @@
  SHA1 (patch-ac) = 67c998df7dfc0dabc86320ea6d015cede3e464ea
  SHA1 (patch-ad) = ea3ef8de8db782ddab23f182f1e6bd9d8f612a78
  SHA1 (patch-libkms_linux.c) = 737d0a8e7b742ee9d24fec94c72de6b4915dd675
 +SHA1 (patch-aq) = 87e114775f5761986528f8c0c87ebaefe52d593b
-diff -r 368febf1be2c x11/libdrm/patches/patch-aq
+diff -r 3f242bfbd565 x11/libdrm/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/x11/libdrm/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/x11/libdrm/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,12 @@
 +diff -r 3f68fbb9449a intel/intel_bufmgr_fake.c
 +--- intel/intel_bufmgr_fake.c	Mon May 07 20:01:11 2012 +0000
@@ -2209,9 +2347,9 @@ diff -r 368febf1be2c x11/libdrm/patches/patch-aq
 + /* Support gcc's __FUNCTION__ for people using other compilers */
 + #if !defined(__GNUC__) && !defined(__FUNCTION__)
 + # define __FUNCTION__ __func__ /* C99 */
-diff -r 368febf1be2c x11/libxcb/Makefile
---- a/x11/libxcb/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/libxcb/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/libxcb/Makefile
+--- a/x11/libxcb/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/libxcb/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -74,6 +74,8 @@
  
  PYTHON_VERSIONS_ACCEPTED= 27 26 25
@@ -2221,17 +2359,17 @@ diff -r 368febf1be2c x11/libxcb/Makefile
  post-extract:
  	${CHMOD} -R go-w ${WRKSRC}
  
-diff -r 368febf1be2c x11/libxfce4menu/distinfo
---- a/x11/libxfce4menu/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/libxfce4menu/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/libxfce4menu/distinfo
+--- a/x11/libxfce4menu/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/libxfce4menu/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -3,3 +3,4 @@
  SHA1 (libxfce4menu-4.6.1.tar.bz2) = 17348f661c04e8d8d633b8831638d38987269e9a
  RMD160 (libxfce4menu-4.6.1.tar.bz2) = 978071d28288bd737219e4a9c4185937b2fbf50b
  Size (libxfce4menu-4.6.1.tar.bz2) = 404201 bytes
 +SHA1 (patch-aq) = 819f9876969820c0b8beb98a0cd7580eb59237dc
-diff -r 368febf1be2c x11/libxfce4menu/patches/patch-aq
+diff -r 3f242bfbd565 x11/libxfce4menu/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/x11/libxfce4menu/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/x11/libxfce4menu/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,11 @@
 +diff -r 24e4986df43b tdb/tdb.h
 +--- tdb/tdb.h	Sun May 06 11:48:51 2012 +0000
@@ -2244,9 +2382,9 @@ diff -r 368febf1be2c x11/libxfce4menu/patches/patch-aq
 + 
 + #ifdef  __cplusplus
 + extern "C" {
-diff -r 368febf1be2c x11/pixman/Makefile
---- a/x11/pixman/Makefile	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/pixman/Makefile	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/pixman/Makefile
+--- a/x11/pixman/Makefile	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/pixman/Makefile	Mon Jul 02 12:54:47 2012 -0400
 @@ -42,5 +42,8 @@
  post-extract:
  	${CP} ${FILESDIR}/pixman.sym ${WRKDIR}
@@ -2257,17 +2395,17 @@ diff -r 368febf1be2c x11/pixman/Makefile
 +	sed -i 's/support_for__thread=yes/support_for__thread=no/' ${WRKSRC}/configure	
 +	
  .include "../../mk/bsd.pkg.mk"
-diff -r 368febf1be2c x11/vte/distinfo
---- a/x11/vte/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/vte/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/vte/distinfo
+--- a/x11/vte/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/vte/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -9,3 +9,4 @@
  SHA1 (patch-af) = 69ea7e022f6c495c3c9af681d05644b9d70e7bdc
  SHA1 (patch-ah) = 28cee2661439d7d6f1959ebf3c7d1b7b3fe0a764
  SHA1 (patch-ai) = 986dd7c2a5778c9c35100901cfaa25acd0cbdc32
 +SHA1 (patch-aq) = 8262b1ccde6869c18a27994dd19e469b5430b05a
-diff -r 368febf1be2c x11/vte/patches/patch-aq
+diff -r 3f242bfbd565 x11/vte/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/x11/vte/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/x11/vte/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,19 @@
 +diff -r fecfb00f45d9 src/pty.c
 +--- src/pty.c	Sun May 06 12:32:48 2012 +0000
@@ -2288,17 +2426,17 @@ diff -r 368febf1be2c x11/vte/patches/patch-aq
 + 
 + 	/* now setup child I/O through the tty */
 + 	if (fd != STDIN_FILENO) {
-diff -r 368febf1be2c x11/xinit/distinfo
---- a/x11/xinit/distinfo	Mon May 21 19:35:54 2012 +0000
-+++ b/x11/xinit/distinfo	Mon May 21 20:28:38 2012 +0000
+diff -r 3f242bfbd565 x11/xinit/distinfo
+--- a/x11/xinit/distinfo	Mon Jul 02 12:49:02 2012 -0400
++++ b/x11/xinit/distinfo	Mon Jul 02 12:54:47 2012 -0400
 @@ -3,3 +3,4 @@
  SHA1 (xinit-1.2.1.tar.bz2) = baf36374aa1632054816a8281e55e1539459664b
  RMD160 (xinit-1.2.1.tar.bz2) = 993b068e4758521ed930bd78069c291b68d88037
  Size (xinit-1.2.1.tar.bz2) = 141441 bytes
 +SHA1 (patch-aq) = 98a0f800293163faa1392090842a6994485e8204
-diff -r 368febf1be2c x11/xinit/patches/patch-aq
+diff -r 3f242bfbd565 x11/xinit/patches/patch-aq
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/x11/xinit/patches/patch-aq	Mon May 21 20:28:38 2012 +0000
++++ b/x11/xinit/patches/patch-aq	Mon Jul 02 12:54:47 2012 -0400
 @@ -0,0 +1,12 @@
 +diff -r 55926f90284b xinit.c
 +--- xinit.c	Sun May 06 12:44:26 2012 +0000

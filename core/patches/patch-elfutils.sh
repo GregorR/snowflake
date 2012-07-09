@@ -1,0 +1,1 @@
+../../musl-cross/patches/patch-elfutils.sh

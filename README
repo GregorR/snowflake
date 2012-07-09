@@ -60,14 +60,14 @@ vital tools. Due to bugs at various layers, support is very preliminary. A
 native compile on an ARM system should work just like a native compile on any
 other system. To cross-compile Snowflake for ARM:
 
-* Your config.sh must specify ARCH=arm and TRIPLE=arm-pc-linux-musleabi . Note
+* Your config.sh must specify ARCH=arm and TRIPLE=arm-linux-musleabi . Note
   "eabi", it's important.
 
 * Up to buildroot is as normal. After buildroot asks you to sudo, it will have
   some errors. These are normal.
 
 * Use mk-hd-image.sh to create an image, even though it hasn't been finalized
-  or bootstrap.
+  or bootstrapped.
 
 * The image is usable in qemu like so:
   qemu-system-arm -M vexpress-a9 -kernel vmlinuz \

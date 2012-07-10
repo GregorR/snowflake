@@ -2,6 +2,9 @@
 cd /var/pkgsrc
 LOG="/root/pkgsrc.log"
 
+SKIP=no
+CONTINUE=
+
 # groups that are needed
 for g in dbus
 do
@@ -15,14 +18,21 @@ try() {
     return "$RET"
 }
 
-SKIP=y
-
-echo '
+[ "$SKIP" != "yes" ] && echo '
 D|B|T|pkg
 -+-+-+---' > "$LOG"
+
 for pkg in */*/Makefile
 do
     pkg=`dirname $pkg`
+
+    if [ "$SKIP" = "yes" ]
+    then
+        [ "$pkg" != "$CONTINUE" ] && continue
+        SKIP=no
+        continue
+    fi
+
     expr "$pkg" : '.*/gcc' && continue
     expr "$pkg" : '.*/binutils' && continue
     cd $pkg

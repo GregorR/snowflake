@@ -23,6 +23,9 @@ fi
 # Fail on any command failing, show commands:
 set -ex
 
+MUSL_ROOT_CONFFLAGS=
+BINUTILS_ROOT_CONFFLAGS=
+GCC_ROOT_CONFFLAGS=
 . "$SNOWFLAKE_BASE"/defs.sh
 
 # use SNOWFLAKE_BASE for all builds now
@@ -66,7 +69,7 @@ then
 fi
 
 # musl
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/libc.so" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/libc.a" ]
 then
     rm -f musl-$MUSL_VERSION/built musl-$MUSL_VERSION/installed # Force it to reinstall
 fi
@@ -74,14 +77,17 @@ PREFIX="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr"
 export PREFIX
 muslfetchextract
 buildinstall '' musl-$MUSL_VERSION \
-    --enable-debug CC="$TRIPLE-gcc"
+    --enable-debug CC="$TRIPLE-gcc" $MUSL_ROOT_CONFFLAGS
 rm -f "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/musl-gcc" # No musl-gcc needed or wanted
-[ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1" ] && \
-    ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1"
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/ldd" ]
+if [ -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/libc.so" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin"
-    ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/ldd"
+    [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1" ] && \
+        ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1"
+    if [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/ldd" ]
+    then
+        mkdir -p "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin"
+        ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/ldd"
+    fi
 fi
 echo linux-headers > "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/deps"
 unset PREFIX
@@ -171,7 +177,7 @@ nolib64 "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/usr"
 # FIXME: In musl 0.9.2 this may be fixed, or alternately, may need to change to _GNU_SOURCE
 MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION" \
     CFLAGS="-O2 -g $CFLAGS -D_LARGEFILE64_SOURCE" buildinstall root binutils-$BINUTILS_VERSION --host=$TRIPLE --target=$TRIPLE \
-        --disable-werror
+        --disable-werror $BINUTILS_ROOT_CONFFLAGS
 nolib64end "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/usr"
 unset PREFIX
 
@@ -181,13 +187,15 @@ fetchextract http://ftp.gnu.org/gnu/gcc/gcc-$GCC_VERSION/ gcc-$GCC_VERSION .tar.
 nolib64 "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
 MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION" \
     buildinstall root gcc-$GCC_VERSION --host=$TRIPLE --target=$TRIPLE \
-    --enable-languages=c,c++ --disable-multilib --disable-libmudflap
+    --enable-languages=c,c++ --disable-multilib --disable-libmudflap \
+    $GCC_ROOT_CONFFLAGS
 nolib64end "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
 # get the libs into their own path
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib"
-    mv "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib"/*.so.* "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib/"
+    [ -e "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/libgcc_s.so.1" ] && \
+        mv "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib"/*.so.* "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib/"
 fi
 echo binutils > "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/deps"
 unset PREFIX

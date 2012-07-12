@@ -1,0 +1,39 @@
+# HG changeset patch
+# Parent e4eba23701bcdd25611c2e2305e3658625682dc2
+
+diff --git a/print/a2ps/distinfo b/print/a2ps/distinfo
+--- a/print/a2ps/distinfo
++++ b/print/a2ps/distinfo
+@@ -7,3 +7,4 @@
+ SHA1 (patch-ab) = 7b1f1e3ed2af47e7d9864ec2dbcd7d105f93632a
+ SHA1 (patch-ac) = 8e09c4c3b320b58bf12c4266d4d22977b5f9b826
+ SHA1 (patch-lib_path-concat.c) = b345a7b16559315223dcbb182e92feccca7e6e2f
++SHA1 (patch-qq) = c6fc0a95e7003c055da2dc1ebea316638a1cc3e9
+diff --git a/print/a2ps/patches/patch-qq b/print/a2ps/patches/patch-qq
+new file mode 100644
+--- /dev/null
++++ b/print/a2ps/patches/patch-qq
+@@ -0,0 +1,23 @@
++diff -r b585ce465a54 lib/path-concat.c
++--- lib/path-concat.c	Sun May 06 04:40:07 2012 +0000
+++++ lib/path-concat.c	Sun May 06 04:42:23 2012 +0000
++@@ -21,16 +21,15 @@
++ # include <config.h>
++ #endif
++ 
++-#if !defined(HAVE_MEMPCPY) && !defined(__DragonFly__)
++-# define mempcpy(D, S, N) ((void *) ((char *) memcpy (D, S, N) + (N)))
++-#endif
++-
++ #include <stdio.h>
++ #if HAVE_STRING_H
++ # include <string.h>
++ #endif
++ #include <sys/types.h>
++ 
+++#if !defined(HAVE_MEMPCPY) && !defined(__DragonFly__)
+++# define mempcpy(D, S, N) ((void *) ((char *) memcpy (D, S, N) + (N)))
+++#endif
++ /* char *malloc (); */
++ 
++ #ifndef DIRECTORY_SEPARATOR

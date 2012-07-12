@@ -1,0 +1,33 @@
+# HG changeset patch
+# Parent 0c817a64704477afcc7facdc1e651b7aa7390bbc
+
+diff --git a/pkgtools/libnbcompat/files/lchflags.c b/pkgtools/libnbcompat/files/lchflags.c
+--- a/pkgtools/libnbcompat/files/lchflags.c
++++ b/pkgtools/libnbcompat/files/lchflags.c
+@@ -39,6 +39,7 @@
+ int
+ lchflags(const char *path, unsigned long flags)
+ {
++#if 0
+ 	struct stat psb;
+ 
+ 	if (lstat(path, &psb) == -1)
+@@ -47,4 +48,6 @@
+ 		return 0;
+ 	}
+ 	return (chflags(path, flags));
++#endif
++	return -1;
+ }
+diff --git a/pkgtools/libnbcompat/files/unvis.c b/pkgtools/libnbcompat/files/unvis.c
+--- a/pkgtools/libnbcompat/files/unvis.c
++++ b/pkgtools/libnbcompat/files/unvis.c
+@@ -83,6 +83,8 @@
+ #define	isoctal(c)	(((unsigned char)(c)) >= '0' && ((unsigned char)(c)) <= '7')
+ #define xtod(c)		(isdigit(c) ? (c - '0') : ((tolower(c) - 'a') + 10))
+ 
++int __nbcompat_unvis13(char *cp, int c, int *astate, int flag);
++
+ int
+ unvis(cp, c, astate, flag)
+ 	char *cp;

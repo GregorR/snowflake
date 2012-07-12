@@ -1,0 +1,25 @@
+# HG changeset patch
+# Parent 23964269bf0c63004e1c9c42c3ef151b3a3fedb4
+
+diff --git a/lang/perl5/Makefile b/lang/perl5/Makefile
+--- a/lang/perl5/Makefile
++++ b/lang/perl5/Makefile
+@@ -50,6 +50,7 @@
+ CONFIGURE_ARGS+=	-sde
+ CONFIGURE_ARGS+=	-D ccflags=${CFLAGS:Q}
+ CONFIGURE_ARGS+=	-D ldflags=${LDFLAGS:Q}
++CONFIGURE_ARGS+=        -D inc_version_list=none
+ MAKE_ENV+=		LC_ALL="C"
+ 
+ TEST_TARGET=		test
+@@ -320,6 +321,10 @@
+ 
+ pre-configure:
+ 	cd ${WRKSRC} && find `pwd` -name "*.orig" -type f -exec ${RM} -f {} \;
++	sed 's/-fstack-protector/-fno-stack-protector/g' -i ${WRKSRC}/Configure
++	
++pre-build:	
++	sed 's/define HAS_CRYPT_R/undef HAS_CRYPT_R/g' -i ${WRKSRC}/config.h
+ 
+ post-build:
+ 	${SED}	-e "s,@PERL5@,"${PERL5:Q}",g"				\

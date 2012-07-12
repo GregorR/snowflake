@@ -1,0 +1,20 @@
+# HG changeset patch
+# Parent 4d412a47cd8904b85cfedcb642c4cb105b542ccd
+
+diff --git a/devel/nspr/Makefile b/devel/nspr/Makefile
+--- a/devel/nspr/Makefile
++++ b/devel/nspr/Makefile
+@@ -70,6 +70,13 @@
+ BUILDLINK_PASSTHRU_DIRS+=	Developer/Headers/FlatCarbon
+ .endif
+ 
++# [Gregor] SOL_TCP is deprecated
++CFLAGS+=-DSOL_TCP=IPPROTO_TCP
++
++# [Gregor] the detection is broken
++pre-build:
++	${SED} 's/#define _PR_HAVE_GETPROTO_R.*//' -i ${WRKSRC}/nsprpub/pr/src/misc/prnetdb.c
++
+ pre-configure:
+ # sanity check: make sure the nspr release is what we think it is.
+ #	@set -e; if [ '"${NSPR_RELEASE}"' !=			\

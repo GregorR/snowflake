@@ -1,0 +1,63 @@
+# HG changeset patch
+# Parent c4e347ef2fc9b11838e5c86b85f223a233f302ef
+
+diff --git a/devel/ncurses/Makefile b/devel/ncurses/Makefile
+--- a/devel/ncurses/Makefile
++++ b/devel/ncurses/Makefile
+@@ -38,6 +38,9 @@
+ 
+ PLIST_SRC=	${PKGDIR}/PLIST ${WRKDIR}/PLIST.terminfo
+ 
++# [Gregor] C++ build doesn't work
++CONFIGURE_ARGS+=	--without-cxx
++
+ post-configure:
+ 	cd ${WRKSRC}/man;					\
+ 	for f in *.1m; do					\
+diff --git a/devel/ncurses/Makefile.common b/devel/ncurses/Makefile.common
+--- a/devel/ncurses/Makefile.common
++++ b/devel/ncurses/Makefile.common
+@@ -16,14 +16,15 @@
+ PKG_INSTALLATION_TYPES=	overwrite pkgviews
+ PKG_DESTDIR_SUPPORT=	user-destdir
+ 
+-USE_LANGUAGES=		c c++
++USE_LANGUAGES=		c
+ USE_LIBTOOL=		yes
+ USE_TOOLS+=		tbl
+ GNU_CONFIGURE=		yes
+ CONFIGURE_ARGS+=	--with-libtool
+ CONFIGURE_ARGS+=	--enable-bsdpad
+ CONFIGURE_ARGS+=	--enable-overwrite
+-CONFIGURE_ARGS+=	--with-cxx-binding
++# [Gregor] No C++
++#CONFIGURE_ARGS+=	--with-cxx-binding
+ CONFIGURE_ARGS+=	--without-ada
+ CONFIGURE_ARGS+=	--without-gpm
+ CONFIGURE_ARGS+=	--with-manpage-format=normal
+diff --git a/devel/ncurses/PLIST b/devel/ncurses/PLIST
+--- a/devel/ncurses/PLIST
++++ b/devel/ncurses/PLIST
+@@ -11,14 +11,7 @@
+ bin/tput
+ bin/tset
+ include/ncurses/curses.h
+-include/ncurses/cursesapp.h
+-include/ncurses/cursesf.h
+-include/ncurses/cursesm.h
+-include/ncurses/cursesp.h
+-include/ncurses/cursesw.h
+-include/ncurses/cursslk.h
+ include/ncurses/eti.h
+-include/ncurses/etip.h
+ include/ncurses/form.h
+ include/ncurses/menu.h
+ include/ncurses/nc_tparm.h
+@@ -32,7 +25,6 @@
+ include/ncurses/unctrl.h
+ lib/libform.la
+ lib/libmenu.la
+-lib/libncurses++.la
+ lib/libncurses.la
+ lib/libpanel.la
+ man/man1/captoinfo.1

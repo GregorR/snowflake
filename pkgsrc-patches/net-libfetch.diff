@@ -1,0 +1,31 @@
+# HG changeset patch
+# Parent c758a34684c54eca9e932f824dbb0441c6af5263
+
+diff --git a/net/libfetch/files/ftp.c b/net/libfetch/files/ftp.c
+--- a/net/libfetch/files/ftp.c
++++ b/net/libfetch/files/ftp.c
+@@ -59,8 +59,10 @@
+ 
+ #ifdef __linux__
+ /* Keep this down to Linux, it can create surprises else where. */
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
+ #endif
++#endif
+ 
+ #if HAVE_CONFIG_H
+ #include "config.h"
+diff --git a/net/libfetch/files/http.c b/net/libfetch/files/http.c
+--- a/net/libfetch/files/http.c
++++ b/net/libfetch/files/http.c
+@@ -65,8 +65,10 @@
+ 
+ #if defined(__linux__) || defined(__MINT__)
+ /* Keep this down to Linux or MiNT, it can create surprises elsewhere. */
++#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
+ #endif
++#endif
+ 
+ /* Needed for gmtime_r on Interix */
+ #define _REENTRANT

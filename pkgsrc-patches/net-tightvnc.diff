@@ -1,0 +1,26 @@
+# HG changeset patch
+# Parent d936b0c968d080df03ccdaecc15f0da9871dca73
+
+diff --git a/net/tightvnc/Makefile b/net/tightvnc/Makefile
+--- a/net/tightvnc/Makefile
++++ b/net/tightvnc/Makefile
+@@ -28,6 +28,7 @@
+ .if !empty(MACHINE_PLATFORM:MNetBSD-*-x86_64)
+ _WRAP_EXTRA_ARGS.CC+=	-DDDXTIME -D_XSERVER64 -DGCCUSESGAS
+ .endif
++_WRAP_EXTRA_ARGS.CC+=	-DNOFILES_MAX=256
+ 
+ .if ${X11_TYPE} == "modular"
+ DEPENDS+=		rgb>=1.0.1:../../x11/rgb
+@@ -56,6 +57,11 @@
+ 
+ INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/examples/tightvnc
+ 
++pre-build:
++	echo '#define DEFAULT_CPP "cpp"' >> ${WRKSRC}/Xvnc/config/imake/imakemdep.h
++	sed -i 's/alloca/malloc/g ; s/-x c -/-x c - -x none/' ${WRKSRC}/Xvnc/config/imake/imake.c
++	sed -i 's/HasFfsl[ \t]*YES/HasFfsl NO/' ${WRKSRC}/Xvnc/config/cf/linux.cf
++
+ do-install:
+ 	${INSTALL_PROGRAM} ${WRKSRC}/Xvnc/programs/Xserver/Xvnc \
+ 	    ${DESTDIR}${PREFIX}/bin/Xvnc

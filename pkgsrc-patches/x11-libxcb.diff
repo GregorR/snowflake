@@ -1,0 +1,15 @@
+# HG changeset patch
+# Parent 6be51f3718be6b414ac97ce58eba41dadccbdb9e
+
+diff --git a/x11/libxcb/Makefile b/x11/libxcb/Makefile
+--- a/x11/libxcb/Makefile
++++ b/x11/libxcb/Makefile
+@@ -74,6 +74,8 @@
+ 
+ PYTHON_VERSIONS_ACCEPTED= 27 26 25
+ 
++BUILD_DEPENDS+=		py27-cElementTree-[0-9]*:../../textproc/py-cElementTree
++
+ post-extract:
+ 	${CHMOD} -R go-w ${WRKSRC}
+ 

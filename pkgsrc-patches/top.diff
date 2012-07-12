@@ -1,0 +1,14 @@
+# HG changeset patch
+# Parent 43f0e18f727cc9e9b2491bce0524c8ec03f40e23
+
+diff --git a/Makefile b/Makefile
+--- a/Makefile
++++ b/Makefile
+@@ -91,6 +91,7 @@
+ SUBDIR+=	wm
+ SUBDIR+=	www
+ .endif
++_WRAP_EXTRA_ARGS.CC+=	-DNOFILES_MAX=256
+ 
+ SUBDIR+=	${USER_ADDITIONAL_PKGS}
+ 

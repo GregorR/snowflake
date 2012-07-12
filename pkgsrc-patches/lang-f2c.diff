@@ -1,0 +1,29 @@
+# HG changeset patch
+# Parent 18aade104d581f387ee34bf874a0de7519145478
+
+diff --git a/lang/f2c/distinfo b/lang/f2c/distinfo
+--- a/lang/f2c/distinfo
++++ b/lang/f2c/distinfo
+@@ -6,3 +6,4 @@
+ SHA1 (patch-aa) = f1224ff17cdc96f083a247dce88b690e8b939eb0
+ SHA1 (patch-ad) = 7f204a45891e3632589ea8fb0e4e379a0a792dea
+ SHA1 (patch-ak) = 8652a54df300ddd60d9b1a9594d312349b782cf4
++SHA1 (patch-aq) = dd5d4e79bd1d61d7ce152b0934667ba4a1888692
+diff --git a/lang/f2c/patches/patch-aq b/lang/f2c/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/lang/f2c/patches/patch-aq
+@@ -0,0 +1,13 @@
++diff -r 6bba7eaf719c src/sysdep.c
++--- src/sysdep.c	Sat Apr 28 14:46:46 2012 +0000
+++++ src/sysdep.c	Sat Apr 28 14:47:22 2012 +0000
++@@ -83,6 +83,9 @@
++ #include <sys/wait.h>
++ #include <unistd.h>
++ 
+++#include <sys/types.h>
+++#include <sys/stat.h>
+++
++  void
++ #ifdef KR_headers
++ Un_link_all(cdelete)

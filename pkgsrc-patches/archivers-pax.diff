@@ -1,0 +1,33 @@
+# HG changeset patch
+# Parent 6874d1f5e3a94174b6a05939d72508654e7759ba
+
+diff --git a/archivers/pax/files/getid.c b/archivers/pax/files/getid.c
+--- a/archivers/pax/files/getid.c
++++ b/archivers/pax/files/getid.c
+@@ -152,12 +152,14 @@
+ 	if (!grstart() || !pwstart())
+ 		return (0);
+ 
++#if 0
+ 				/* switch pwcache(3) lookup functions */
+ 	if (pwcache_groupdb(gi_setgroupent, gi_endgrent,
+ 			    gi_getgrnam, gi_getgrgid) == -1
+ 	    || pwcache_userdb(gi_setpassent, gi_endpwent,
+ 			    gi_getpwnam, gi_getpwuid) == -1)
+ 		return (0);
++#endif
+ 
+ 	return (1);
+ }
+diff --git a/archivers/pax/files/options.c b/archivers/pax/files/options.c
+--- a/archivers/pax/files/options.c
++++ b/archivers/pax/files/options.c
+@@ -107,6 +107,8 @@
+ #include "mtree.h"
+ #endif	/* SMALL */
+ 
++#include <strings.h>
++
+ /*
+  * Routines which handle command line options
+  */

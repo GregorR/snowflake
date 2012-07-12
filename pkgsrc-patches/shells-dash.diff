@@ -1,0 +1,13 @@
+# HG changeset patch
+# Parent 848fcfad914eb06d3ec70d4bdaab955016740bd3
+
+diff --git a/shells/dash/Makefile b/shells/dash/Makefile
+--- a/shells/dash/Makefile
++++ b/shells/dash/Makefile
+@@ -16,4 +16,6 @@
+ USE_TOOLS+=		gmake
+ PKG_SHELL=		bin/dash
+ 
++CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DEXECCMD=1 -DCOMMANDCMD=2"
++
+ .include "../../mk/bsd.pkg.mk"

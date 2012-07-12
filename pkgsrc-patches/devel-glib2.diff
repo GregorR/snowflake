@@ -1,0 +1,19 @@
+# HG changeset patch
+# Parent c20a80372235041e1da4dcb6590239cfdaba8e2a
+
+diff --git a/devel/glib2/Makefile b/devel/glib2/Makefile
+--- a/devel/glib2/Makefile
++++ b/devel/glib2/Makefile
+@@ -46,6 +46,12 @@
+ 
+ LIBS.SunOS+=	-lnsl -lsocket
+ 
++
++
++# [Gregor] bugs in how it uses libdl
++pre-build:
++	sed -i 's/if (msg)/if (!p \&\& msg)/' ${WRKSRC}/gmodule/gmodule-dl.c
++
+ .include "../../converters/libiconv/buildlink3.mk"
+ .include "../../devel/gettext-lib/buildlink3.mk"
+ .include "../../devel/pcre/buildlink3.mk"

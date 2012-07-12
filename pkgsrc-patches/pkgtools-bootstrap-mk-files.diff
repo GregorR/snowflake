@@ -1,0 +1,29 @@
+# HG changeset patch
+# Parent 8242aec0f7d5620be2bf3a9d125b469083a7e885
+
+diff --git a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
+--- a/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
++++ b/pkgtools/bootstrap-mk-files/files/mods/Linux.bsd.man.mk
+@@ -13,6 +13,7 @@
+ .endif
+ 
+ .PHONY:		catinstall maninstall catpages manpages catlinks manlinks cleanman html installhtml cleanhtml
++MKMAN?=no
+ .if ${MKMAN} != "no"
+ realinstall:	${MANINSTALL}
+ .endif
+@@ -40,11 +41,10 @@
+ TMACDIR?=	${DESTDIR}/usr/share/groff/tmac
+ .endif
+ HTMLDIR?=	${DESTDIR}/usr/share/man
+-CATDEPS?=	${TMACDIR}/mandoc.tmac \
+-		${TMACDIR}/doc.tmac
++CATDEPS?=
+ MANTARGET?=	cat
+-NROFF?=		nroff -Tascii
+-GROFF?=		groff -Tascii
++NROFF?=		cat
++GROFF?=		cat
+ TBL?=		tbl
+ 
+ 

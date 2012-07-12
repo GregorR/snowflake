@@ -1,0 +1,27 @@
+# HG changeset patch
+# Parent ab1b46de47c3cd67c39ef74e72e593f7c2985a57
+
+diff --git a/x11/libxfce4menu/distinfo b/x11/libxfce4menu/distinfo
+--- a/x11/libxfce4menu/distinfo
++++ b/x11/libxfce4menu/distinfo
+@@ -3,3 +3,4 @@
+ SHA1 (libxfce4menu-4.6.1.tar.bz2) = 17348f661c04e8d8d633b8831638d38987269e9a
+ RMD160 (libxfce4menu-4.6.1.tar.bz2) = 978071d28288bd737219e4a9c4185937b2fbf50b
+ Size (libxfce4menu-4.6.1.tar.bz2) = 404201 bytes
++SHA1 (patch-aq) = 819f9876969820c0b8beb98a0cd7580eb59237dc
+diff --git a/x11/libxfce4menu/patches/patch-aq b/x11/libxfce4menu/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/x11/libxfce4menu/patches/patch-aq
+@@ -0,0 +1,11 @@
++diff -r 24e4986df43b tdb/tdb.h
++--- tdb/tdb.h	Sun May 06 11:48:51 2012 +0000
+++++ tdb/tdb.h	Sun May 06 11:49:25 2012 +0000
++@@ -29,6 +29,7 @@
++ 
++ #include <signal.h>
++ #include <unistd.h>
+++#include <sys/types.h>
++ 
++ #ifdef  __cplusplus
++ extern "C" {

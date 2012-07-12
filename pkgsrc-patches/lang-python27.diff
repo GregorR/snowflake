@@ -1,0 +1,14 @@
+# HG changeset patch
+# Parent c621cf8a290333bb91f811f65a9b394aa41f9f35
+
+diff --git a/lang/python27/PLIST.common b/lang/python27/PLIST.common
+--- a/lang/python27/PLIST.common
++++ b/lang/python27/PLIST.common
+@@ -1835,7 +1835,6 @@
+ lib/python${PY_VER_SUFFIX}/lib-dynload/itertools.so
+ lib/python${PY_VER_SUFFIX}/lib-dynload/math.so
+ lib/python${PY_VER_SUFFIX}/lib-dynload/mmap.so
+-${PLIST.nis}lib/python${PY_VER_SUFFIX}/lib-dynload/nis.so
+ ${PLIST.no-nis}lib/python${PY_VER_SUFFIX}/lib-dynload/nis_failed.so
+ lib/python${PY_VER_SUFFIX}/lib-dynload/operator.so
+ lib/python${PY_VER_SUFFIX}/lib-dynload/parser.so

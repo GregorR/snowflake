@@ -1,0 +1,16 @@
+# HG changeset patch
+# Parent 22a13f6d10e55a9c9723928b085acc8be80c95ca
+
+diff --git a/x11/pixman/Makefile b/x11/pixman/Makefile
+--- a/x11/pixman/Makefile
++++ b/x11/pixman/Makefile
+@@ -42,5 +42,8 @@
+ post-extract:
+ 	${CP} ${FILESDIR}/pixman.sym ${WRKDIR}
+ 	${CP} ${FILESDIR}/solaris-hwcap.mapfile ${WRKSRC}/pixman
+-
++	
++pre-configure:
++	sed -i 's/support_for__thread=yes/support_for__thread=no/' ${WRKSRC}/configure	
++	
+ .include "../../mk/bsd.pkg.mk"

@@ -1,0 +1,27 @@
+# HG changeset patch
+# Parent 5cc81baabe39a29369cbeea8ed85a9156fd5a27e
+
+diff --git a/databases/db4/distinfo b/databases/db4/distinfo
+--- a/databases/db4/distinfo
++++ b/databases/db4/distinfo
+@@ -7,3 +7,4 @@
+ SHA1 (patch-ab) = 8f9ecc47527d338e28ee1ce71e694eaf2bdceb92
+ SHA1 (patch-ac) = 045a3b83b9c6c164382ec546b06ae248620552cf
+ SHA1 (patch-ae) = 43e574154de93dba60392b09d6ebddbca1036849
++SHA1 (patch-aq) = 3baa90e922dc9cb075deee2a2a37d607affead9b
+diff --git a/databases/db4/patches/patch-aq b/databases/db4/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/databases/db4/patches/patch-aq
+@@ -0,0 +1,11 @@
++diff -r 7a6cd6105754 dist/configure
++--- dist/configure	Sat Apr 28 15:23:22 2012 +0000
+++++ dist/configure	Sat Apr 28 15:24:05 2012 +0000
++@@ -18792,6 +18792,7 @@
++ /* end confdefs.h.  */
++ 
++ #include <pthread.h>
+++#include <stdlib.h>
++ main() {
++ 	pthread_cond_t cond;
++ 	pthread_mutex_t mutex;

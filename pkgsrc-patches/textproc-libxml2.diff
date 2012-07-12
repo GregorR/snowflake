@@ -1,0 +1,24 @@
+# HG changeset patch
+# Parent c836435476c884fb1443b24fccdb3aae1bc1dbf6
+
+diff --git a/textproc/libxml2/Makefile b/textproc/libxml2/Makefile
+--- a/textproc/libxml2/Makefile
++++ b/textproc/libxml2/Makefile
+@@ -24,6 +24,7 @@
+ CONFIGURE_ARGS+=	--with-iconv=${BUILDLINK_PREFIX.iconv}
+ CONFIGURE_ARGS+=	--with-html-subdir=libxml2
+ CONFIGURE_ARGS+=	--without-python
++CONFIGURE_ARGS+=	--without-threads
+ 
+ .include "options.mk"
+ 
+@@ -43,6 +44,9 @@
+ SUBST_SED.cat=	-e "s,@@SGML_DEFAULT_CATALOG@@,${SGML_DEFAULT_CATALOG},g"
+ SUBST_SED.cat+=	-e "s,@@XML_DEFAULT_CATALOG@@,${XML_DEFAULT_CATALOG},g"
+ 
++pre-build:
++	sed 's/NO_ADDRESS/-1/' -i ${WRKSRC}/nanohttp.c
++
+ .include "../../mk/pthread.buildlink3.mk"
+ .include "../../devel/zlib/buildlink3.mk"
+ .include "../../converters/libiconv/buildlink3.mk"

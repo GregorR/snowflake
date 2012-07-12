@@ -1,0 +1,16 @@
+# HG changeset patch
+# Parent e6541bfdb545a1242e9bc8c1bbbae33585e9e307
+
+diff --git a/meta-pkgs/xfce4/Makefile b/meta-pkgs/xfce4/Makefile
+--- a/meta-pkgs/xfce4/Makefile
++++ b/meta-pkgs/xfce4/Makefile
+@@ -16,7 +16,8 @@
+ .include "../../print/xfce4-print/buildlink3.mk"
+ .include "../../sysutils/xfce4-appfinder/buildlink3.mk"
+ .include "../../sysutils/xfce4-thunar/buildlink3.mk"
+-.include "../../sysutils/xfce4-volman/buildlink3.mk"
++# [Gregor] volman depends on hal
++#.include "../../sysutils/xfce4-volman/buildlink3.mk"
+ .include "../../sysutils/xfce4-xarchiver/buildlink3.mk"
+ .include "../../time/xfce4-orage/buildlink3.mk"
+ .include "../../wm/xfce4-wm-themes/buildlink3.mk"

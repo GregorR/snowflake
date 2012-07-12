@@ -1,0 +1,28 @@
+# HG changeset patch
+# Parent 3d040cdbc217424f33159b1cfbfcb6bd0a898bfa
+
+diff --git a/x11/libdrm/distinfo b/x11/libdrm/distinfo
+--- a/x11/libdrm/distinfo
++++ b/x11/libdrm/distinfo
+@@ -7,3 +7,4 @@
+ SHA1 (patch-ac) = 67c998df7dfc0dabc86320ea6d015cede3e464ea
+ SHA1 (patch-ad) = ea3ef8de8db782ddab23f182f1e6bd9d8f612a78
+ SHA1 (patch-libkms_linux.c) = 737d0a8e7b742ee9d24fec94c72de6b4915dd675
++SHA1 (patch-aq) = 87e114775f5761986528f8c0c87ebaefe52d593b
+diff --git a/x11/libdrm/patches/patch-aq b/x11/libdrm/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/x11/libdrm/patches/patch-aq
+@@ -0,0 +1,12 @@
++diff -r 3f68fbb9449a intel/intel_bufmgr_fake.c
++--- intel/intel_bufmgr_fake.c	Mon May 07 20:01:11 2012 +0000
+++++ intel/intel_bufmgr_fake.c	Mon May 07 20:01:34 2012 +0000
++@@ -51,6 +51,8 @@
++ #include "mm.h"
++ #include "libdrm_lists.h"
++ 
+++#include <strings.h>
+++
++ /* Support gcc's __FUNCTION__ for people using other compilers */
++ #if !defined(__GNUC__) && !defined(__FUNCTION__)
++ # define __FUNCTION__ __func__ /* C99 */

@@ -1,0 +1,27 @@
+# HG changeset patch
+# Parent 4615a1dbb4d25cd48b8f26328fe8eeed761e0a7d
+
+diff --git a/security/policykit/distinfo b/security/policykit/distinfo
+--- a/security/policykit/distinfo
++++ b/security/policykit/distinfo
+@@ -19,3 +19,4 @@
+ SHA1 (patch-an) = a0a54235fc72a52ace72a0d04df6c1383f7c583c
+ SHA1 (patch-ao) = 0f9a87653f4902285c7420f6269e302eca896a1b
+ SHA1 (patch-authdb) = 449b8ac50f81cc0234e17e64bc9892ade7119028
++SHA1 (patch-aq) = 07d7453aba399fd3b61e05a46ec20f6080be7fde
+diff --git a/security/policykit/patches/patch-aq b/security/policykit/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/security/policykit/patches/patch-aq
+@@ -0,0 +1,11 @@
++diff -r 1ceaf4291bd1 src/polkit-dbus/polkit-resolve-exe-helper.c
++--- src/polkit-dbus/polkit-resolve-exe-helper.c	Sun May 06 03:39:34 2012 +0000
+++++ src/polkit-dbus/polkit-resolve-exe-helper.c	Sun May 06 03:39:59 2012 +0000
++@@ -52,6 +52,7 @@
++ #include <utime.h>
++ #include <fcntl.h>
++ #include <dirent.h>
+++#include <limits.h>
++ 
++ #include <polkit-dbus/polkit-dbus.h>
++ #include <polkit/polkit-private.h>

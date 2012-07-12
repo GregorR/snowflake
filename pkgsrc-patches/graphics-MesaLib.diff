@@ -1,0 +1,14 @@
+# HG changeset patch
+# Parent ac064aeaca3f3f95243f5f2bef9cd8256deb7463
+
+diff --git a/graphics/MesaLib/Makefile b/graphics/MesaLib/Makefile
+--- a/graphics/MesaLib/Makefile
++++ b/graphics/MesaLib/Makefile
+@@ -72,6 +72,7 @@
+ 
+ pre-build:
+ 	cd ${WRKSRC} && ${RM} -fr src/glu src/glut progs
++	sed -i 's/#if defined(__linux__) && defined(__i386__)/#if 0/' ${WRKSRC}/src/mesa/main/glheader.h
+ 
+ .include "../../mk/compiler.mk"
+ 

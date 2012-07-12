@@ -1,0 +1,14 @@
+# HG changeset patch
+# Parent 090a62287414402b604fb3aff441521cba8a1350
+
+diff --git a/x11/libXfont/Makefile b/x11/libXfont/Makefile
+--- a/x11/libXfont/Makefile
++++ b/x11/libXfont/Makefile
+@@ -20,6 +20,7 @@
+ PKGCONFIG_OVERRIDE+=	xfont.pc.in
+ 
+ CONFIGURE_ARGS+=	--disable-devel-docs
++CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DNOFILES_MAX=256"
+ 
+ .include "../../devel/zlib/buildlink3.mk"
+ .include "../../graphics/freetype2/buildlink3.mk"

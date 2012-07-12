@@ -1,0 +1,50 @@
+# HG changeset patch
+# Parent 4763f7a6cce163dad7c7f9cabeddde96fbcf2487
+
+diff --git a/pkgtools/pkg_install/files/add/Makefile.in b/pkgtools/pkg_install/files/add/Makefile.in
+--- a/pkgtools/pkg_install/files/add/Makefile.in
++++ b/pkgtools/pkg_install/files/add/Makefile.in
+@@ -22,7 +22,7 @@
+ 
+ LIBS=		-linstall -lfetch
+ .if !empty(SSL_SUPPORT)
+-LIBS+=		-lcrypto
++LIBS+=		-lcrypto -lz
+ .endif
+ LIBS+=		@LIBS@
+ 
+diff --git a/pkgtools/pkg_install/files/admin/Makefile.in b/pkgtools/pkg_install/files/admin/Makefile.in
+--- a/pkgtools/pkg_install/files/admin/Makefile.in
++++ b/pkgtools/pkg_install/files/admin/Makefile.in
+@@ -30,7 +30,7 @@
+ .if empty(BOOTSTRAP)
+ LIBS=		-linstall -lfetch
+ .if !empty(SSL_SUPPORT)
+-LIBS+=		-lcrypto
++LIBS+=		-lcrypto -lz
+ CFLAGS+=	-DHAVE_SSL
+ .endif
+ LIBS+=		@LIBS@
+diff --git a/pkgtools/pkg_install/files/info/Makefile.in b/pkgtools/pkg_install/files/info/Makefile.in
+--- a/pkgtools/pkg_install/files/info/Makefile.in
++++ b/pkgtools/pkg_install/files/info/Makefile.in
+@@ -19,7 +19,7 @@
+ .if empty(BOOTSTRAP)
+ LIBS=		-linstall -lfetch @LIBS@
+ .if !empty(SSL_SUPPORT)
+-LIBS+=		-lcrypto
++LIBS+=		-lcrypto -lz
+ .endif
+ CPPFLAGS=	@CPPFLAGS@ -I. -I$(srcdir) -I../lib
+ .else
+diff --git a/pkgtools/pkg_install/files/lib/dewey.c b/pkgtools/pkg_install/files/lib/dewey.c
+--- a/pkgtools/pkg_install/files/lib/dewey.c
++++ b/pkgtools/pkg_install/files/lib/dewey.c
+@@ -39,6 +39,7 @@
+ #if HAVE_STDLIB_H
+ #include <stdlib.h>
+ #endif
++#include <unistd.h> /* for ssize_t */
+ 
+ #include "defs.h"
+ #include "dewey.h"

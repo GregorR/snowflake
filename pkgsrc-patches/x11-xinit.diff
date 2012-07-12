@@ -1,0 +1,28 @@
+# HG changeset patch
+# Parent 83d88a587af5be1b3dd27a164eb859f103be8429
+
+diff --git a/x11/xinit/distinfo b/x11/xinit/distinfo
+--- a/x11/xinit/distinfo
++++ b/x11/xinit/distinfo
+@@ -3,3 +3,4 @@
+ SHA1 (xinit-1.2.1.tar.bz2) = baf36374aa1632054816a8281e55e1539459664b
+ RMD160 (xinit-1.2.1.tar.bz2) = 993b068e4758521ed930bd78069c291b68d88037
+ Size (xinit-1.2.1.tar.bz2) = 141441 bytes
++SHA1 (patch-aq) = 98a0f800293163faa1392090842a6994485e8204
+diff --git a/x11/xinit/patches/patch-aq b/x11/xinit/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/x11/xinit/patches/patch-aq
+@@ -0,0 +1,12 @@
++diff -r 55926f90284b xinit.c
++--- xinit.c	Sun May 06 12:44:26 2012 +0000
+++++ xinit.c	Sun May 06 12:44:44 2012 +0000
++@@ -153,7 +153,7 @@
++ static char *program = NULL;
++ static Display *xd = NULL;			/* server connection */
++ #ifndef SYSV
++-#if defined(__CYGWIN__) || defined(SVR4) || defined(_POSIX_SOURCE) || defined(CSRG_BASED) || defined(__UNIXOS2__) || defined(Lynx) || defined(__APPLE__)
+++#if defined(__CYGWIN__) || defined(SVR4) || defined(_POSIX_SOURCE) || defined(CSRG_BASED) || defined(__UNIXOS2__) || defined(Lynx) || defined(__APPLE__) || 1
++ int status;
++ #else
++ union wait	status;

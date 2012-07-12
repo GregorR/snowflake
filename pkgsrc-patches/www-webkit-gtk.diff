@@ -1,0 +1,15 @@
+# HG changeset patch
+# Parent 10396a9fcb1c005b072e8ad97983cf3ce6f4fe51
+
+diff --git a/www/webkit-gtk/Makefile b/www/webkit-gtk/Makefile
+--- a/www/webkit-gtk/Makefile
++++ b/www/webkit-gtk/Makefile
+@@ -9,5 +9,8 @@
+ 
+ CONFIGURE_ARGS+=	--with-gtk=2.0
+ 
++# [Gregor] For patches
++CFLAGS+=	-D__musl__
++
+ .include "../../x11/gtk2/buildlink3.mk"
+ .include "../../mk/bsd.pkg.mk"

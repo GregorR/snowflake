@@ -1,0 +1,35 @@
+# HG changeset patch
+# Parent a42798d9667c8f973c7df71622b83b6fcb30919d
+
+diff --git a/x11/vte/distinfo b/x11/vte/distinfo
+--- a/x11/vte/distinfo
++++ b/x11/vte/distinfo
+@@ -9,3 +9,4 @@
+ SHA1 (patch-af) = 69ea7e022f6c495c3c9af681d05644b9d70e7bdc
+ SHA1 (patch-ah) = 28cee2661439d7d6f1959ebf3c7d1b7b3fe0a764
+ SHA1 (patch-ai) = 986dd7c2a5778c9c35100901cfaa25acd0cbdc32
++SHA1 (patch-aq) = 8262b1ccde6869c18a27994dd19e469b5430b05a
+diff --git a/x11/vte/patches/patch-aq b/x11/vte/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/x11/vte/patches/patch-aq
+@@ -0,0 +1,19 @@
++diff -r fecfb00f45d9 src/pty.c
++--- src/pty.c	Sun May 06 12:32:48 2012 +0000
+++++ src/pty.c	Sun May 06 12:34:08 2012 +0000
++@@ -290,6 +290,7 @@
++ #endif
++ 
++ #ifdef HAVE_STROPTS_H
+++#if 0
++ 	if (isastream (fd) == 1) {
++ 		if ((ioctl(fd, I_FIND, "ptem") == 0) &&
++ 				(ioctl(fd, I_PUSH, "ptem") == -1)) {
++@@ -306,6 +307,7 @@
++ 		}
++ 	}
++ #endif
+++#endif
++ 
++ 	/* now setup child I/O through the tty */
++ 	if (fd != STDIN_FILENO) {

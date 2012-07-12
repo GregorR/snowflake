@@ -1,0 +1,24 @@
+# HG changeset patch
+# Parent c285faf29700b457f870d250216c246d7dfa5013
+
+diff --git a/www/firefox/Makefile b/www/firefox/Makefile
+--- a/www/firefox/Makefile
++++ b/www/firefox/Makefile
+@@ -19,6 +19,7 @@
+ 
+ LDFLAGS.DragonFly=	-lplc4 -lnspr4
+ LDFLAGS.FreeBSD=	-lplc4 -lnspr4
++LDFLAGS.Linux=	-lplc4 -lnspr4
+ 
+ .include "../../devel/xulrunner/mozilla-common.mk"
+ .include "options.mk"
+@@ -31,6 +32,9 @@
+ MOZILLA_NAME=	Browser
+ .endif
+ 
++# [Gregor] To make some patches work
++CFLAGS+=		-D__musl__
++
+ pre-configure:
+ 	cd ${WRKSRC} && autoconf
+ # XXX not built here, just to make check-portability.awk shut up.

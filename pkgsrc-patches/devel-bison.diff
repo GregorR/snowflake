@@ -1,0 +1,14 @@
+# HG changeset patch
+# Parent 6e21bfad9952a7f932a4e7ab3390263a5314746d
+
+diff --git a/devel/bison/Makefile b/devel/bison/Makefile
+--- a/devel/bison/Makefile
++++ b/devel/bison/Makefile
+@@ -28,6 +28,7 @@
+ # Avoid rebuilding manpage
+ pre-build:
+ 	${TOUCH} ${WRKSRC}/doc/bison.1
++	sed -i 's/#elif 0/#elif 1/' -i ${WRKSRC}/lib/fseterr.c
+ 
+ # "bison" wants a recent version of "gettext" which at least some
+ # NetBSD versions don't provide. Figure out whether it will install

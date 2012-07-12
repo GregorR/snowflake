@@ -1,0 +1,15 @@
+# HG changeset patch
+# Parent 51ab4b6824ca04d308a37912a40f48010bf499dc
+
+diff --git a/graphics/cairo/Makefile b/graphics/cairo/Makefile
+--- a/graphics/cairo/Makefile
++++ b/graphics/cairo/Makefile
+@@ -38,6 +38,8 @@
+ # For snprintf() and ctime_r()
+ CPPFLAGS.SunOS+=		-D__EXTENSIONS__ -D_POSIX_PTHREAD_SEMANTICS
+ 
++CPPFLAGS+=		-Dffs=__builtin_ffs
++
+ TEST_TARGET=			check
+ 
+ # PR#43928

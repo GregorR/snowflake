@@ -1,0 +1,14 @@
+# HG changeset patch
+# Parent ec07a5c66d2ff4694e6971abc1ae49f4330838d5
+
+diff --git a/graphics/gimp/PLIST b/graphics/gimp/PLIST
+--- a/graphics/gimp/PLIST
++++ b/graphics/gimp/PLIST
+@@ -307,7 +307,6 @@
+ lib/gimp/2.0/plug-ins/file-tiff-load
+ lib/gimp/2.0/plug-ins/file-tiff-save
+ lib/gimp/2.0/plug-ins/file-uri
+-lib/gimp/2.0/plug-ins/file-wmf
+ lib/gimp/2.0/plug-ins/file-xbm
+ lib/gimp/2.0/plug-ins/file-xjt
+ ${PLIST.remote}lib/gimp/2.0/plug-ins/file-xpm

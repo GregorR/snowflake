@@ -235,7 +235,8 @@ fi
 buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE-
 if [ ! -e "$SNOWFLAKE_PREFIX/boot/vmlinuz" ]
 then
-    cp -L aufs3-linux-$LINUX_VERSION/arch/$LINUX_ARCH/boot/*zImage "$SNOWFLAKE_PREFIX/boot/vmlinuz"
+    cp -L aufs3-linux-$LINUX_VERSION/arch/$LINUX_ARCH/boot/*zImage "$SNOWFLAKE_PREFIX/boot/vmlinuz" ||
+        cp -L aufs3-linux-$LINUX_VERSION/vmlinux "$SNOWFLAKE_PREFIX/boot/vmlinux"
 fi
 if [ ! -e "$SNOWFLAKE_PREFIX/boot/extlinux.conf" ]
 then

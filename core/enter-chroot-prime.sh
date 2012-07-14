@@ -1,6 +1,4 @@
 #!/bin/bash -x
-# Build a root filesystem
-# 
 # Copyright (C) 2012 Gregor Richards
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
@@ -17,7 +15,7 @@
 
 if [ ! "$SNOWFLAKE_BASE" ]
 then
-    SNOWFLAKE_BASE="$PWD"
+    SNOWFLAKE_BASE=`dirname "$0"`
 fi
 
 . "$SNOWFLAKE_BASE"/defs.sh

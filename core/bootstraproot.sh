@@ -1,5 +1,5 @@
 #!/bin/bash -x
-# Build a root filesystem
+# Bootstrap the rootfs
 # 
 # Copyright (C) 2012 Gregor Richards
 # 
@@ -17,7 +17,7 @@
 
 if [ ! "$SNOWFLAKE_BASE" ]
 then
-    SNOWFLAKE_BASE="$PWD"
+    SNOWFLAKE_BASE=`dirname "$0"`
 fi
 
 . "$SNOWFLAKE_BASE"/defs.sh

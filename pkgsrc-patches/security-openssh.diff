@@ -1,0 +1,113 @@
+# HG changeset patch
+# Parent e8633ce9a701d07df04616be6c6119695fc510b8
+
+diff --git a/security/openssh/Makefile b/security/openssh/Makefile
+--- a/security/openssh/Makefile
++++ b/security/openssh/Makefile
+@@ -200,4 +200,7 @@
+ 	  ${DESTDIR}${EGDIR}/sshd.pam
+ .endif
+ 
++# [Gregor] misdetection 
++CONFIGURE_ARGS+=--without-stackprotect
++
+ .include "../../mk/bsd.pkg.mk"
+diff --git a/security/openssh/distinfo b/security/openssh/distinfo
+--- a/security/openssh/distinfo
++++ b/security/openssh/distinfo
+@@ -29,3 +29,4 @@
+ SHA1 (patch-av) = dd34ac767d08b989775add25c5c015a2f19fce5c
+ SHA1 (patch-aw) = 22d873bfe56464ce8a978082ebce73d441f81e5d
+ SHA1 (patch-platform.c) = fcbea87b04d07ef45af5380f9baa024fada9974f
++SHA1 (patch-qq) = ae5da142fcea297d237d5bf32abbed332b3550aa
+diff --git a/security/openssh/patches/patch-qq b/security/openssh/patches/patch-qq
+new file mode 100644
+--- /dev/null
++++ b/security/openssh/patches/patch-qq
+@@ -0,0 +1,86 @@
++diff -r 989278cadbd7 loginrec.c
++--- loginrec.c	Sat Jul 14 01:30:04 2012 +0000
+++++ loginrec.c	Sat Jul 14 01:35:20 2012 +0000
++@@ -777,6 +777,7 @@
++ 	strncpy(utx->ut_host, li->hostname,
++ 	    MIN_SIZEOF(utx->ut_host, li->hostname));
++ # endif
+++#if 0
++ # ifdef HAVE_ADDR_IN_UTMPX
++ 	/* this is just a 32-bit IP address */
++ 	if (li->hostaddr.sa.sa_family == AF_INET)
++@@ -795,6 +796,7 @@
++ 		}
++ 	}
++ # endif
+++#endif
++ # ifdef HAVE_SYSLEN_IN_UTMPX
++ 	/* ut_syslen is the length of the utx_host string */
++ 	utx->ut_syslen = MIN(strlen(li->hostname), sizeof(utx->ut_host));
++@@ -1703,8 +1705,10 @@
++ 		ipv64_normalise_mapped(&from, &fromlen);
++ 		if (from.ss_family == AF_INET) {
++ 			a4 = (struct sockaddr_in *)&from;
+++#if 0
++ 			memcpy(&ut.ut_addr, &(a4->sin_addr),
++ 			    MIN_SIZEOF(ut.ut_addr, a4->sin_addr));
+++#endif
++ 		}
++ #ifdef HAVE_ADDR_V6_IN_UTMP
++ 		if (from.ss_family == AF_INET6) {
++diff -r 989278cadbd7 misc.c
++--- misc.c	Sat Jul 14 01:30:04 2012 +0000
+++++ misc.c	Sat Jul 14 01:35:20 2012 +0000
++@@ -54,6 +54,8 @@
++ #include <net/if.h>
++ #endif
++ 
+++#include <sys/time.h>
+++
++ #include "xmalloc.h"
++ #include "misc.h"
++ #include "log.h"
++diff -r 989278cadbd7 sftp-server.c
++--- sftp-server.c	Sat Jul 14 01:30:04 2012 +0000
+++++ sftp-server.c	Sat Jul 14 01:35:20 2012 +0000
++@@ -51,6 +51,10 @@
++ #include "sftp.h"
++ #include "sftp-common.h"
++ 
+++#ifndef NFDBITS
+++#define NFDBITS (8*sizeof(unsigned long))
+++#endif
+++
++ /* helper */
++ #define get_int64()			buffer_get_int64(&iqueue);
++ #define get_int()			buffer_get_int(&iqueue);
++diff -r 989278cadbd7 ssh-pkcs11-helper.c
++--- ssh-pkcs11-helper.c	Sat Jul 14 01:30:04 2012 +0000
+++++ ssh-pkcs11-helper.c	Sat Jul 14 01:35:20 2012 +0000
++@@ -37,6 +37,11 @@
++ #include "authfd.h"
++ #include "ssh-pkcs11.h"
++ 
+++#include <sys/param.h>
+++#ifndef NFDBITS
+++#define NFDBITS (8*sizeof(unsigned long))
+++#endif
+++
++ #ifdef ENABLE_PKCS11
++ 
++ /* borrows code from sftp-server and ssh-agent */
++diff -r 989278cadbd7 ssh.h
++--- ssh.h	Sat Jul 14 01:30:04 2012 +0000
+++++ ssh.h	Sat Jul 14 01:35:20 2012 +0000
++@@ -11,6 +11,11 @@
++  * incompatible with the protocol description in the RFC file, it must be
++  * called by a name other than "ssh" or "Secure Shell".
++  */
+++ 
+++#include <sys/param.h>
+++#ifndef NFDBITS
+++#define NFDBITS (8*sizeof(unsigned long))
+++#endif
++ 
++ /* Cipher used for encrypting authentication files. */
++ #define SSH_AUTHFILE_CIPHER	SSH_CIPHER_3DES

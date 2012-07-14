@@ -66,3 +66,4 @@ x11-libxfce4menu.diff
 x11-pixman.diff
 x11-vte.diff
 x11-xinit.diff
+security-openssh.diff

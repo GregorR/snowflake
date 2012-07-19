@@ -68,3 +68,4 @@ x11-vte.diff
 x11-xinit.diff
 security-openssh.diff
 sysutils-libpciaccess.diff
+x11-modular-xorg-server.diff

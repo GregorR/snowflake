@@ -48,8 +48,6 @@ security-policykit.diff
 shells-bash.diff
 shells-dash.diff
 sysutils-coreutils.diff
-sysutils-gamin.diff
-sysutils-pciutils.diff
 sysutils-xfce4-thunar.diff
 textproc-groff.diff
 textproc-hunspell.diff
@@ -69,3 +67,6 @@ x11-xinit.diff
 security-openssh.diff
 sysutils-libpciaccess.diff
 x11-modular-xorg-server.diff
+x11-xload.diff
+sysutils-gamin.diff
+sysutils-pciutils.diff

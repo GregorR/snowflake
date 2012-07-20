@@ -1,0 +1,27 @@
+# HG changeset patch
+# Parent 4dc964a5a305a4b0d2ec9816d725eb59ffe406ef
+diff --git a/x11/xload/distinfo b/x11/xload/distinfo
+--- a/x11/xload/distinfo
++++ b/x11/xload/distinfo
+@@ -3,3 +3,4 @@
+ SHA1 (xload-1.0.2.tar.bz2) = cbbbf23531e0d781b556f5864cc3b83874f786d2
+ RMD160 (xload-1.0.2.tar.bz2) = c10a9e3a2c7dbb39649da28d5844009e3895d06d
+ Size (xload-1.0.2.tar.bz2) = 92470 bytes
++SHA1 (patch-aq) = 0b45fe95dc54313063cf5ab8be83b3c657274c47
+diff --git a/x11/xload/patches/patch-aq b/x11/xload/patches/patch-aq
+new file mode 100644
+--- /dev/null
++++ b/x11/xload/patches/patch-aq
+@@ -0,0 +1,12 @@
++diff -r f6e1349acbf9 get_rload.c
++--- get_rload.c	Thu Jul 19 23:47:59 2012 +0000
+++++ get_rload.c	Thu Jul 19 23:49:09 2012 +0000
++@@ -10,7 +10,7 @@
++ /* Not all OS supports get_rload
++    steal the STUB idea from get_load
++  */
++-#if defined(QNX4) || defined(__CYGWIN__)
+++#if defined(QNX4) || defined(__CYGWIN__) || 1
++ #define RLOADSTUB
++ #endif
++ 

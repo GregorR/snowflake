@@ -1,6 +1,5 @@
 # HG changeset patch
-# Parent f652314f26763fb5131be2ec9c834c01c673b82f
-
+# Parent 834d2a2e263fa6e3b68450bfaf60836b403e7901
 diff --git a/sysutils/gamin/distinfo b/sysutils/gamin/distinfo
 --- a/sysutils/gamin/distinfo
 +++ b/sysutils/gamin/distinfo
@@ -8,16 +7,16 @@ diff --git a/sysutils/gamin/distinfo b/sysutils/gamin/distinfo
  SHA1 (patch-server_gam__node.h) = 49a0d381b4900564c4f0ba7a654eb22e294c0a16
  SHA1 (patch-server_gam__subscription.c) = 58f6c10e4e1e899d097662536ea31bf8a692b114
  SHA1 (patch-server_gam__subscription.h) = 6347865210aa0338bc8b0a81fc671824c786fd26
-+SHA1 (patch-aq) = 6d30c2cb4ef9504a704a50168899a11c8c0db78a
++SHA1 (patch-aq) = c3d7a1f7ae26f6b6bfb9b80c1586bf9f9f70685e
 diff --git a/sysutils/gamin/patches/patch-aq b/sysutils/gamin/patches/patch-aq
 new file mode 100644
 --- /dev/null
 +++ b/sysutils/gamin/patches/patch-aq
-@@ -0,0 +1,15 @@
-+diff -r a17041040b0f server/gam_dnotify.c
-+--- server/gam_dnotify.c	Sun May 06 05:06:48 2012 +0000
-++++ server/gam_dnotify.c	Sun May 06 05:13:29 2012 +0000
-+@@ -19,6 +19,11 @@
+@@ -0,0 +1,17 @@
++diff -r c02b16f5e18d server/gam_dnotify.c
++--- server/gam_dnotify.c	Fri Jul 20 00:43:51 2012 +0000
+++++ server/gam_dnotify.c	Fri Jul 20 00:46:15 2012 +0000
++@@ -19,7 +19,13 @@
 + 
 + #include "server_config.h"
 + #define _GNU_SOURCE
@@ -25,7 +24,9 @@ new file mode 100644
 ++/* need to do this nasty hack until/unless musl exposes the right #defines */
 ++#define HAVE_ARCH_STRUCT_FLOCK
 ++#include <linux/fcntl.h>
-++#endif
+++#else
 + #include <fcntl.h>
+++#endif
 + #include <signal.h>
 + #include <unistd.h>
++ #include <stdio.h>

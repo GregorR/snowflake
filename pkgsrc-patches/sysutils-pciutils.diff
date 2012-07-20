@@ -1,6 +1,5 @@
 # HG changeset patch
-# Parent 845e835d6cfc54e889f9403cac9416a77db455a5
-
+# Parent 030ccebe9d08fc1714b3eb70df5eec15fa178cf5
 diff --git a/sysutils/pciutils/distinfo b/sysutils/pciutils/distinfo
 --- a/sysutils/pciutils/distinfo
 +++ b/sysutils/pciutils/distinfo
@@ -8,15 +7,15 @@ diff --git a/sysutils/pciutils/distinfo b/sysutils/pciutils/distinfo
  SHA1 (patch-ab) = 1448bb418cdc908eb6652cc98994d23d0d78cea0
  SHA1 (patch-ac) = c917e8ad2d1e87fa65a2d8f3256afd40d5a87396
  SHA1 (patch-ad) = bfe9069e96fd46798afec73c93ad71db3a0e0e37
-+SHA1 (patch-aq) = b29a7e176a23456b6c509e5c40326d5a59050b8c
++SHA1 (patch-aq) = 5546296816722c621aeb777ccd6f316c04173182
 diff --git a/sysutils/pciutils/patches/patch-aq b/sysutils/pciutils/patches/patch-aq
 new file mode 100644
 --- /dev/null
 +++ b/sysutils/pciutils/patches/patch-aq
-@@ -0,0 +1,12 @@
-+diff -r 63e97996f76b lib/configure
-+--- lib/configure	Sun May 06 02:42:29 2012 +0000
-++++ lib/configure	Sun May 06 02:42:58 2012 +0000
+@@ -0,0 +1,26 @@
++diff -r 285cb9c34d4e lib/configure
++--- lib/configure	Fri Jul 20 01:48:40 2012 +0000
+++++ lib/configure	Fri Jul 20 01:49:39 2012 +0000
 +@@ -68,7 +68,7 @@
 + 		echo >>$c '#define PCI_PATH_PROC_BUS_PCI "/proc/bus/pci"'
 + 		echo >>$c '#define PCI_PATH_SYS_BUS_PCI "/sys/bus/pci"'
@@ -26,3 +25,17 @@ new file mode 100644
 + 						echo >>$c '#define PCI_HAVE_PM_INTEL_CONF'
 + 						;;
 + 		esac
++diff -r 285cb9c34d4e lib/names-net.c
++--- lib/names-net.c	Fri Jul 20 01:48:40 2012 +0000
+++++ lib/names-net.c	Fri Jul 20 01:49:39 2012 +0000
++@@ -5,6 +5,10 @@
++  *
++  *	Can be freely distributed and used under the terms of the GNU GPL.
++  */
+++ 
+++#ifndef _GNU_SOURCE
+++#define _GNU_SOURCE
+++#endif
++ 
++ #include <string.h>
++ #include <stdlib.h>

@@ -70,3 +70,4 @@ x11-modular-xorg-server.diff
 x11-xload.diff
 sysutils-gamin.diff
 sysutils-pciutils.diff
+devel-libowfat.diff

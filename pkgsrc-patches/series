@@ -71,3 +71,4 @@ x11-xload.diff
 sysutils-gamin.diff
 sysutils-pciutils.diff
 devel-libowfat.diff
+sysutils-hal.diff

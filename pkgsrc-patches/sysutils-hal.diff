@@ -1,0 +1,187 @@
+# HG changeset patch
+# Parent 44b6164ad48fd7a70a0fcfda366eb557c3dd9bfb
+diff --git a/sysutils/hal/distinfo b/sysutils/hal/distinfo
+--- a/sysutils/hal/distinfo
++++ b/sysutils/hal/distinfo
+@@ -35,3 +35,4 @@
+ SHA1 (patch-nb) = 1693b7a2faa5bee20a594f0b60b8ff6caea0efdc
+ SHA1 (patch-nc) = 32453e49734902749ce24eb4364fc7f531986227
+ SHA1 (patch-nd) = 877dcbafaca0cebd3fdce74c5a622721823c153b
++SHA1 (patch-qq) = f3c604e82e30d16cc47d32f3b9b1945ecdcb781c
+diff --git a/sysutils/hal/patches/patch-qq b/sysutils/hal/patches/patch-qq
+new file mode 100644
+--- /dev/null
++++ b/sysutils/hal/patches/patch-qq
+@@ -0,0 +1,172 @@
++diff -r a77959eb7b7c hald/linux/addons/addon-hid-ups.c
++--- hald/linux/addons/addon-hid-ups.c	Fri Jul 20 02:31:44 2012 +0000
+++++ hald/linux/addons/addon-hid-ups.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -46,6 +46,8 @@
++ #include <sys/ioctl.h>
++ #include <unistd.h>
++ 
+++#include <sys/select.h>
+++
++ #include <glib.h>
++ 
++ #include "libhal/libhal.h"
++diff -r a77959eb7b7c hald/linux/addons/addon-imac-backlight.c
++--- hald/linux/addons/addon-imac-backlight.c	Fri Jul 20 02:31:44 2012 +0000
+++++ hald/linux/addons/addon-imac-backlight.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -27,7 +27,13 @@
++ #include <string.h>
++ #include <stdio.h>
++ #include <stdlib.h>
+++#if 0
++ #include <sys/io.h>
+++#endif
+++
+++#define outb(x, y) (void) 0
+++#define inb(x) 0
+++#define ioperm(x, y, z) 0
++ 
++ #include <glib/gmain.h>
++ #include <dbus/dbus-glib.h>
++diff -r a77959eb7b7c hald/linux/addons/addon-storage.c
++--- hald/linux/addons/addon-storage.c	Fri Jul 20 02:31:44 2012 +0000
+++++ hald/linux/addons/addon-storage.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -32,7 +32,9 @@
++ #include <linux/cdrom.h>
++ #include <linux/fs.h>
++ #include <mntent.h>
+++#if 0
++ #include <scsi/sg.h>
+++#endif
++ #include <stdint.h>
++ #include <stdio.h>
++ #include <stdlib.h>
++@@ -466,6 +468,7 @@
++ 			break;
++ 		}
++ 		
+++#if 0
++ 		/* check if eject button was pressed */
++ 		if (got_media) {
++ 			unsigned char cdb[10] = { 0x4a, 1, 0, 0, 16, 0, 0, 0, 8, 0};
++@@ -492,6 +495,7 @@
++ 				LIBHAL_FREE_DBUS_ERROR (&error);
++ 			}
++ 		}
+++#endif
++ 		close (fd);
++ 	} else {
++ 		fd = open (device_file, O_RDONLY);
++diff -r a77959eb7b7c hald/linux/probing/linux_dvd_rw_utils.c
++--- hald/linux/probing/linux_dvd_rw_utils.c	Fri Jul 20 02:31:44 2012 +0000
+++++ hald/linux/probing/linux_dvd_rw_utils.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -7,6 +7,8 @@
++  * For further details see http://fy.chalmers.se/~appro/linux/DVD+RW/
++ */
++ 
+++#if 0
+++
++ #include <glib.h>
++ 
++ #define CREAM_ON_ERRNO(s)	do {				\
++@@ -1024,3 +1026,5 @@
++ 	scsi_command_free (cmd);
++ 	return retval;
++ }
+++
+++#endif
++diff -r a77959eb7b7c hald/linux/probing/probe-smbios.c
++--- hald/linux/probing/probe-smbios.c	Fri Jul 20 02:31:44 2012 +0000
+++++ hald/linux/probing/probe-smbios.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -115,7 +115,7 @@
++ 	int dmiparser_done_system = FALSE;
++ 	int dmiparser_done_chassis = FALSE;
++ 
++-	uint i;
+++	unsigned int i;
++ 	struct stat s;
++ 	const char *path = NULL;
++ 	const char *possible_paths[] = {
++diff -r a77959eb7b7c hald/linux/probing/probe-storage.c
++--- hald/linux/probing/probe-storage.c	Fri Jul 20 02:31:44 2012 +0000
+++++ hald/linux/probing/probe-storage.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -244,7 +244,10 @@
++ 				
++ 				libhal_changeset_set_property_bool (cs, "storage.cdrom.dvd", TRUE);
++ 
+++#if 0
++ 				profile = get_dvd_r_rw_profile (fd);
+++#endif
+++				profile = 0;
++ 				HAL_DEBUG (("get_dvd_r_rw_profile returned: %d", profile));
++ 
++ 				if (profile & DRIVE_CDROM_CAPS_DVDRW)
++@@ -302,6 +305,7 @@
++ 	
++ 		}
++ 
+++#if 0
++ 		if (get_read_write_speed(fd, &read_speed, &write_speed, &write_speeds) >= 0) {
++ 			libhal_changeset_set_property_int (cs, "storage.cdrom.read_speed", read_speed);
++ 
++@@ -326,6 +330,7 @@
++ 								       (const char **) wspeeds);
++ 			}
++ 		}
+++	#endif
++ 		
++ 		close (fd);
++ 	}
++diff -r a77959eb7b7c hald/linux/probing/probe-volume.c
++--- hald/linux/probing/probe-volume.c	Fri Jul 20 02:31:44 2012 +0000
+++++ hald/linux/probing/probe-volume.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -447,7 +447,10 @@
++ 		/* see table 87 - Profile List in MMC-5 for details on disc type
++ 		 * http://www.t10.org/drafts.htm#mmc5
++ 		 */
+++#if 0
++ 		type = get_disc_type (fd);
+++#endif
+++		type = -1;
++ 		HAL_DEBUG(("get_disc_type returned 0x%02x", type));
++ 		if (type != -1) {
++ 			switch (type) {
++@@ -524,6 +527,7 @@
++ 			}
++ 		}
++ 
+++#if 0
++ 		if (get_disc_capacity_for_type (fd, type, &capacity) == 0) {
++ 			HAL_DEBUG(("volume.disc.capacity = %llu", capacity));
++ 			libhal_changeset_set_property_uint64 (cs, "volume.disc.capacity", capacity);
++@@ -537,6 +541,7 @@
++ 		if (disc_is_appendable (fd)) {
++ 			libhal_changeset_set_property_bool (cs, "volume.disc.is_appendable", TRUE);
++ 		}
+++#endif
++ 
++ 		/* In November 2005, Kay wrote:
++ 		 *
++diff -r a77959eb7b7c tools/hal-storage-shared.c
++--- tools/hal-storage-shared.c	Fri Jul 20 02:31:44 2012 +0000
+++++ tools/hal-storage-shared.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -55,6 +55,8 @@
++ #include <errno.h>
++ #include <syslog.h>
++ 
+++#include <fcntl.h>
+++
++ #include "hal-storage-shared.h"
++ 
++ #if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__APPLE__)
++diff -r a77959eb7b7c tools/hal-system-sonypic.c
++--- tools/hal-system-sonypic.c	Fri Jul 20 02:31:44 2012 +0000
+++++ tools/hal-system-sonypic.c	Fri Jul 20 02:47:03 2012 +0000
++@@ -41,7 +41,7 @@
++ #ifdef __linux__
++ #include <linux/sonypi.h>
++ #define SONYPI_DEV	"/dev/sonypi"
++-#define __u8		u_int8_t
+++#define __u8		unsigned char
++ #endif /* __linux__ */
++ 
++ #include <libhal/libhal.h>

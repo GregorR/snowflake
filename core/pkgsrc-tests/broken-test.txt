@@ -1,0 +1,16 @@
+devel/p5-Event-RPC
+devel/p5-IPC-Shareable
+devel/p5-Term-ReadKey
+devel/p5-Term-ReadLine
+devel/p5-Term-ReadLine-Perl
+devel/p5-Term-ReadPassword
+devel/p5-Term-Shell
+devel/py-cython
+devel/py-rope
+lang/perl5
+lang/python25
+lang/python26
+lang/python27
+security/opencdk
+security/p5-Crypt-GPG
+shells/bash

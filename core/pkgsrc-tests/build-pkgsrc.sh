@@ -5,10 +5,14 @@ LOG="/root/pkgsrc.log"
 SKIP=no
 CONTINUE=
 
-# groups that are needed
+# groups and users that are needed
 for g in dbus
 do
     addgroup $g 2> /dev/null
+dono
+for u in atheme axfrdns backup cntlm courier cyrus dictd fml freepops games gopher inspircd mailman mtdaapd munin nagios news nsd pgsql polkit polw popa3d postgrey privoxy silcd sqlgrey tofmipd ubs unbound haldaemon
+do
+    adduser -D -h /nonexistent -H -s /bin/false $u
 done
 
 try() {

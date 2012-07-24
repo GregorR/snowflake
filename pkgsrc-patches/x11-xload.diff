@@ -1,12 +1,13 @@
 # HG changeset patch
-# Parent 4dc964a5a305a4b0d2ec9816d725eb59ffe406ef
+# Parent 5cdb4c7bdeee84c07f6c950484bba51c8466960b
+
 diff --git a/x11/xload/distinfo b/x11/xload/distinfo
 --- a/x11/xload/distinfo
 +++ b/x11/xload/distinfo
 @@ -3,3 +3,4 @@
- SHA1 (xload-1.0.2.tar.bz2) = cbbbf23531e0d781b556f5864cc3b83874f786d2
- RMD160 (xload-1.0.2.tar.bz2) = c10a9e3a2c7dbb39649da28d5844009e3895d06d
- Size (xload-1.0.2.tar.bz2) = 92470 bytes
+ SHA1 (xload-1.1.1.tar.bz2) = 50f6ee958e6fb609af92cf9403e7bd68720575cb
+ RMD160 (xload-1.1.1.tar.bz2) = 8c971e743cbd3e7cfe8ac2747d87ae2d4c0981d5
+ Size (xload-1.1.1.tar.bz2) = 130887 bytes
 +SHA1 (patch-aq) = 0b45fe95dc54313063cf5ab8be83b3c657274c47
 diff --git a/x11/xload/patches/patch-aq b/x11/xload/patches/patch-aq
 new file mode 100644

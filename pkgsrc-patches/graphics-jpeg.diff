@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent b23c5b8f4f954475f57689b38f7dbf7dfa5174c2
+# Parent 95f70499a05eb4a5cd815ac4d4e4e972985e49d0
 
 diff --git a/graphics/jpeg/buildlink3.mk b/graphics/jpeg/buildlink3.mk
 --- a/graphics/jpeg/buildlink3.mk
@@ -10,11 +10,11 @@ diff --git a/graphics/jpeg/buildlink3.mk b/graphics/jpeg/buildlink3.mk
  
 -BUILDLINK_API_DEPENDS.jpeg+=	jpeg>=8nb1
 -#BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8nb1
--BUILDLINK_ABI_DEPENDS.jpeg?=	jpeg>=8nb1
+-BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8nb1
 +# [Gregor] Reduced to 8 due to version diffs between pkgresolve and pkgsrc
 +BUILDLINK_API_DEPENDS.jpeg+=	jpeg>=8
 +#BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8
-+BUILDLINK_ABI_DEPENDS.jpeg?=	jpeg>=8
++BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8
  BUILDLINK_PKGSRCDIR.jpeg?=	../../graphics/jpeg
  .endif # JPEG_BUILDLINK3_MK
  

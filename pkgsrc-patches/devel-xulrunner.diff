@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 0e7faa5522ec667d36d1229807588eb416cb18c9
+# Parent 4f20750cd4fe6f2026e740c9380b4ace949a9681
 
 diff --git a/devel/xulrunner/Makefile b/devel/xulrunner/Makefile
 --- a/devel/xulrunner/Makefile
@@ -17,10 +17,10 @@ diff --git a/devel/xulrunner/Makefile b/devel/xulrunner/Makefile
 diff --git a/devel/xulrunner/distinfo b/devel/xulrunner/distinfo
 --- a/devel/xulrunner/distinfo
 +++ b/devel/xulrunner/distinfo
-@@ -106,3 +106,4 @@
- SHA1 (patch-xo) = 437cbc7e0ed8777ae2313165f8754759d8eee01d
- SHA1 (patch-xpcom_Makefile.in) = ad9c0ed4347b0ed4f51a6f0f34ac48c65d2152c8
- SHA1 (patch-xpcom_idl-parser_header.py) = cd14f4056a31f15066aebb85e5c14fba2aa37f13
+@@ -112,3 +112,4 @@
+ SHA1 (patch-xpcom_idl-parser_Makefile.in) = 4b141b5f4b7715b187aaedf4810b3998776768e2
+ SHA1 (patch-xpcom_idl-parser_header.py) = 66104636742fea4391a54f88d7927ebf81b2a74c
+ SHA1 (patch-xpcom_typelib_xpidl_Makefile.in) = 1f10216e2b46e5bfa4e24de4a42f8b13af3f2dca
 +SHA1 (patch-zq) = b5705937db9663ec56962e25e1f007182174edb8
 diff --git a/devel/xulrunner/patches/patch-zq b/devel/xulrunner/patches/patch-zq
 new file mode 100644

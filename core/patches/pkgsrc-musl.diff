@@ -141,11 +141,12 @@ diff --git a/chat/irssi/Makefile b/chat/irssi/Makefile
 diff --git a/databases/db4/distinfo b/databases/db4/distinfo
 --- a/databases/db4/distinfo
 +++ b/databases/db4/distinfo
-@@ -7,3 +7,4 @@
+@@ -7,4 +7,5 @@
  SHA1 (patch-ab) = 8f9ecc47527d338e28ee1ce71e694eaf2bdceb92
  SHA1 (patch-ac) = 045a3b83b9c6c164382ec546b06ae248620552cf
  SHA1 (patch-ae) = 43e574154de93dba60392b09d6ebddbca1036849
 +SHA1 (patch-aq) = 3baa90e922dc9cb075deee2a2a37d607affead9b
+ SHA1 (patch-dbinc_atomic.h) = ff60e3af41ac1b000ebccc91bc673adde5c7463b
 diff --git a/databases/db4/patches/patch-aq b/databases/db4/patches/patch-aq
 new file mode 100644
 --- /dev/null
@@ -165,7 +166,7 @@ new file mode 100644
 diff --git a/devel/bison/Makefile b/devel/bison/Makefile
 --- a/devel/bison/Makefile
 +++ b/devel/bison/Makefile
-@@ -28,6 +28,7 @@
+@@ -27,6 +27,7 @@
  # Avoid rebuilding manpage
  pre-build:
  	${TOUCH} ${WRKSRC}/doc/bison.1
@@ -263,9 +264,9 @@ diff --git a/devel/flex/PLIST b/devel/flex/PLIST
 diff --git a/devel/glib2/Makefile b/devel/glib2/Makefile
 --- a/devel/glib2/Makefile
 +++ b/devel/glib2/Makefile
-@@ -46,6 +46,12 @@
- 
- LIBS.SunOS+=	-lnsl -lsocket
+@@ -48,6 +48,12 @@
+ .include "../../devel/libelf/buildlink3.mk"
+ .endif
  
 +
 +
@@ -279,21 +280,21 @@ diff --git a/devel/glib2/Makefile b/devel/glib2/Makefile
 diff --git a/devel/gmake/Makefile b/devel/gmake/Makefile
 --- a/devel/gmake/Makefile
 +++ b/devel/gmake/Makefile
-@@ -47,6 +47,8 @@
+@@ -39,6 +39,8 @@
  CONFIGURE_ARGS+=	ac_cv_func_strndup=no
  .endif
  
 +CONFIGURE_ARGS+=	CFLAGS="-O2 -g -D__BEOS__"
 +
  post-install:
- 	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
- 	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
+ 	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/gmake
+ 	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/gmake
 diff --git a/devel/imake/Makefile b/devel/imake/Makefile
 --- a/devel/imake/Makefile
 +++ b/devel/imake/Makefile
-@@ -42,6 +42,9 @@
- SUBST_FILES.xmkmf=	xmkmf
- SUBST_SED.xmkmf=	-e "s/^configdirspec= */configdirspec=/"
+@@ -43,6 +43,9 @@
+ 
+ .include "../../meta-pkgs/modular-xorg/hacks.mk"
  
 +pre-build:
 +	sed 's/-x c -/-x c - -x none/' -i ${WRKSRC}/imake.c
@@ -466,11 +467,12 @@ new file mode 100644
 diff --git a/devel/m4/distinfo b/devel/m4/distinfo
 --- a/devel/m4/distinfo
 +++ b/devel/m4/distinfo
-@@ -6,3 +6,4 @@
+@@ -6,4 +6,5 @@
  SHA1 (patch-aa) = ef316620b49f78f46e9dea47032b0141814c1f43
  SHA1 (patch-ab) = b29840365e983623bce64e84ceab3504b8270b32
  SHA1 (patch-ac) = 7bd9164c659727a906ef54a2f1027e9fd19315ba
 +SHA1 (patch-aq) = 361e3294fe76fd67087d4fb212fd16c79462a953
+ SHA1 (patch-lib_verror.h) = 4c50ab0bc90a6324845e145bbe140836179ca8c9
 diff --git a/devel/m4/patches/patch-aq b/devel/m4/patches/patch-aq
 new file mode 100644
 --- /dev/null
@@ -549,7 +551,7 @@ diff --git a/devel/ncurses/PLIST b/devel/ncurses/PLIST
 diff --git a/devel/nspr/Makefile b/devel/nspr/Makefile
 --- a/devel/nspr/Makefile
 +++ b/devel/nspr/Makefile
-@@ -70,6 +70,13 @@
+@@ -72,6 +72,13 @@
  BUILDLINK_PASSTHRU_DIRS+=	Developer/Headers/FlatCarbon
  .endif
  
@@ -561,12 +563,12 @@ diff --git a/devel/nspr/Makefile b/devel/nspr/Makefile
 +	${SED} 's/#define _PR_HAVE_GETPROTO_R.*//' -i ${WRKSRC}/nsprpub/pr/src/misc/prnetdb.c
 +
  pre-configure:
- # sanity check: make sure the nspr release is what we think it is.
- #	@set -e; if [ '"${NSPR_RELEASE}"' !=			\
+ 	cd ${WRKSRC}/nsprpub && autoconf
+ 
 diff --git a/devel/nss/Makefile b/devel/nss/Makefile
 --- a/devel/nss/Makefile
 +++ b/devel/nss/Makefile
-@@ -48,6 +48,17 @@
+@@ -50,6 +50,17 @@
  MAKE_ENV+=	NSS_USE_SYSTEM_SQLITE=1
  MAKE_ENV+=	EXTRA_SHARED_LIBS="-Wl,-R${BUILDLINK_PREFIX.nspr}/lib/nspr -Wl,-R,${PREFIX}/lib/nss -L${BUILDLINK_PREFIX.nspr}/lib/nspr -lplc4 -lplds4 -lnspr4"
  
@@ -581,9 +583,9 @@ diff --git a/devel/nss/Makefile b/devel/nss/Makefile
 +	${SED} 's/DHAVE_SYS_CDEFS_H/UHAVE_SYS_CDEFS_H/' -i ${WRKSRC}/security/dbm/config/config.mk
 +	${SED} 's/(ffs/(__builtin_ffs/g' -i ${WRKSRC}/security/nss/cmd/checkcert/checkcert.c
 +
- pre-configure:
- # sanity check: make sure the nss release is what we think it is.
- #	@set -e; if [ '"${NSS_RELEASE}"' !=			\
+ do-build:
+ 	cd ${WRKSRC}/security/nss && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} \
+ 	  build_coreconf build_dbm all
 diff --git a/devel/pcre/Makefile b/devel/pcre/Makefile
 --- a/devel/pcre/Makefile
 +++ b/devel/pcre/Makefile
@@ -650,10 +652,10 @@ diff --git a/devel/xulrunner/Makefile b/devel/xulrunner/Makefile
 diff --git a/devel/xulrunner/distinfo b/devel/xulrunner/distinfo
 --- a/devel/xulrunner/distinfo
 +++ b/devel/xulrunner/distinfo
-@@ -106,3 +106,4 @@
- SHA1 (patch-xo) = 437cbc7e0ed8777ae2313165f8754759d8eee01d
- SHA1 (patch-xpcom_Makefile.in) = ad9c0ed4347b0ed4f51a6f0f34ac48c65d2152c8
- SHA1 (patch-xpcom_idl-parser_header.py) = cd14f4056a31f15066aebb85e5c14fba2aa37f13
+@@ -112,3 +112,4 @@
+ SHA1 (patch-xpcom_idl-parser_Makefile.in) = 4b141b5f4b7715b187aaedf4810b3998776768e2
+ SHA1 (patch-xpcom_idl-parser_header.py) = 66104636742fea4391a54f88d7927ebf81b2a74c
+ SHA1 (patch-xpcom_typelib_xpidl_Makefile.in) = 1f10216e2b46e5bfa4e24de4a42f8b13af3f2dca
 +SHA1 (patch-zq) = b5705937db9663ec56962e25e1f007182174edb8
 diff --git a/devel/xulrunner/patches/patch-zq b/devel/xulrunner/patches/patch-zq
 new file mode 100644
@@ -1234,7 +1236,7 @@ diff --git a/graphics/cairo/Makefile b/graphics/cairo/Makefile
 diff --git a/graphics/gdk-pixbuf2/PLIST b/graphics/gdk-pixbuf2/PLIST
 --- a/graphics/gdk-pixbuf2/PLIST
 +++ b/graphics/gdk-pixbuf2/PLIST
-@@ -72,104 +72,3 @@
+@@ -74,105 +74,3 @@
  share/gtk-doc/html/gdk-pixbuf/rn02.html
  share/gtk-doc/html/gdk-pixbuf/style.css
  share/gtk-doc/html/gdk-pixbuf/up.png
@@ -1285,6 +1287,7 @@ diff --git a/graphics/gdk-pixbuf2/PLIST b/graphics/gdk-pixbuf2/PLIST
 -share/locale/it/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/ja/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/ka/LC_MESSAGES/gdk-pixbuf.mo
+-share/locale/km/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/kn/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/ko/LC_MESSAGES/gdk-pixbuf.mo
 -share/locale/ku/LC_MESSAGES/gdk-pixbuf.mo
@@ -1342,14 +1345,14 @@ diff --git a/graphics/gdk-pixbuf2/PLIST b/graphics/gdk-pixbuf2/PLIST
 diff --git a/graphics/gimp/PLIST b/graphics/gimp/PLIST
 --- a/graphics/gimp/PLIST
 +++ b/graphics/gimp/PLIST
-@@ -307,7 +307,6 @@
+@@ -316,7 +316,6 @@
  lib/gimp/2.0/plug-ins/file-tiff-load
  lib/gimp/2.0/plug-ins/file-tiff-save
  lib/gimp/2.0/plug-ins/file-uri
 -lib/gimp/2.0/plug-ins/file-wmf
  lib/gimp/2.0/plug-ins/file-xbm
  lib/gimp/2.0/plug-ins/file-xjt
- ${PLIST.remote}lib/gimp/2.0/plug-ins/file-xpm
+ ${PLIST.remote}lib/gimp/2.0/plug-ins/file-xmc
 diff --git a/graphics/jpeg/buildlink3.mk b/graphics/jpeg/buildlink3.mk
 --- a/graphics/jpeg/buildlink3.mk
 +++ b/graphics/jpeg/buildlink3.mk
@@ -1359,11 +1362,11 @@ diff --git a/graphics/jpeg/buildlink3.mk b/graphics/jpeg/buildlink3.mk
  
 -BUILDLINK_API_DEPENDS.jpeg+=	jpeg>=8nb1
 -#BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8nb1
--BUILDLINK_ABI_DEPENDS.jpeg?=	jpeg>=8nb1
+-BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8nb1
 +# [Gregor] Reduced to 8 due to version diffs between pkgresolve and pkgsrc
 +BUILDLINK_API_DEPENDS.jpeg+=	jpeg>=8
 +#BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8
-+BUILDLINK_ABI_DEPENDS.jpeg?=	jpeg>=8
++BUILDLINK_ABI_DEPENDS.jpeg+=	jpeg>=8
  BUILDLINK_PKGSRCDIR.jpeg?=	../../graphics/jpeg
  .endif # JPEG_BUILDLINK3_MK
  
@@ -1418,7 +1421,7 @@ diff --git a/lang/perl5/Makefile b/lang/perl5/Makefile
 diff --git a/lang/python26/Makefile b/lang/python26/Makefile
 --- a/lang/python26/Makefile
 +++ b/lang/python26/Makefile
-@@ -118,22 +118,7 @@
+@@ -117,22 +117,7 @@
  .endif
  
  PLIST_VARS+=	dll nis no-nis
@@ -1444,7 +1447,7 @@ diff --git a/lang/python26/Makefile b/lang/python26/Makefile
 diff --git a/lang/python27/PLIST.common b/lang/python27/PLIST.common
 --- a/lang/python27/PLIST.common
 +++ b/lang/python27/PLIST.common
-@@ -1835,7 +1835,6 @@
+@@ -1836,7 +1836,6 @@
  lib/python${PY_VER_SUFFIX}/lib-dynload/itertools.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/math.so
  lib/python${PY_VER_SUFFIX}/lib-dynload/mmap.so
@@ -1455,7 +1458,7 @@ diff --git a/lang/python27/PLIST.common b/lang/python27/PLIST.common
 diff --git a/lang/ruby193-base/distinfo b/lang/ruby193-base/distinfo
 --- a/lang/ruby193-base/distinfo
 +++ b/lang/ruby193-base/distinfo
-@@ -27,3 +27,4 @@
+@@ -28,3 +28,4 @@
  SHA1 (patch-test_rubygems_test__gem.rb) = bb6946eceed2112a7b3d8df84f59c793bdb73bb0
  SHA1 (patch-tool_rbinstall.rb) = f0497085a09b31145f57028b30e335b09acabcff
  SHA1 (patch-vsnprintf.c) = 7bb4ca07381536717518143ef7803634168ca9fa
@@ -1854,8 +1857,8 @@ new file mode 100644
 diff --git a/security/openssh/Makefile b/security/openssh/Makefile
 --- a/security/openssh/Makefile
 +++ b/security/openssh/Makefile
-@@ -200,4 +200,7 @@
- 	  ${DESTDIR}${EGDIR}/sshd.pam
+@@ -215,4 +215,7 @@
+ 	done
  .endif
  
 +# [Gregor] misdetection 
@@ -2067,7 +2070,7 @@ diff --git a/shells/dash/Makefile b/shells/dash/Makefile
 diff --git a/sysutils/coreutils/Makefile b/sysutils/coreutils/Makefile
 --- a/sysutils/coreutils/Makefile
 +++ b/sysutils/coreutils/Makefile
-@@ -39,6 +39,8 @@
+@@ -61,6 +61,8 @@
  #MESSAGE_SUBST+=	OPSYS=${OPSYS:Q}
  #.endif
  
@@ -2145,7 +2148,7 @@ new file mode 100644
 diff --git a/sysutils/hal/distinfo b/sysutils/hal/distinfo
 --- a/sysutils/hal/distinfo
 +++ b/sysutils/hal/distinfo
-@@ -35,3 +35,4 @@
+@@ -48,3 +48,4 @@
  SHA1 (patch-nb) = 1693b7a2faa5bee20a594f0b60b8ff6caea0efdc
  SHA1 (patch-nc) = 32453e49734902749ce24eb4364fc7f531986227
  SHA1 (patch-nd) = 877dcbafaca0cebd3fdce74c5a622721823c153b
@@ -2357,7 +2360,7 @@ diff --git a/sysutils/pciutils/distinfo b/sysutils/pciutils/distinfo
 +++ b/sysutils/pciutils/distinfo
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = 1448bb418cdc908eb6652cc98994d23d0d78cea0
- SHA1 (patch-ac) = c917e8ad2d1e87fa65a2d8f3256afd40d5a87396
+ SHA1 (patch-ac) = 4b90e99c051391b9cd3a6c1f5781f41b4a855c29
  SHA1 (patch-ad) = bfe9069e96fd46798afec73c93ad71db3a0e0e37
 +SHA1 (patch-aq) = 5546296816722c621aeb777ccd6f316c04173182
 diff --git a/sysutils/pciutils/patches/patch-aq b/sysutils/pciutils/patches/patch-aq
@@ -2422,23 +2425,23 @@ diff --git a/textproc/groff/PLIST b/textproc/groff/PLIST
  bin/grops
  bin/grotty
  bin/hpftodit
--bin/${GNU_PREFIX}indxbib
+-bin/indxbib
 -bin/lkbib
--bin/${GNU_PREFIX}lookbib
+-bin/lookbib
  bin/mmroff
- bin/${GNU_PREFIX}neqn
- bin/${GNU_PREFIX}nroff
+ bin/neqn
+ bin/nroff
 @@ -28,7 +25,6 @@
  bin/post-grohtml
  bin/pre-grohtml
  bin/preconv
--bin/${GNU_PREFIX}refer
+-bin/refer
  bin/roff2dvi
  bin/roff2html
  bin/roff2pdf
 @@ -40,11 +36,11 @@
  bin/tfmtodit
- bin/${GNU_PREFIX}troff
+ bin/troff
  info/groff.info
 -lib/groff/groffer/func.pl
 -lib/groff/groffer/man.pl
@@ -2509,8 +2512,8 @@ diff --git a/textproc/libxml2/Makefile b/textproc/libxml2/Makefile
 +	sed 's/NO_ADDRESS/-1/' -i ${WRKSRC}/nanohttp.c
 +
  .include "../../mk/pthread.buildlink3.mk"
+ .include "../../archivers/xz/buildlink3.mk"
  .include "../../devel/zlib/buildlink3.mk"
- .include "../../converters/libiconv/buildlink3.mk"
 diff --git a/textproc/xmlrpc-c/Makefile b/textproc/xmlrpc-c/Makefile
 --- a/textproc/xmlrpc-c/Makefile
 +++ b/textproc/xmlrpc-c/Makefile
@@ -2525,7 +2528,7 @@ diff --git a/textproc/xmlrpc-c/Makefile b/textproc/xmlrpc-c/Makefile
 diff --git a/textproc/xmlrpc-c/distinfo b/textproc/xmlrpc-c/distinfo
 --- a/textproc/xmlrpc-c/distinfo
 +++ b/textproc/xmlrpc-c/distinfo
-@@ -13,3 +13,4 @@
+@@ -14,3 +14,4 @@
  SHA1 (patch-lib_curl__transport_curlmulti.c) = 1cea4c43b1ed3dcf73827afc14d7bb9267371121
  SHA1 (patch-lib_curl__transport_curltransaction.c) = 1dcf46c0dd1dd8e7fdfbb6c81e00b326f6d0b1f9
  SHA1 (patch-lib_curl__transport_xmlrpc__curl__transport.c) = ea132ebb46ff0ce9893d64e9c9205d5a155220ef
@@ -2627,7 +2630,7 @@ diff --git a/wm/bsetroot/PLIST b/wm/bsetroot/PLIST
 diff --git a/www/firefox/Makefile b/www/firefox/Makefile
 --- a/www/firefox/Makefile
 +++ b/www/firefox/Makefile
-@@ -19,6 +19,7 @@
+@@ -20,6 +20,7 @@
  
  LDFLAGS.DragonFly=	-lplc4 -lnspr4
  LDFLAGS.FreeBSD=	-lplc4 -lnspr4
@@ -2635,7 +2638,7 @@ diff --git a/www/firefox/Makefile b/www/firefox/Makefile
  
  .include "../../devel/xulrunner/mozilla-common.mk"
  .include "options.mk"
-@@ -31,6 +32,9 @@
+@@ -32,6 +33,9 @@
  MOZILLA_NAME=	Browser
  .endif
  
@@ -2660,9 +2663,9 @@ diff --git a/www/webkit-gtk/Makefile b/www/webkit-gtk/Makefile
 diff --git a/x11/libFS/Makefile b/x11/libFS/Makefile
 --- a/x11/libFS/Makefile
 +++ b/x11/libFS/Makefile
-@@ -25,6 +25,8 @@
- CONFIGURE_ARGS+=	--disable-malloc0returnsnull
- .endif
+@@ -27,6 +27,8 @@
+ 
+ .include "../../meta-pkgs/modular-xorg/hacks.mk"
  
 +CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DNOFILES_MAX=256"
 +
@@ -2673,9 +2676,9 @@ diff --git a/x11/libFS/distinfo b/x11/libFS/distinfo
 --- a/x11/libFS/distinfo
 +++ b/x11/libFS/distinfo
 @@ -3,3 +3,4 @@
- SHA1 (libFS-1.0.3.tar.bz2) = 2b33fa17369605303ae70a7de1aa681879249c92
- RMD160 (libFS-1.0.3.tar.bz2) = a4c1811de0cba5fd40a083031c44a951c240dd3b
- Size (libFS-1.0.3.tar.bz2) = 284331 bytes
+ SHA1 (libFS-1.0.4.tar.bz2) = f114f32f60eb84d3e1d0e6f0dfe7679b07e91295
+ RMD160 (libFS-1.0.4.tar.bz2) = 6e74cc9b4d8ece4abcabb26e3c5cec7a0e591918
+ Size (libFS-1.0.4.tar.bz2) = 291155 bytes
 +SHA1 (patch-aq) = 75f64d23fe0ffdc5dca48fcba982539d34caf42b
 diff --git a/x11/libFS/patches/patch-aq b/x11/libFS/patches/patch-aq
 new file mode 100644
@@ -2703,8 +2706,8 @@ diff --git a/x11/libXfont/Makefile b/x11/libXfont/Makefile
  CONFIGURE_ARGS+=	--disable-devel-docs
 +CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DNOFILES_MAX=256"
  
- .include "../../devel/zlib/buildlink3.mk"
- .include "../../graphics/freetype2/buildlink3.mk"
+ .include "../../meta-pkgs/modular-xorg/hacks.mk"
+ 
 diff --git a/x11/libdrm/distinfo b/x11/libdrm/distinfo
 --- a/x11/libdrm/distinfo
 +++ b/x11/libdrm/distinfo
@@ -2733,9 +2736,9 @@ new file mode 100644
 diff --git a/x11/libxcb/Makefile b/x11/libxcb/Makefile
 --- a/x11/libxcb/Makefile
 +++ b/x11/libxcb/Makefile
-@@ -74,6 +74,8 @@
- 
- PYTHON_VERSIONS_ACCEPTED= 27 26 25
+@@ -72,6 +72,8 @@
+ SUBST_STAGE.pc=		pre-configure
+ SUBST_VARS.pc=		XTHREADLIB XTHREAD_CPPFLAGS
  
 +BUILD_DEPENDS+=		py27-cElementTree-[0-9]*:../../textproc/py-cElementTree
 +
@@ -2886,9 +2889,9 @@ diff --git a/x11/xinit/distinfo b/x11/xinit/distinfo
 --- a/x11/xinit/distinfo
 +++ b/x11/xinit/distinfo
 @@ -3,3 +3,4 @@
- SHA1 (xinit-1.2.1.tar.bz2) = baf36374aa1632054816a8281e55e1539459664b
- RMD160 (xinit-1.2.1.tar.bz2) = 993b068e4758521ed930bd78069c291b68d88037
- Size (xinit-1.2.1.tar.bz2) = 141441 bytes
+ SHA1 (xinit-1.3.2.tar.bz2) = 1c287ac016d277f973652fa3707eef6db8353d5a
+ RMD160 (xinit-1.3.2.tar.bz2) = 097cd409e829255c328d1d87d69fb8206482f5d5
+ Size (xinit-1.3.2.tar.bz2) = 148443 bytes
 +SHA1 (patch-aq) = 98a0f800293163faa1392090842a6994485e8204
 diff --git a/x11/xinit/patches/patch-aq b/x11/xinit/patches/patch-aq
 new file mode 100644
@@ -2911,9 +2914,9 @@ diff --git a/x11/xload/distinfo b/x11/xload/distinfo
 --- a/x11/xload/distinfo
 +++ b/x11/xload/distinfo
 @@ -3,3 +3,4 @@
- SHA1 (xload-1.0.2.tar.bz2) = cbbbf23531e0d781b556f5864cc3b83874f786d2
- RMD160 (xload-1.0.2.tar.bz2) = c10a9e3a2c7dbb39649da28d5844009e3895d06d
- Size (xload-1.0.2.tar.bz2) = 92470 bytes
+ SHA1 (xload-1.1.1.tar.bz2) = 50f6ee958e6fb609af92cf9403e7bd68720575cb
+ RMD160 (xload-1.1.1.tar.bz2) = 8c971e743cbd3e7cfe8ac2747d87ae2d4c0981d5
+ Size (xload-1.1.1.tar.bz2) = 130887 bytes
 +SHA1 (patch-aq) = 0b45fe95dc54313063cf5ab8be83b3c657274c47
 diff --git a/x11/xload/patches/patch-aq b/x11/xload/patches/patch-aq
 new file mode 100644

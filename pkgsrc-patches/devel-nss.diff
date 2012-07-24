@@ -1,10 +1,10 @@
 # HG changeset patch
-# Parent ce0c2148ff7a6b9944b881ce58f1aca3340e987c
+# Parent e6b3ae99d54656bd8d89d801c2e6b5aae81c9171
 
 diff --git a/devel/nss/Makefile b/devel/nss/Makefile
 --- a/devel/nss/Makefile
 +++ b/devel/nss/Makefile
-@@ -48,6 +48,17 @@
+@@ -50,6 +50,17 @@
  MAKE_ENV+=	NSS_USE_SYSTEM_SQLITE=1
  MAKE_ENV+=	EXTRA_SHARED_LIBS="-Wl,-R${BUILDLINK_PREFIX.nspr}/lib/nspr -Wl,-R,${PREFIX}/lib/nss -L${BUILDLINK_PREFIX.nspr}/lib/nspr -lplc4 -lplds4 -lnspr4"
  
@@ -19,6 +19,6 @@ diff --git a/devel/nss/Makefile b/devel/nss/Makefile
 +	${SED} 's/DHAVE_SYS_CDEFS_H/UHAVE_SYS_CDEFS_H/' -i ${WRKSRC}/security/dbm/config/config.mk
 +	${SED} 's/(ffs/(__builtin_ffs/g' -i ${WRKSRC}/security/nss/cmd/checkcert/checkcert.c
 +
- pre-configure:
- # sanity check: make sure the nss release is what we think it is.
- #	@set -e; if [ '"${NSS_RELEASE}"' !=			\
+ do-build:
+ 	cd ${WRKSRC}/security/nss && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} \
+ 	  build_coreconf build_dbm all

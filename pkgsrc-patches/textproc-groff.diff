@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent b0fbd39fe9c20a6ac7e58222c07ad9343179a884
+# Parent c1db6fcc06d816dec88c91985c277a513c433a55
 
 diff --git a/textproc/groff/PLIST b/textproc/groff/PLIST
 --- a/textproc/groff/PLIST
@@ -8,23 +8,23 @@ diff --git a/textproc/groff/PLIST b/textproc/groff/PLIST
  bin/grops
  bin/grotty
  bin/hpftodit
--bin/${GNU_PREFIX}indxbib
+-bin/indxbib
 -bin/lkbib
--bin/${GNU_PREFIX}lookbib
+-bin/lookbib
  bin/mmroff
- bin/${GNU_PREFIX}neqn
- bin/${GNU_PREFIX}nroff
+ bin/neqn
+ bin/nroff
 @@ -28,7 +25,6 @@
  bin/post-grohtml
  bin/pre-grohtml
  bin/preconv
--bin/${GNU_PREFIX}refer
+-bin/refer
  bin/roff2dvi
  bin/roff2html
  bin/roff2pdf
 @@ -40,11 +36,11 @@
  bin/tfmtodit
- bin/${GNU_PREFIX}troff
+ bin/troff
  info/groff.info
 -lib/groff/groffer/func.pl
 -lib/groff/groffer/man.pl

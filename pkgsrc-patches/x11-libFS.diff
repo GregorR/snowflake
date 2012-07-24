@@ -1,12 +1,12 @@
 # HG changeset patch
-# Parent 94db6594f0c7578308bbb006efc6862f84e6837c
+# Parent 72e6acea2cbd2b0d018886fb29c2993d4b01070b
 
 diff --git a/x11/libFS/Makefile b/x11/libFS/Makefile
 --- a/x11/libFS/Makefile
 +++ b/x11/libFS/Makefile
-@@ -25,6 +25,8 @@
- CONFIGURE_ARGS+=	--disable-malloc0returnsnull
- .endif
+@@ -27,6 +27,8 @@
+ 
+ .include "../../meta-pkgs/modular-xorg/hacks.mk"
  
 +CONFIGURE_ARGS+=	CFLAGS="-O2 -g -DNOFILES_MAX=256"
 +
@@ -17,9 +17,9 @@ diff --git a/x11/libFS/distinfo b/x11/libFS/distinfo
 --- a/x11/libFS/distinfo
 +++ b/x11/libFS/distinfo
 @@ -3,3 +3,4 @@
- SHA1 (libFS-1.0.3.tar.bz2) = 2b33fa17369605303ae70a7de1aa681879249c92
- RMD160 (libFS-1.0.3.tar.bz2) = a4c1811de0cba5fd40a083031c44a951c240dd3b
- Size (libFS-1.0.3.tar.bz2) = 284331 bytes
+ SHA1 (libFS-1.0.4.tar.bz2) = f114f32f60eb84d3e1d0e6f0dfe7679b07e91295
+ RMD160 (libFS-1.0.4.tar.bz2) = 6e74cc9b4d8ece4abcabb26e3c5cec7a0e591918
+ Size (libFS-1.0.4.tar.bz2) = 291155 bytes
 +SHA1 (patch-aq) = 75f64d23fe0ffdc5dca48fcba982539d34caf42b
 diff --git a/x11/libFS/patches/patch-aq b/x11/libFS/patches/patch-aq
 new file mode 100644

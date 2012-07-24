@@ -1,11 +1,12 @@
 # HG changeset patch
-# Parent 030ccebe9d08fc1714b3eb70df5eec15fa178cf5
+# Parent e596af157328b73e930c2c62346e572576f21e7d
+
 diff --git a/sysutils/pciutils/distinfo b/sysutils/pciutils/distinfo
 --- a/sysutils/pciutils/distinfo
 +++ b/sysutils/pciutils/distinfo
 @@ -7,3 +7,4 @@
  SHA1 (patch-ab) = 1448bb418cdc908eb6652cc98994d23d0d78cea0
- SHA1 (patch-ac) = c917e8ad2d1e87fa65a2d8f3256afd40d5a87396
+ SHA1 (patch-ac) = 4b90e99c051391b9cd3a6c1f5781f41b4a855c29
  SHA1 (patch-ad) = bfe9069e96fd46798afec73c93ad71db3a0e0e37
 +SHA1 (patch-aq) = 5546296816722c621aeb777ccd6f316c04173182
 diff --git a/sysutils/pciutils/patches/patch-aq b/sysutils/pciutils/patches/patch-aq

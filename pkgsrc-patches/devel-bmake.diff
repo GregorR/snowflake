@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent dafe2089c0150077b10f475d8ee9767a52cb289d
+# Parent 4445f2834596b826f9283899bc23a30a2b8509f2
 
 diff --git a/devel/bmake/files/suff.c b/devel/bmake/files/suff.c
 --- a/devel/bmake/files/suff.c

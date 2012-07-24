@@ -1,10 +1,10 @@
 # HG changeset patch
-# Parent 9d4a668c542e0f6452a3023ca5bad80762096042
+# Parent 3ab5a7c9fb4ec6da42796ddfc0ebebcb097d4a71
 
 diff --git a/lang/ruby193-base/distinfo b/lang/ruby193-base/distinfo
 --- a/lang/ruby193-base/distinfo
 +++ b/lang/ruby193-base/distinfo
-@@ -27,3 +27,4 @@
+@@ -28,3 +28,4 @@
  SHA1 (patch-test_rubygems_test__gem.rb) = bb6946eceed2112a7b3d8df84f59c793bdb73bb0
  SHA1 (patch-tool_rbinstall.rb) = f0497085a09b31145f57028b30e335b09acabcff
  SHA1 (patch-vsnprintf.c) = 7bb4ca07381536717518143ef7803634168ca9fa

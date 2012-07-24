@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 4c39227496c6f75408d0162b31cec85605281729
+# Parent 327d15c0349594f705e342ed2d6ecc613baecfc1
 
 diff --git a/misc/pty-redir/distinfo b/misc/pty-redir/distinfo
 --- a/misc/pty-redir/distinfo

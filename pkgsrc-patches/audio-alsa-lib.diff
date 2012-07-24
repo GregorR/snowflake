@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 8be8d62146badf3a4bc809edcbb2a9116e5a6c94
+# Parent 5c00f38e7133a9f1dbbc25848fde5fce7a27a7dc
 
 diff --git a/audio/alsa-lib/distinfo b/audio/alsa-lib/distinfo
 --- a/audio/alsa-lib/distinfo

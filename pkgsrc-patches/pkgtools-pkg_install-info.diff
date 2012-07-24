@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 2947b0ad91a38b966d1a0f2d2ac14a793bb63180
+# Parent cbc4bfdf7704f40ab82aa320b169bf01d3ee9c6b
 
 diff --git a/pkgtools/pkg_install-info/files/install-info.c b/pkgtools/pkg_install-info/files/install-info.c
 --- a/pkgtools/pkg_install-info/files/install-info.c

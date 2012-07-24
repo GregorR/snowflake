@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent b2f27e71b7200af6b399a6f32c3dbaac573bf8e5
+# Parent eeb37ec88db909ba1cf5f84f752bbb2f40f852a2
 
 diff --git a/filesystems/fuse/distinfo b/filesystems/fuse/distinfo
 --- a/filesystems/fuse/distinfo

@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent e6b3ae99d54656bd8d89d801c2e6b5aae81c9171
+# Parent a6cda5d01bb9093381f768af6f3cdfef776e6164
 
 diff --git a/devel/nss/Makefile b/devel/nss/Makefile
 --- a/devel/nss/Makefile

@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent dc7312a2263ee3e5bceea16b70b53b7dcb6cb1f4
+# Parent 5c94bbbe8d883cfc00a01ca0a7ca323f92267fc6
 
 diff --git a/devel/libblkid/distinfo b/devel/libblkid/distinfo
 --- a/devel/libblkid/distinfo

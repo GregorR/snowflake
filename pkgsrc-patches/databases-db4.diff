@@ -1,14 +1,15 @@
 # HG changeset patch
-# Parent 5cc81baabe39a29369cbeea8ed85a9156fd5a27e
+# Parent a30c9ae4a4546521fb2559d7b1a8bf14c4dd668b
 
 diff --git a/databases/db4/distinfo b/databases/db4/distinfo
 --- a/databases/db4/distinfo
 +++ b/databases/db4/distinfo
-@@ -7,3 +7,4 @@
+@@ -7,4 +7,5 @@
  SHA1 (patch-ab) = 8f9ecc47527d338e28ee1ce71e694eaf2bdceb92
  SHA1 (patch-ac) = 045a3b83b9c6c164382ec546b06ae248620552cf
  SHA1 (patch-ae) = 43e574154de93dba60392b09d6ebddbca1036849
 +SHA1 (patch-aq) = 3baa90e922dc9cb075deee2a2a37d607affead9b
+ SHA1 (patch-dbinc_atomic.h) = ff60e3af41ac1b000ebccc91bc673adde5c7463b
 diff --git a/databases/db4/patches/patch-aq b/databases/db4/patches/patch-aq
 new file mode 100644
 --- /dev/null

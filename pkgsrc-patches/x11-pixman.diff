@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 22a13f6d10e55a9c9723928b085acc8be80c95ca
+# Parent 8f3ed01a2e2600e112e34d1262e6abdadafdc838
 
 diff --git a/x11/pixman/Makefile b/x11/pixman/Makefile
 --- a/x11/pixman/Makefile

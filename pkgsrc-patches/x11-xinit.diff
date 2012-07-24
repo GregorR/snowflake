@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 76c594f1bd0d6f389db2800219819797c80abd1f
+# Parent 7ab75507e87e6fe3174a161058810ded267eb4de
 
 diff --git a/x11/xinit/distinfo b/x11/xinit/distinfo
 --- a/x11/xinit/distinfo

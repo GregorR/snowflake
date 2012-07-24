@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent ac064aeaca3f3f95243f5f2bef9cd8256deb7463
+# Parent cc3a140f877cac32b7593649fe61546dbef3f5c0
 
 diff --git a/graphics/MesaLib/Makefile b/graphics/MesaLib/Makefile
 --- a/graphics/MesaLib/Makefile

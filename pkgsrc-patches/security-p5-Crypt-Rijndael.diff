@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 6919538d4e69a55c31cc113662dcc9884a4493de
+# Parent f92f56a56b0e66e918e877584c94eaf34238d9a0
 
 diff --git a/security/p5-Crypt-Rijndael/distinfo b/security/p5-Crypt-Rijndael/distinfo
 --- a/security/p5-Crypt-Rijndael/distinfo

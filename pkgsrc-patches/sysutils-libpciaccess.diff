@@ -1,5 +1,6 @@
 # HG changeset patch
-# Parent 0efe47717f50203c27e0b76c423420a114eae669
+# Parent 5b5a633539b34b6534ad5bd6fb2456e5d1862924
+
 diff --git a/sysutils/libpciaccess/distinfo b/sysutils/libpciaccess/distinfo
 --- a/sysutils/libpciaccess/distinfo
 +++ b/sysutils/libpciaccess/distinfo

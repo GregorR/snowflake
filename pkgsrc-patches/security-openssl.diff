@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 1a8bd8e34ee816c3623935ed38cfa3215e5524e0
+# Parent a06a871203551adbb6bfb6e1d6f00b5ca784d0d4
 
 diff --git a/security/openssl/Makefile b/security/openssl/Makefile
 --- a/security/openssl/Makefile

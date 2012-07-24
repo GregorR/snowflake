@@ -1,12 +1,12 @@
 # HG changeset patch
-# Parent c20a80372235041e1da4dcb6590239cfdaba8e2a
+# Parent f53913e5268aba4ee1e23204d15dcdf0b2e6a14a
 
 diff --git a/devel/glib2/Makefile b/devel/glib2/Makefile
 --- a/devel/glib2/Makefile
 +++ b/devel/glib2/Makefile
-@@ -46,6 +46,12 @@
- 
- LIBS.SunOS+=	-lnsl -lsocket
+@@ -48,6 +48,12 @@
+ .include "../../devel/libelf/buildlink3.mk"
+ .endif
  
 +
 +

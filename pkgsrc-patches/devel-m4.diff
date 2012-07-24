@@ -1,14 +1,15 @@
 # HG changeset patch
-# Parent d09d8c5bd7612a9fe78aea84f31546002f22333e
+# Parent 3c48174ece39a1d53a3d914d1e794b0dc2fb355c
 
 diff --git a/devel/m4/distinfo b/devel/m4/distinfo
 --- a/devel/m4/distinfo
 +++ b/devel/m4/distinfo
-@@ -6,3 +6,4 @@
+@@ -6,4 +6,5 @@
  SHA1 (patch-aa) = ef316620b49f78f46e9dea47032b0141814c1f43
  SHA1 (patch-ab) = b29840365e983623bce64e84ceab3504b8270b32
  SHA1 (patch-ac) = 7bd9164c659727a906ef54a2f1027e9fd19315ba
 +SHA1 (patch-aq) = 361e3294fe76fd67087d4fb212fd16c79462a953
+ SHA1 (patch-lib_verror.h) = 4c50ab0bc90a6324845e145bbe140836179ca8c9
 diff --git a/devel/m4/patches/patch-aq b/devel/m4/patches/patch-aq
 new file mode 100644
 --- /dev/null

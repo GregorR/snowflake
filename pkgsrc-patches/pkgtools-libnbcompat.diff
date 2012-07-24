@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 0c817a64704477afcc7facdc1e651b7aa7390bbc
+# Parent ba7da1e6a19fbe7156df2b898e6fd855198d94fa
 
 diff --git a/pkgtools/libnbcompat/files/lchflags.c b/pkgtools/libnbcompat/files/lchflags.c
 --- a/pkgtools/libnbcompat/files/lchflags.c

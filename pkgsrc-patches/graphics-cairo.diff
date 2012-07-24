@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 51ab4b6824ca04d308a37912a40f48010bf499dc
+# Parent e1c70b0e091113e67801c4cb20edd5a6b4fefe08
 
 diff --git a/graphics/cairo/Makefile b/graphics/cairo/Makefile
 --- a/graphics/cairo/Makefile

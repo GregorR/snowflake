@@ -1,12 +1,12 @@
 # HG changeset patch
-# Parent 5112e02d66914f5dcc250c58de6754fe40bafffe
+# Parent bfdc998dc7f2f03a9c260edc7c8887de6bdadc8d
 
 diff --git a/devel/imake/Makefile b/devel/imake/Makefile
 --- a/devel/imake/Makefile
 +++ b/devel/imake/Makefile
-@@ -42,6 +42,9 @@
- SUBST_FILES.xmkmf=	xmkmf
- SUBST_SED.xmkmf=	-e "s/^configdirspec= */configdirspec=/"
+@@ -43,6 +43,9 @@
+ 
+ .include "../../meta-pkgs/modular-xorg/hacks.mk"
  
 +pre-build:
 +	sed 's/-x c -/-x c - -x none/' -i ${WRKSRC}/imake.c

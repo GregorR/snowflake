@@ -1,10 +1,10 @@
 # HG changeset patch
-# Parent afa54b2277ae050ae6e95e59ad52d4c8c7dde095
+# Parent 60e5cea5a387ac475fb843a377980920f0df3987
 
 diff --git a/lang/python26/Makefile b/lang/python26/Makefile
 --- a/lang/python26/Makefile
 +++ b/lang/python26/Makefile
-@@ -118,22 +118,7 @@
+@@ -117,22 +117,7 @@
  .endif
  
  PLIST_VARS+=	dll nis no-nis

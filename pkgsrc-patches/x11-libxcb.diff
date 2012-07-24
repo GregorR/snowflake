@@ -1,12 +1,12 @@
 # HG changeset patch
-# Parent 6be51f3718be6b414ac97ce58eba41dadccbdb9e
+# Parent 395d611d88fdb117e1ce3ca51c988b93c298aa49
 
 diff --git a/x11/libxcb/Makefile b/x11/libxcb/Makefile
 --- a/x11/libxcb/Makefile
 +++ b/x11/libxcb/Makefile
-@@ -74,6 +74,8 @@
- 
- PYTHON_VERSIONS_ACCEPTED= 27 26 25
+@@ -72,6 +72,8 @@
+ SUBST_STAGE.pc=		pre-configure
+ SUBST_VARS.pc=		XTHREADLIB XTHREAD_CPPFLAGS
  
 +BUILD_DEPENDS+=		py27-cElementTree-[0-9]*:../../textproc/py-cElementTree
 +

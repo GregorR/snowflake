@@ -1,5 +1,6 @@
 # HG changeset patch
-# Parent e684c6ce703b5060b97194accbff8067299e3cea
+# Parent 88aa1030bbd454f512cf8e56cdacbfb1d03c8a3e
+
 diff --git a/devel/libowfat/distinfo b/devel/libowfat/distinfo
 --- a/devel/libowfat/distinfo
 +++ b/devel/libowfat/distinfo

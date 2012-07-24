@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent f3a5f03a669b05c528395f5b01b37084594d5c82
+# Parent bdd0a6a4ecf8686e93fddb00ab2f7584bc8893ed
 
 diff --git a/security/openpam/distinfo b/security/openpam/distinfo
 --- a/security/openpam/distinfo

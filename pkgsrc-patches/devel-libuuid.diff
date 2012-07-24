@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 6e9a90a06fef85ab388cd64a0d49292e62b43a3b
+# Parent 7deb3916e9766eabd04771136f918e7a768fe95c
 
 diff --git a/devel/libuuid/distinfo b/devel/libuuid/distinfo
 --- a/devel/libuuid/distinfo

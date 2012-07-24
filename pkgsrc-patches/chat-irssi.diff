@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 7bc1db64baf8c676f4e173c3193c8a850fa1d203
+# Parent bba5d189454d7618976afd7e07f1baed59907468
 
 diff --git a/chat/irssi/Makefile b/chat/irssi/Makefile
 --- a/chat/irssi/Makefile

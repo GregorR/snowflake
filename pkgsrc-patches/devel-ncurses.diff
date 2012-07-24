@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent c4e347ef2fc9b11838e5c86b85f223a233f302ef
+# Parent 27b03986b83abca36ba75f741ce5c17ba1fb558b
 
 diff --git a/devel/ncurses/Makefile b/devel/ncurses/Makefile
 --- a/devel/ncurses/Makefile

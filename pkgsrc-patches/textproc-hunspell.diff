@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 0b45e132022bea68505526777ec134a88223e780
+# Parent 783a8ec4eaf9519b0957ca626c77eef2e19535f4
 
 diff --git a/textproc/hunspell/distinfo b/textproc/hunspell/distinfo
 --- a/textproc/hunspell/distinfo

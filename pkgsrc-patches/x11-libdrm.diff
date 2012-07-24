@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 3d040cdbc217424f33159b1cfbfcb6bd0a898bfa
+# Parent 3c367538815609f7f00c125d3f0c731badf57711
 
 diff --git a/x11/libdrm/distinfo b/x11/libdrm/distinfo
 --- a/x11/libdrm/distinfo

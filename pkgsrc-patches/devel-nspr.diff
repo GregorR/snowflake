@@ -1,10 +1,10 @@
 # HG changeset patch
-# Parent 4d412a47cd8904b85cfedcb642c4cb105b542ccd
+# Parent 634363e5e84e930158106aef8415bf509c22707b
 
 diff --git a/devel/nspr/Makefile b/devel/nspr/Makefile
 --- a/devel/nspr/Makefile
 +++ b/devel/nspr/Makefile
-@@ -70,6 +70,13 @@
+@@ -72,6 +72,13 @@
  BUILDLINK_PASSTHRU_DIRS+=	Developer/Headers/FlatCarbon
  .endif
  
@@ -16,5 +16,5 @@ diff --git a/devel/nspr/Makefile b/devel/nspr/Makefile
 +	${SED} 's/#define _PR_HAVE_GETPROTO_R.*//' -i ${WRKSRC}/nsprpub/pr/src/misc/prnetdb.c
 +
  pre-configure:
- # sanity check: make sure the nspr release is what we think it is.
- #	@set -e; if [ '"${NSPR_RELEASE}"' !=			\
+ 	cd ${WRKSRC}/nsprpub && autoconf
+ 

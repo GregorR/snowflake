@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 4763f7a6cce163dad7c7f9cabeddde96fbcf2487
+# Parent 1c973706d6a84e189c158112e1d5c1d6b1915131
 
 diff --git a/pkgtools/pkg_install/files/add/Makefile.in b/pkgtools/pkg_install/files/add/Makefile.in
 --- a/pkgtools/pkg_install/files/add/Makefile.in

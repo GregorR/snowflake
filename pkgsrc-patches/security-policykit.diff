@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 4615a1dbb4d25cd48b8f26328fe8eeed761e0a7d
+# Parent 825cb2af31dd883ac221103361ba6007634db2e0
 
 diff --git a/security/policykit/distinfo b/security/policykit/distinfo
 --- a/security/policykit/distinfo

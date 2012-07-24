@@ -1,5 +1,6 @@
 # HG changeset patch
-# Parent 82a123b06e24f86ca2e48c6d49e0283b26ef6aae
+# Parent 7d0704a31b67e3496530803c12ca9a61f1a62c4b
+
 diff --git a/x11/modular-xorg-server/distinfo b/x11/modular-xorg-server/distinfo
 --- a/x11/modular-xorg-server/distinfo
 +++ b/x11/modular-xorg-server/distinfo

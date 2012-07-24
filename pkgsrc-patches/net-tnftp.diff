@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 5b71b4e4763564b2ebd8e1201b89312ec71e2609
+# Parent 4974bd155255b0608be4c93f84af694dad34a781
 
 diff --git a/net/tnftp/files/libedit/tty.c b/net/tnftp/files/libedit/tty.c
 --- a/net/tnftp/files/libedit/tty.c

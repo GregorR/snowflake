@@ -1,5 +1,6 @@
 # HG changeset patch
-# Parent 834d2a2e263fa6e3b68450bfaf60836b403e7901
+# Parent 428060a92787d438dbd01ca00f6192cf35c6a277
+
 diff --git a/sysutils/gamin/distinfo b/sysutils/gamin/distinfo
 --- a/sysutils/gamin/distinfo
 +++ b/sysutils/gamin/distinfo

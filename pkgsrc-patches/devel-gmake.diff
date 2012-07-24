@@ -1,15 +1,15 @@
 # HG changeset patch
-# Parent dd8f80e865bdf588d8325e66453db6f50f86d783
+# Parent 24ed0c6d6ecfb322f47c803cb9c796492662077f
 
 diff --git a/devel/gmake/Makefile b/devel/gmake/Makefile
 --- a/devel/gmake/Makefile
 +++ b/devel/gmake/Makefile
-@@ -47,6 +47,8 @@
+@@ -39,6 +39,8 @@
  CONFIGURE_ARGS+=	ac_cv_func_strndup=no
  .endif
  
 +CONFIGURE_ARGS+=	CFLAGS="-O2 -g -D__BEOS__"
 +
  post-install:
- 	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
- 	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
+ 	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/gmake
+ 	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/gmake

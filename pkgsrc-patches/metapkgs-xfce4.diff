@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent e6541bfdb545a1242e9bc8c1bbbae33585e9e307
+# Parent c69477d0d1e3b2c3e4bba3cb03f3ffe4e6237b0b
 
 diff --git a/meta-pkgs/xfce4/Makefile b/meta-pkgs/xfce4/Makefile
 --- a/meta-pkgs/xfce4/Makefile

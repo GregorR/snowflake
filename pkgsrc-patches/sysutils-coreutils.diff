@@ -1,10 +1,10 @@
 # HG changeset patch
-# Parent 878359e9a2fd95bc4aaf5586ad9673af3d2806c1
+# Parent 479fec007879a729bb23f8654fea7916eac470d4
 
 diff --git a/sysutils/coreutils/Makefile b/sysutils/coreutils/Makefile
 --- a/sysutils/coreutils/Makefile
 +++ b/sysutils/coreutils/Makefile
-@@ -39,6 +39,8 @@
+@@ -61,6 +61,8 @@
  #MESSAGE_SUBST+=	OPSYS=${OPSYS:Q}
  #.endif
  

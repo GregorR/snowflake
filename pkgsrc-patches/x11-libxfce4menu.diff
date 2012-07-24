@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent ab1b46de47c3cd67c39ef74e72e593f7c2985a57
+# Parent 06d544bcfe088a993561a658c6ee10d94dbb2835
 
 diff --git a/x11/libxfce4menu/distinfo b/x11/libxfce4menu/distinfo
 --- a/x11/libxfce4menu/distinfo

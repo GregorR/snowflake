@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 23964269bf0c63004e1c9c42c3ef151b3a3fedb4
+# Parent 30a9f155e939b3853665484b78e265170f7b9488
 
 diff --git a/lang/perl5/Makefile b/lang/perl5/Makefile
 --- a/lang/perl5/Makefile

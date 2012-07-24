@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent d7934e6845e3c4057790f936c53362d3d32840fb
+# Parent 4b7f452bfc477860ff3d7cdb45d229884193abb4
 
 diff --git a/sysutils/xfce4-thunar/distinfo b/sysutils/xfce4-thunar/distinfo
 --- a/sysutils/xfce4-thunar/distinfo

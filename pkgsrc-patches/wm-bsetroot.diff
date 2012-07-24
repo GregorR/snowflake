@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent f8d4b60bc96c6c78a24554c0195d7fa408b91305
+# Parent 539c5b8c1e1a9465824c09932fa954fc9ddb43c8
 
 diff --git a/wm/bsetroot/PLIST b/wm/bsetroot/PLIST
 --- a/wm/bsetroot/PLIST

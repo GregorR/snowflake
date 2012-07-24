@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 18aade104d581f387ee34bf874a0de7519145478
+# Parent 6c928ff7206275ea959a3523066bf17befe9c6f4
 
 diff --git a/lang/f2c/distinfo b/lang/f2c/distinfo
 --- a/lang/f2c/distinfo

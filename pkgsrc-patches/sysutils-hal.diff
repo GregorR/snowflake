@@ -1,9 +1,10 @@
 # HG changeset patch
-# Parent 44b6164ad48fd7a70a0fcfda366eb557c3dd9bfb
+# Parent 803d353e4fe24f75381a9cc9e792ada3f6069409
+
 diff --git a/sysutils/hal/distinfo b/sysutils/hal/distinfo
 --- a/sysutils/hal/distinfo
 +++ b/sysutils/hal/distinfo
-@@ -35,3 +35,4 @@
+@@ -48,3 +48,4 @@
  SHA1 (patch-nb) = 1693b7a2faa5bee20a594f0b60b8ff6caea0efdc
  SHA1 (patch-nc) = 32453e49734902749ce24eb4364fc7f531986227
  SHA1 (patch-nd) = 877dcbafaca0cebd3fdce74c5a622721823c153b

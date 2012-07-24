@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent c836435476c884fb1443b24fccdb3aae1bc1dbf6
+# Parent 8eb408b64e1480455e5fcf1166ee120ab925ff67
 
 diff --git a/textproc/libxml2/Makefile b/textproc/libxml2/Makefile
 --- a/textproc/libxml2/Makefile
@@ -20,5 +20,5 @@ diff --git a/textproc/libxml2/Makefile b/textproc/libxml2/Makefile
 +	sed 's/NO_ADDRESS/-1/' -i ${WRKSRC}/nanohttp.c
 +
  .include "../../mk/pthread.buildlink3.mk"
+ .include "../../archivers/xz/buildlink3.mk"
  .include "../../devel/zlib/buildlink3.mk"
- .include "../../converters/libiconv/buildlink3.mk"

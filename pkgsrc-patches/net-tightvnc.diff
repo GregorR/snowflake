@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent d936b0c968d080df03ccdaecc15f0da9871dca73
+# Parent fcbf2eb697f0b4ec375e3cb95e055e058f680011
 
 diff --git a/net/tightvnc/Makefile b/net/tightvnc/Makefile
 --- a/net/tightvnc/Makefile

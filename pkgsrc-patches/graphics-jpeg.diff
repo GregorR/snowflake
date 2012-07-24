@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 95f70499a05eb4a5cd815ac4d4e4e972985e49d0
+# Parent f6bdfaa0ebac6ae07ea1b7a1abee8f975f99a200
 
 diff --git a/graphics/jpeg/buildlink3.mk b/graphics/jpeg/buildlink3.mk
 --- a/graphics/jpeg/buildlink3.mk

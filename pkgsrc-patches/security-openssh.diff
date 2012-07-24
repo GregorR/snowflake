@@ -1,11 +1,11 @@
 # HG changeset patch
-# Parent e8633ce9a701d07df04616be6c6119695fc510b8
+# Parent f31d87ebbe1546c4610b33a6d08873cd0589a791
 
 diff --git a/security/openssh/Makefile b/security/openssh/Makefile
 --- a/security/openssh/Makefile
 +++ b/security/openssh/Makefile
-@@ -200,4 +200,7 @@
- 	  ${DESTDIR}${EGDIR}/sshd.pam
+@@ -215,4 +215,7 @@
+ 	done
  .endif
  
 +# [Gregor] misdetection 

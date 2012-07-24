@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent e45956a5469b16d92cbb36010753e07d2cf098c0
+# Parent f338c3e3630183a1b127beba3ad08c078093f7f3
 
 diff --git a/textproc/xmlrpc-c/Makefile b/textproc/xmlrpc-c/Makefile
 --- a/textproc/xmlrpc-c/Makefile
@@ -15,7 +15,7 @@ diff --git a/textproc/xmlrpc-c/Makefile b/textproc/xmlrpc-c/Makefile
 diff --git a/textproc/xmlrpc-c/distinfo b/textproc/xmlrpc-c/distinfo
 --- a/textproc/xmlrpc-c/distinfo
 +++ b/textproc/xmlrpc-c/distinfo
-@@ -13,3 +13,4 @@
+@@ -14,3 +14,4 @@
  SHA1 (patch-lib_curl__transport_curlmulti.c) = 1cea4c43b1ed3dcf73827afc14d7bb9267371121
  SHA1 (patch-lib_curl__transport_curltransaction.c) = 1dcf46c0dd1dd8e7fdfbb6c81e00b326f6d0b1f9
  SHA1 (patch-lib_curl__transport_xmlrpc__curl__transport.c) = ea132ebb46ff0ce9893d64e9c9205d5a155220ef

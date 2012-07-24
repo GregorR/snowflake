@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent a42798d9667c8f973c7df71622b83b6fcb30919d
+# Parent b4b6e3f310d01d0546a52c26944b43a13f302c5e
 
 diff --git a/x11/vte/distinfo b/x11/vte/distinfo
 --- a/x11/vte/distinfo

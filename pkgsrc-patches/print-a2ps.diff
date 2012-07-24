@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent e4eba23701bcdd25611c2e2305e3658625682dc2
+# Parent 1dd658023984a8425e8b6ae6f05352c2621dcb83
 
 diff --git a/print/a2ps/distinfo b/print/a2ps/distinfo
 --- a/print/a2ps/distinfo

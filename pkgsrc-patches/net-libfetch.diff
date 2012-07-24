@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent c758a34684c54eca9e932f824dbb0441c6af5263
+# Parent 3ddd300226fb7ce20f81d318dcd4e45191a0c00f
 
 diff --git a/net/libfetch/files/ftp.c b/net/libfetch/files/ftp.c
 --- a/net/libfetch/files/ftp.c

@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 4f20750cd4fe6f2026e740c9380b4ace949a9681
+# Parent 48981442f803c36a3c3340e3c34e0fb17771da69
 
 diff --git a/devel/xulrunner/Makefile b/devel/xulrunner/Makefile
 --- a/devel/xulrunner/Makefile

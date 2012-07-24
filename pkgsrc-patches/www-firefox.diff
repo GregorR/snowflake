@@ -1,10 +1,10 @@
 # HG changeset patch
-# Parent c285faf29700b457f870d250216c246d7dfa5013
+# Parent c420d1a9a9ead7e193822bc109f68bb256edd3ab
 
 diff --git a/www/firefox/Makefile b/www/firefox/Makefile
 --- a/www/firefox/Makefile
 +++ b/www/firefox/Makefile
-@@ -19,6 +19,7 @@
+@@ -20,6 +20,7 @@
  
  LDFLAGS.DragonFly=	-lplc4 -lnspr4
  LDFLAGS.FreeBSD=	-lplc4 -lnspr4
@@ -12,7 +12,7 @@ diff --git a/www/firefox/Makefile b/www/firefox/Makefile
  
  .include "../../devel/xulrunner/mozilla-common.mk"
  .include "options.mk"
-@@ -31,6 +32,9 @@
+@@ -32,6 +33,9 @@
  MOZILLA_NAME=	Browser
  .endif
  

@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent f12e332e146939918588251d4d31ea1ad20a7cc0
+# Parent 2397f135673dc32495ea57739361f166da21fc0b
 
 diff --git a/devel/pcre/Makefile b/devel/pcre/Makefile
 --- a/devel/pcre/Makefile

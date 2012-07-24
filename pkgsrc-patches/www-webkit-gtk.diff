@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 10396a9fcb1c005b072e8ad97983cf3ce6f4fe51
+# Parent 5305c4bf510f3b7829f6a91d7fef5ce5f6306e96
 
 diff --git a/www/webkit-gtk/Makefile b/www/webkit-gtk/Makefile
 --- a/www/webkit-gtk/Makefile

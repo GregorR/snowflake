@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 26f21c127356a29616605b9d868e87a441f322e4
+# Parent 976e85aee8803a4abf3a7b82906226d03949b15a
 
 diff --git a/security/libgpg-error/PLIST b/security/libgpg-error/PLIST
 --- a/security/libgpg-error/PLIST

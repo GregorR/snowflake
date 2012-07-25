@@ -72,3 +72,4 @@ sysutils-gamin.diff
 sysutils-pciutils.diff
 devel-libowfat.diff
 sysutils-hal.diff
+mk.diff

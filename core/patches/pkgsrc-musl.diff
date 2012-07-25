@@ -1574,6 +1574,33 @@ new file mode 100644
 + 	if(fork())
 + 	{
 + 		exit(0);
+diff --git a/mk/compiler/gcc.mk b/mk/compiler/gcc.mk
+--- a/mk/compiler/gcc.mk
++++ b/mk/compiler/gcc.mk
+@@ -146,10 +146,10 @@
+ .endif
+ _GCC_PKG=	gcc-${_GCC_VERSION:C/-.*$//}
+ 
+-.if !empty(_CC:M${LOCALBASE}/*)
+-_IS_BUILTIN_GCC=	NO
+-GCC_REQD+=		${_GCC_VERSION}
+-.else
++#.if !empty(_CC:M${LOCALBASE}/*)
++#_IS_BUILTIN_GCC=	NO
++#GCC_REQD+=		${_GCC_VERSION}
++#.else
+ .  if !empty(_CC:M/*)
+ #
+ # GCC in older versions of Darwin report "Apple Computer ... based on gcc
+@@ -163,7 +163,7 @@
+ .  else
+ _IS_BUILTIN_GCC=	NO
+ .  endif
+-.endif
++#.endif
+ 
+ # Distill the GCC_REQD list into a single _GCC_REQD value that is the
+ # highest version of GCC required.
 diff --git a/net/libfetch/files/ftp.c b/net/libfetch/files/ftp.c
 --- a/net/libfetch/files/ftp.c
 +++ b/net/libfetch/files/ftp.c

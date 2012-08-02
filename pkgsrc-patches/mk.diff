@@ -27,3 +27,45 @@ diff --git a/mk/compiler/gcc.mk b/mk/compiler/gcc.mk
  
  # Distill the GCC_REQD list into a single _GCC_REQD value that is the
  # highest version of GCC required.
+diff --git a/mk/pkginstall/usergroupfuncs.Linux b/mk/pkginstall/usergroupfuncs.Linux
+--- a/mk/pkginstall/usergroupfuncs.Linux
++++ b/mk/pkginstall/usergroupfuncs.Linux
+@@ -96,13 +96,13 @@
+ 	case $userid in
+ 	"")
+ 		${USERADD}					\
+-			-c "$descr" -d "$home" -s "$shell"	\
+-			-g $group $user "$@"
++			-D -g "$desc" -h "$home" -H -s "$shell"	\
++			-G $group $user "$@"
+ 		;;
+ 	*)
+ 		${USERADD}					\
+-			-c "$descr" -d "$home" -s "$shell"	\
+-			-g $group -u $userid $user "$@"
++			-D -g "$desc" -h "$home" -H -s "$shell"	\
++			-G $group -u $userid $user "$@"
+ 		;;
+ 	esac
+ }
+diff --git a/mk/platform/Linux.mk b/mk/platform/Linux.mk
+--- a/mk/platform/Linux.mk
++++ b/mk/platform/Linux.mk
+@@ -23,7 +23,7 @@
+ DEF_UMASK?=		022
+ DEFAULT_SERIAL_DEVICE?=	/dev/null
+ EXPORT_SYMBOLS_LDFLAGS?=	# Don't add symbols to the dynamic symbol table
+-GROUPADD?=		/usr/sbin/groupadd
++GROUPADD?=		/usr/bin/addgroup
+ LIBC_BUILTINS=		iconv getopt sysexits gettext
+ MOTIF_TYPE_DEFAULT?=	openmotif	# default 2.0 compatible libs type
+ .if exists(/etc/ssdlinux_version)
+@@ -43,7 +43,7 @@
+ ULIMIT_CMD_datasize?=	ulimit -d `ulimit -H -d`
+ ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
+ ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
+-USERADD?=		/usr/sbin/useradd
++USERADD?=		/usr/bin/adduser
+ 
+ _OPSYS_EMULDIR.linux=	# empty
+ _OPSYS_EMULDIR.linux32=	# empty

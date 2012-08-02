@@ -37,9 +37,9 @@ if [ ! -e "$SNOWFLAKE_PREFIX/usr" ]
 then
     for i in bin etc include lib libexec
     do
-        ln -s usr/$i "$SNOWFLAKE_PREFIX/$i"
+        ln -sf usr/$i "$SNOWFLAKE_PREFIX/$i"
     done
-    ln -s bin "$SNOWFLAKE_PREFIX/sbin"
+    ln -sf bin "$SNOWFLAKE_PREFIX/sbin"
     for i in boot dev home local pkg proc root sys tmp usr var/log/dmesg \
         var/log/sshd var/log/crond var/spool/cron/crontabs
     do
@@ -290,7 +290,7 @@ then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin"
     for i in snps-clean snps-pkgsrc-install snps-setenv snps-update-tools-list
     do
-        cp "$SNOWFLAKE_BASE/$i" "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/"
+        cp "$SNOWFLAKE_BASE/snps/$i" "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/"
     done
     chmod 0755 "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin"/*
 fi

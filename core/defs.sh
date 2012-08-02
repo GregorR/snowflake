@@ -27,7 +27,7 @@ then
 fi
 
 # Versions of things (do this before config.sh so they can be config'd)
-BUSYBOX_VERSION=1.19.4
+BUSYBOX_VERSION=1.20.2
 GAWK_VERSION=4.0.1
 GMP_VERSION=5.0.5
 LINUX_VERSION=3ffa31d05a5d8978e1f763b4cca13489ae25a140

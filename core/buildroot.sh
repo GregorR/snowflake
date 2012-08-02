@@ -96,7 +96,17 @@ PREFIX="$CC_PREFIX"
 # busybox
 fetchextract http://busybox.net/downloads/ busybox-$BUSYBOX_VERSION .tar.bz2
 patch_source busybox-$BUSYBOX_VERSION
-cp "$SNOWFLAKE_BASE/config/busybox.config" busybox-$BUSYBOX_VERSION/.config
+if [ ! -e busybox-$BUSYBOX_VERSION/configured ]
+then
+    (
+    cd busybox-$BUSYBOX_VERSION
+    cp "$SNOWFLAKE_BASE/config/busybox.config" .config
+    yes '' | make LDFLAGS=-static \
+        CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip" \
+        oldconfig
+    touch configured
+    )
+fi
 buildmake busybox-$BUSYBOX_VERSION LDFLAGS=-static \
     CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip"
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr/sbin" ]

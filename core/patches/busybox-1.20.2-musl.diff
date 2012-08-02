@@ -1,0 +1,112 @@
+diff --git a/include/libbb.h b/include/libbb.h
+--- a/include/libbb.h
++++ b/include/libbb.h
+@@ -42,6 +42,7 @@
+ #include <sys/mman.h>
+ #include <sys/socket.h>
+ #include <sys/stat.h>
++#include <sys/sysinfo.h>
+ #include <sys/time.h>
+ #include <sys/types.h>
+ #ifndef major
+diff --git a/include/platform.h b/include/platform.h
+--- a/include/platform.h
++++ b/include/platform.h
+@@ -443,6 +443,13 @@
+ # undef HAVE_NET_ETHERNET_H
+ #endif
+ 
++#if defined(__musl__)
++# undef HAVE_SETBIT
++# include <stddef.h>
++# include <termios.h>
++# include <sys/ioctl.h>
++#endif
++
+ /*
+  * Now, define prototypes for all the functions defined in platform.c
+  * These must come after all the HAVE_* macros are defined (or not)
+diff --git a/miscutils/man.c b/miscutils/man.c
+--- a/miscutils/man.c
++++ b/miscutils/man.c
+@@ -106,7 +106,7 @@
+ 	/* "2>&1" is added so that nroff errors are shown in pager too.
+ 	 * Otherwise it may show just empty screen */
+ 	cmd = xasprintf(
+-		man ? "gtbl | nroff -Tlatin1 -mandoc 2>&1 | %s"
++		man ? "nroff -Tutf -man 2>&1 | %s"
+ 		    : "%s",
+ 		pager);
+ 	system(cmd);
+diff --git a/miscutils/nandwrite.c b/miscutils/nandwrite.c
+--- a/miscutils/nandwrite.c
++++ b/miscutils/nandwrite.c
+@@ -79,7 +79,7 @@
+ 		unsigned block_offset)
+ {
+ 	while (1) {
+-		loff_t offs;
++		long long offs;
+ 
+ 		if (block_offset >= meminfo->size) {
+ 			if (IS_NANDWRITE)
+diff --git a/networking/ifconfig.c b/networking/ifconfig.c
+--- a/networking/ifconfig.c
++++ b/networking/ifconfig.c
+@@ -56,7 +56,7 @@
+ #endif
+ 
+ #if ENABLE_FEATURE_IFCONFIG_SLIP
+-# include <net/if_slip.h>
++# include <linux/if_slip.h>
+ #endif
+ 
+ /* I don't know if this is needed for busybox or not.  Anyone? */
+diff --git a/networking/libiproute/iplink.c b/networking/libiproute/iplink.c
+--- a/networking/libiproute/iplink.c
++++ b/networking/libiproute/iplink.c
+@@ -5,7 +5,6 @@
+  * Licensed under GPLv2 or later, see file LICENSE in this source tree.
+  */
+ #include <net/if.h>
+-#include <net/if_packet.h>
+ #include <netpacket/packet.h>
+ #include <netinet/if_ether.h>
+ 
+diff --git a/networking/tcpudp.c b/networking/tcpudp.c
+--- a/networking/tcpudp.c
++++ b/networking/tcpudp.c
+@@ -71,7 +71,7 @@
+ /* Wants <limits.h> etc, thus included after libbb.h: */
+ #ifdef __linux__
+ #include <linux/types.h> /* for __be32 etc */
+-#include <linux/netfilter_ipv4.h>
++//#include <linux/netfilter_ipv4.h>
+ #endif
+ 
+ // TODO: move into this file:
+diff --git a/scripts/trylink b/scripts/trylink
+--- a/scripts/trylink
++++ b/scripts/trylink
+@@ -85,6 +85,9 @@
+ # The --sort-section option is not supported by older versions of ld
+ SORT_SECTION=`check_cc "-Wl,--sort-section,alignment" ""`
+ 
++# [Gregor] This breaks arm+musl
++SORT_SECTION=""
++
+ START_GROUP="-Wl,--start-group"
+ END_GROUP="-Wl,--end-group"
+ INFO_OPTS="-Wl,--warn-common -Wl,-Map,$EXE.map -Wl,--verbose"
+diff --git a/util-linux/fdisk.c b/util-linux/fdisk.c
+--- a/util-linux/fdisk.c
++++ b/util-linux/fdisk.c
+@@ -550,7 +550,7 @@
+ {
+ #if ENABLE_FDISK_SUPPORT_LARGE_DISKS
+ 	off64_t off = (off64_t)secno * sector_size;
+-	if (lseek64(dev_fd, off, SEEK_SET) == (off64_t) -1)
++	if (lseek(dev_fd, off, SEEK_SET) == (off64_t) -1)
+ 		fdisk_fatal(unable_to_seek);
+ #else
+ 	uint64_t off = (uint64_t)secno * sector_size;

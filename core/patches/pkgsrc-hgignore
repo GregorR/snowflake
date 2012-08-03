@@ -1,5 +1,0 @@
-.hgignore
-work
-^packages
-^distfiles
-^mk/pkgformat/pkg/package.mk$

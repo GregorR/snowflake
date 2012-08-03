@@ -265,7 +265,14 @@ then
     then
         PKGSRC=pkgsrc
         fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
-        patch_source pkgsrc
+        if [ ! -e "pkgsrc/patched" ]
+        then
+            (
+            cd pkgsrc
+            cat "$SNOWFLAKE_BASE/../pkgsrc-patches"/*.diff | patch -p1
+            touch patched
+            )
+        fi
     fi
     for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION $PKGSRC
     do

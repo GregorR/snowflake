@@ -1,7 +1,7 @@
 #!/bin/sh
 # Quick and dirty linker for snowflake, for use before the proper tools are
 # available, requires that busybox be statically linked
-BUSYBOX_VERSION=1.19.4
+BUSYBOX_VERSION=1.20.2
 PKGRESOLVE_VERSION=0.1
 
 PATH="/pkg/busybox/$BUSYBOX_VERSION/usr/bin"

@@ -8,9 +8,9 @@ BUILD_TRIED=`grep '^ |' $L | wc -l`
 BUILD_FAILED=`grep '^ |X|' $L | wc -l`
 TESTS_FAILED=`grep '^ | |X|' $L | wc -l`
 SUCCESS=`grep '^ | | |' $L | wc -l`
-PERCENT=`echo "$SUCCESS $BUILD_TRIED / 100 "'* p' | dc`'%'
+PERCENT=`echo "$SUCCESS"' 100 * '"$BUILD_TRIED / p" | dc`'%'
 
-echo -e \
+/bin/echo -e \
 'Attempted:\t'"$ATTEMPTED"'
 Deps failed:\t'"$DEPS_FAILED"'
 Build tried:\t'"$BUILD_TRIED"'

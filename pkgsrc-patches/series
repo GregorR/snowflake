@@ -51,7 +51,6 @@ sysutils-coreutils.diff
 sysutils-xfce4-thunar.diff
 textproc-groff.diff
 textproc-hunspell.diff
-textproc-libxml2.diff
 textproc-xmlrpc-c.diff
 wm-bsetroot.diff
 www-firefox.diff
@@ -74,3 +73,4 @@ devel-libowfat.diff
 sysutils-hal.diff
 mk.diff
 devel-libusb1.diff
+textproc-libxml2.diff

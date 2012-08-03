@@ -1,24 +1,15 @@
 # HG changeset patch
-# Parent 8eb408b64e1480455e5fcf1166ee120ab925ff67
-
+# Parent 232b5a0a643da8cd8fb5c7285b11953992487315
 diff --git a/textproc/libxml2/Makefile b/textproc/libxml2/Makefile
 --- a/textproc/libxml2/Makefile
 +++ b/textproc/libxml2/Makefile
-@@ -24,6 +24,7 @@
- CONFIGURE_ARGS+=	--with-iconv=${BUILDLINK_PREFIX.iconv}
+@@ -25,6 +25,9 @@
  CONFIGURE_ARGS+=	--with-html-subdir=libxml2
  CONFIGURE_ARGS+=	--without-python
-+CONFIGURE_ARGS+=	--without-threads
  
++# [Gregor] Threading support is broken on musl
++CONFIGURE_ARGS+=	--without-threads
++
  .include "options.mk"
  
-@@ -43,6 +44,9 @@
- SUBST_SED.cat=	-e "s,@@SGML_DEFAULT_CATALOG@@,${SGML_DEFAULT_CATALOG},g"
- SUBST_SED.cat+=	-e "s,@@XML_DEFAULT_CATALOG@@,${XML_DEFAULT_CATALOG},g"
- 
-+pre-build:
-+	sed 's/NO_ADDRESS/-1/' -i ${WRKSRC}/nanohttp.c
-+
- .include "../../mk/pthread.buildlink3.mk"
- .include "../../archivers/xz/buildlink3.mk"
- .include "../../devel/zlib/buildlink3.mk"
+ # allow thread-awareness, but make sure the library is not

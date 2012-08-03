@@ -15,18 +15,8 @@ with gcc make -q sed/SED_VERSION -- sh -c './configure --prefix=/usr && make && 
 cd /src/gawk-GAWK_VERSION
 with gcc make -q gawk/GAWK_VERSION -- sh -c './configure --prefix=/usr && make && make install && ln -fs gawk /usr/bin/awk'
 
-# ncurses
-#cd /src/ncurses-NCURSES_VERSION
-#with gcc make sed gawk -q ncurses/b.NCURSES_VERSION.static -- sh -c '
-#CC="gcc -static -D_GNU_SOURCE" ./configure \
-#    --with-normal \
-#    --enable-sigwinch --with-fallbacks="linux vt100 xterm xterm256-color" \
-#    --prefix=/usr \
-#    --disable-nls --without-dlsym --without-cxx-binding < /dev/ptmx &&
-#make && make install'
-
 # pkgsrc
-[ -e /src/pkgsrc ] && mv /src/pkgsrc /var/
+[ -e /src/pkgsrc ] && mv /src/pkgsrc /var/pkgsrc
 if [ -e /var/pkgsrc ]
 then
     cd /var/pkgsrc/bootstrap

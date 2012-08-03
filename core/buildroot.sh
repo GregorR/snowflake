@@ -264,7 +264,7 @@ then
     if [ "$WITH_PKGSRC" = "yes" ]
     then
         PKGSRC=pkgsrc
-        fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc .tar.gz
+        fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc-$PKGSRC_VERSION .tar.xz
         if [ ! -e "pkgsrc/patched" ]
         then
             (

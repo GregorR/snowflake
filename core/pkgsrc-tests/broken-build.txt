@@ -2,3 +2,4 @@ devel/dmalloc
 devel/ldapsdk
 lang/moscow_ml
 print/pdvipsk
+lang/gforth

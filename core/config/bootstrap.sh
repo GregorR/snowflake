@@ -20,8 +20,17 @@ with gcc make -q gawk/GAWK_VERSION -- sh -c './configure --prefix=/usr && make &
 if [ -e /var/pkgsrc ]
 then
     cd /var/pkgsrc/bootstrap
+
+    # Set MACHINE_ARCH if we need it
+    EXTRA_BOOTSTRAP_ENV=
+    if [ "`uname -m`" = "mips" ]
+    then
+        EXTRA_BOOTSTRAP_ENV="MACHINE_ARCH=mipseb"
+    fi
+
     with gcc make sed gawk -q pkgsrc/PKGSRC_VERSION -- env \
         CC='gcc -D_GNU_SOURCE -D_BSD_SOURCE' USE_NATIVE_GCC=yes NOGCCERROR=yes \
+        $EXTRA_BOOTSTRAP_ENV \
         ./bootstrap --prefix=/usr --varbase=/var
 
     # we inject a dependency on gzip, as some packages require gzip (and not

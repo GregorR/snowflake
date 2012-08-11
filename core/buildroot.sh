@@ -231,13 +231,20 @@ then
     (
     cd aufs3-linux-$LINUX_VERSION
     EXTRA_FLAGS=
-    if [ "$LINUX_ARCH" = "arm" ]
-    then
-        EXTRA_FLAGS="KBUILD_DEFCONFIG=vexpress_defconfig"
-    fi
+    case "$LINUX_ARCH" in
+        arm)
+            EXTRA_FLAGS="KBUILD_DEFCONFIG=vexpress_defconfig"
+            ;;
+
+        mips)
+            EXTRA_FLAGS="KBUILD_DEFCONFIG=malta_defconfig"
+            ;;
+    esac
     make defconfig ARCH=$LINUX_ARCH $EXTRA_FLAGS
     unset EXTRA_FLAGS
     cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
+    [ -e "$SNOWFLAKE_BASE/config/$ARCH/linux.config" ] &&
+        cat "$SNOWFLAKE_BASE/config/$ARCH/linux.config" >> .config
     yes '' | make oldconfig ARCH=$LINUX_ARCH
     touch configured
     )

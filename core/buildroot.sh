@@ -197,7 +197,7 @@ fetchextract http://ftp.gnu.org/gnu/gcc/gcc-$GCC_VERSION/ gcc-$GCC_VERSION .tar.
 nolib64 "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
 MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION" \
     buildinstall root gcc-$GCC_VERSION --host=$TRIPLE --target=$TRIPLE \
-    --enable-languages=c,c++ --disable-multilib --disable-libmudflap \
+    --enable-languages=$LANGUAGES --disable-multilib --disable-libmudflap \
     $GCC_ROOT_CONFFLAGS
 nolib64end "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
 # get the libs into their own path

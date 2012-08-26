@@ -15,3 +15,6 @@ security/opencdk
 security/p5-Crypt-GPG
 shells/bash
 devel/lmdbg
+devel/p5-glib2
+lang/python32
+net/py-twisted

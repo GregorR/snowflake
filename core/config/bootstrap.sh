@@ -31,9 +31,6 @@ then
 
     # snowflake-ize it
     echo '
-# musl is very ... conservative about what symbols it exposes    
-CFLAGS+=-D_GNU_SOURCE -D_BSD_SOURCE
-
 # snps-setenv cleverly translates pkgsrc packages to Snowflake usrviews
 SETENV=snps-setenv "${PKGNAME}" "${DEPENDS}" "${BUILD_DEPENDS} ${BOOTSTRAP_DEPENDS}" "${USE_TOOLS}"
 

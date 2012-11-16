@@ -56,7 +56,7 @@ The default root password is "snowflake".
 
 
 Snowflake can run on ARM and MIPS, though these ports are considerably less
-tested.  A native compile on an ARM or MIPS system should work just like a
+tested. A native compile on an ARM or MIPS system should work just like a
 native compile on any other system. To cross-compile Snowflake for ARM or MIPS:
 
 * Your config.sh must specify ARCH=arm
@@ -73,7 +73,7 @@ native compile on any other system. To cross-compile Snowflake for ARM or MIPS:
   -append "console=tty0 root=b302 rw" -sd snowflake.img
   MIPS:
   $ qemu-system-mips -M malta -kernel vmlinux \
-  -append 'console=ttyS0 root=0302 rw' -hda snowflake.img -nographic
+  -append "console=ttyS0 root=0302 rw" -hda snowflake.img -nographic
 
 * Run /src/bootstrap.sh to finish bootstrapping.
 

@@ -31,6 +31,7 @@ do
     grep "$pkg" /root/broken-*.txt && continue
     expr "$pkg" : '.*/gcc' && continue
     expr "$pkg" : '.*/binutils' && continue
+    expr "$pkg" : '.*/gawk' && continue
 
     cd $pkg
     if try with pkgsrc -- bmake depends

@@ -14,3 +14,10 @@ lang/python27
 security/opencdk
 security/p5-Crypt-GPG
 shells/bash
+devel/lmdbg
+devel/p5-glib2
+lang/python32
+net/py-twisted
+devel/p5-Variable-Magic
+security/p5-Crypt-OpenPGP
+textproc/ruby-pure-hyperstraier

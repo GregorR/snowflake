@@ -113,8 +113,7 @@ then
 else
 	tar -C "$mountdir" -zxf "$contents" || die_unmount 'Failed to extract /'
 fi
-rm -f "$mountdir"/boot/*
-echo '/dev/sda1 /boot ext3 defaults 0 0' >> "$mountdir"/pkg/core/1.0/etc/fstab || die_unmount 'Failed to extend fstab'
+echo '/dev/sda1 /boot ext3 defaults 0 0' >> "$mountdir"/pkg/core/core/1.0/etc/fstab || die_unmount 'Failed to extend fstab'
 umount "$mountdir" || die_unloop 'Failed to unmount /'
 sync
 losetup -d "$loopdev"

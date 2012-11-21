@@ -1,14 +1,18 @@
 #!/bin/sh
 set -e
 cd /pkg
-for pkg in *
+for cfg in *
 do
-    [ "$pkg" = "busybox" ] && continue
-
-    for tool in $pkg/*/usr/bin/*
+    cd /pkg/$cfg
+    for pkg in *
     do
-        tool=`basename "$tool"`
-        [ "$tool" != "*" -a "$tool" != "busybox" ] && echo "$tool:$pkg"
+        [ "$pkg" = "busybox" ] && continue
+    
+        for tool in $pkg/*/usr/bin/*
+        do
+            tool=`basename "$tool"`
+            [ "$tool" != "*" -a "$tool" != "busybox" ] && echo "$tool:$pkg"
+        done
     done
 done > .tools
 exit 0

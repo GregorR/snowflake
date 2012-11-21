@@ -63,33 +63,33 @@ if [ ! -e linux-$LINUX_HEADERS_VERSION/installedrootheaders ]
 then
     (
     cd linux-$LINUX_HEADERS_VERSION
-    make headers_install ARCH=$LINUX_ARCH INSTALL_HDR_PATH="$SNOWFLAKE_PREFIX/pkg/linux-headers/$LINUX_HEADERS_VERSION/usr"
+    make headers_install ARCH=$LINUX_ARCH INSTALL_HDR_PATH="$SNOWFLAKE_PREFIX/pkg/$TRIPLE/linux-headers/$LINUX_HEADERS_VERSION/usr"
     touch installedrootheaders
     )
 fi
 
 # musl
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/libc.a" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/lib/libc.a" ]
 then
     rm -f musl-$MUSL_VERSION/built musl-$MUSL_VERSION/installed # Force it to reinstall
 fi
-PREFIX="$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr"
+PREFIX="$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr"
 export PREFIX
 muslfetchextract
 buildinstall '' musl-$MUSL_VERSION \
     --enable-debug CC="$TRIPLE-gcc" $MUSL_ROOT_CONFFLAGS
-rm -f "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/musl-gcc" # No musl-gcc needed or wanted
-if [ -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/libc.so" ]
+rm -f "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/bin/musl-gcc" # No musl-gcc needed or wanted
+if [ -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/lib/libc.so" ]
 then
-    [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1" ] && \
-        ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1"
-    if [ ! -e "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/ldd" ]
+    [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1" ] && \
+        ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/lib/ld-musl-$LINUX_ARCH.so.1"
+    if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/bin/ldd" ]
     then
-        mkdir -p "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin"
-        ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/usr/bin/ldd"
+        mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/bin"
+        ln -s ../lib/libc.so "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/bin/ldd"
     fi
 fi
-echo linux-headers > "$SNOWFLAKE_PREFIX/pkg/musl/$MUSL_VERSION/deps"
+echo linux-headers > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/deps"
 unset PREFIX
 PREFIX="$CC_PREFIX"
 
@@ -109,112 +109,112 @@ then
 fi
 buildmake busybox-$BUSYBOX_VERSION LDFLAGS=-static \
     CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip"
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr/sbin" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr/sbin" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr"
-    ln -s bin "$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr/sbin"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr"
+    ln -s bin "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr/sbin"
 fi
 doinstall '' busybox-$BUSYBOX_VERSION LDFLAGS=-static \
     CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip" \
-    CONFIG_PREFIX="$SNOWFLAKE_PREFIX/pkg/busybox/$BUSYBOX_VERSION/usr"
+    CONFIG_PREFIX="$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr"
 
 # quicklink
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-quicklink" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-quicklink" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin"
-    cp "$SNOWFLAKE_BASE/snowflake-quicklink" "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/usr/bin/"
-    echo busybox > "$SNOWFLAKE_PREFIX/pkg/quicklink/$QUICKLINK_VERSION/deps"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/quicklink/$QUICKLINK_VERSION/usr/bin"
+    cp "$SNOWFLAKE_BASE/snowflake-quicklink" "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/quicklink/$QUICKLINK_VERSION/usr/bin/"
+    echo busybox > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/quicklink/$QUICKLINK_VERSION/deps"
 fi
 
 # usrview
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/usrview/$USRVIEW_VERSION/usr/bin/usrview" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/usrview/$USRVIEW_VERSION/usr/bin"
     (
     cd "$SNOWFLAKE_BASE/../usrview"
     make clean
     make CC="$TRIPLE-gcc -static -s"
     )
-    cp "$SNOWFLAKE_BASE/../usrview/usrview" "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/"
+    cp "$SNOWFLAKE_BASE/../usrview/usrview" "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/usrview/$USRVIEW_VERSION/usr/bin/"
 fi
 
 # pkgresolve
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/pkgresolve/$PKGRESOLVE_VERSION/usr/bin"
     (
     cd "$SNOWFLAKE_BASE/../pkgresolve"
     make clean
-    make CC="$TRIPLE-gcc -static -s"
+    make CC="$TRIPLE-gcc -static -s" DEFAULT_CONFIGURATION="\"$TRIPLE\""
     )
-    cp "$SNOWFLAKE_BASE/../pkgresolve/pkgresolve" "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/"
-    ln -s pkgresolve "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with"
-    echo usrview > "$SNOWFLAKE_PREFIX/pkg/pkgresolve/$PKGRESOLVE_VERSION/deps"
+    cp "$SNOWFLAKE_BASE/../pkgresolve/pkgresolve" "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/"
+    ln -s pkgresolve "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/with"
+    echo usrview > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/pkgresolve/$PKGRESOLVE_VERSION/deps"
 fi
 
 # core files
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/etc" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc"
-    cp -R "$SNOWFLAKE_BASE/etc" "$SNOWFLAKE_PREFIX/pkg/core/1.0/"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/etc"
+    cp -R "$SNOWFLAKE_BASE/etc" "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/"
     (
     cd "$SNOWFLAKE_BASE/etc"
     for i in *
     do
-        ln -s /pkg/core/1.0/etc/$i "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/etc/$i"
+        ln -s /pkg/core/core/1.0/etc/$i "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/etc/$i"
     done
     )
-    ln -s /local "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/local"
-    ln -s bin "$SNOWFLAKE_PREFIX/pkg/core/1.0/usr/sbin"
+    ln -s /local "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/local"
+    ln -s bin "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/sbin"
 fi
 
 # minimal and default metapackages
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/minimal/1.0/usr" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/usr"
-    echo musl libgcc busybox pkgresolve > "$SNOWFLAKE_PREFIX/pkg/minimal/1.0/deps"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/minimal/1.0/usr"
+    echo musl libgcc busybox pkgresolve > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/minimal/1.0/deps"
 fi
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/default/1.0/usr" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/default/1.0/usr" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/default/1.0/usr"
-    echo minimal > "$SNOWFLAKE_PREFIX/pkg/default/1.0/deps"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/default/1.0/usr"
+    echo minimal > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/default/1.0/deps"
 fi
 
 # binutils
 PREFIX="/usr"
 fetchextract http://ftp.gnu.org/gnu/binutils/ binutils-$BINUTILS_VERSION .tar.bz2
-nolib64 "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/usr"
+nolib64 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/binutils/$BINUTILS_VERSION/usr"
 # FIXME: In musl 0.9.2 this may be fixed, or alternately, may need to change to _GNU_SOURCE
-MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION" \
+MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/$TRIPLE/binutils/$BINUTILS_VERSION" \
     CFLAGS="-O2 -g $CFLAGS -D_LARGEFILE64_SOURCE" buildinstall root binutils-$BINUTILS_VERSION --host=$TRIPLE --target=$TRIPLE \
         --disable-werror $BINUTILS_ROOT_CONFFLAGS
-nolib64end "$SNOWFLAKE_PREFIX/pkg/binutils/$BINUTILS_VERSION/usr"
+nolib64end "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/binutils/$BINUTILS_VERSION/usr"
 unset PREFIX
 
 # gcc
 PREFIX="/usr"
 fetchextract http://ftp.gnu.org/gnu/gcc/gcc-$GCC_VERSION/ gcc-$GCC_VERSION .tar.bz2
-nolib64 "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
-MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION" \
+nolib64 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr"
+MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION" \
     buildinstall root gcc-$GCC_VERSION --host=$TRIPLE --target=$TRIPLE \
     --enable-languages=$LANGUAGES --disable-multilib --disable-libmudflap \
     $GCC_ROOT_CONFFLAGS
-nolib64end "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr"
+nolib64end "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr"
 # get the libs into their own path
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/libgcc/$GCC_VERSION/usr/lib" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib"
-    [ -e "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/libgcc_s.so.1" ] && \
-        mv "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib"/*.so.* "$SNOWFLAKE_PREFIX/pkg/libgcc/$GCC_VERSION/usr/lib/"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/libgcc/$GCC_VERSION/usr/lib"
+    [ -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr/lib/libgcc_s.so.1" ] && \
+        mv "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr/lib"/*.so.* "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/libgcc/$GCC_VERSION/usr/lib/"
 fi
-echo binutils > "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/deps"
+echo binutils > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/deps"
 unset PREFIX
 
 # un"fix" headers
-if [ -e "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/ ]
+if [ -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/ ]
 then
     (
-    cd "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/
+    cd "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include-fixed/
     for file in *
     do
         [ "$file" != "limits.h" -a "$file" != "syslimits.h" ] && rm -rf $file
@@ -222,7 +222,7 @@ then
     true
     )
 fi
-rm -f "$SNOWFLAKE_PREFIX/pkg/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include/stddef.h
+rm -f "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include/stddef.h
 
 # kernel
 gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION
@@ -261,7 +261,7 @@ then
 fi
 
 # a few things distributed as source to be built later
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/sed/$SED_VERSION/usr" ]
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/sed/$SED_VERSION/usr" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/src"
     fetchextract http://ftp.gnu.org/gnu/make/ make-$MAKE_VERSION .tar.bz2
@@ -290,7 +290,8 @@ then
     done
     if [ ! -e "$SNOWFLAKE_PREFIX/src/bootstrap.sh" ]
     then
-        sed 's/MAKE_VERSION/'$MAKE_VERSION'/g ; s/SED_VERSION/'$SED_VERSION'/ ;
+        sed 's/DEFAULT_CONFIGURATION/'$TRIPLE'/g ;
+        s/MAKE_VERSION/'$MAKE_VERSION'/g ; s/SED_VERSION/'$SED_VERSION'/ ;
         s/GAWK_VERSION/'$GAWK_VERSION'/g ;
         s/PKGSRC_VERSION/'$PKGSRC_VERSION'/g' \
             "$SNOWFLAKE_BASE/config/bootstrap.sh" > "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
@@ -299,37 +300,38 @@ then
 fi
 
 # helpers for pkgsrc
-if [ "$WITH_PKGSRC" = "yes" -a ! -e "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/snps-setenv" ]
+if [ "$WITH_PKGSRC" = "yes" -a ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/bin/snps-setenv" ]
 then
-    mkdir -p "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin"
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/bin"
     for i in snps-clean snps-pkgsrc-install snps-setenv snps-update-tools-list
     do
-        cp "$SNOWFLAKE_BASE/snps/$i" "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin/"
+        cp "$SNOWFLAKE_BASE/snps/$i" "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/bin/"
     done
-    chmod 0755 "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/bin"/*
+    chmod 0755 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/bin"/*
 fi
 
 # make usrview setuid-root
-$SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
-$SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/usrview/$USRVIEW_VERSION/usr/bin/usrview"
+$SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/usrview/$USRVIEW_VERSION/usr/bin/usrview"
+$SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/usrview/$USRVIEW_VERSION/usr/bin/usrview"
 
 # make everything mountable
-for pkg in core/1.0 minimal/1.0 default/1.0 \
+$SUDO touch "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/.usr_ok"
+for pkg in minimal/1.0 default/1.0 \
     linux-headers/$LINUX_HEADERS_VERSION musl/$MUSL_VERSION \
     busybox/$BUSYBOX_VERSION quicklink/$QUICKLINK_VERSION \
     usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION \
     binutils/$BINUTILS_VERSION gcc/$GCC_VERSION libgcc/$GCC_VERSION
 do
-    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$pkg/usr/.usr_ok"
+    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/$pkg/usr/.usr_ok"
 done
 if [ "$WITH_PKGSRC" = "yes" ]
 then
-    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/snps/$SNPS_VERSION/usr/.usr_ok"
+    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/.usr_ok"
 fi
 
 # actually perform the linking (do this in multiple steps so we can cross-setup)
-echo '#!/pkg/busybox/'$BUSYBOX_VERSION'/usr/bin/sh
-/pkg/busybox/'$BUSYBOX_VERSION'/usr/bin/sh /pkg/quicklink/'$QUICKLINK_VERSION'/usr/bin/snowflake-quicklink
+echo '#!/pkg/'$TRIPLE'/busybox/'$BUSYBOX_VERSION'/usr/bin/sh
+/pkg/'$TRIPLE'/busybox/'$BUSYBOX_VERSION'/usr/bin/sh /pkg/'$TRIPLE'/quicklink/'$QUICKLINK_VERSION'/usr/bin/snowflake-quicklink '$TRIPLE'
 if [ "$$" = "1" ]
 then
     /bin/sync

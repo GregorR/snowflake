@@ -3,18 +3,19 @@
 # available, requires that busybox be statically linked
 BUSYBOX_VERSION=1.20.2
 PKGRESOLVE_VERSION=0.1
+CONFIGURATION="$1"
 
-PATH="/pkg/busybox/$BUSYBOX_VERSION/usr/bin"
+PATH="/pkg/$CONFIGURATION/busybox/$BUSYBOX_VERSION/usr/bin"
 export PATH
 
-if [ ! -e /pkg/busybox/$BUSYBOX_VERSION ]
+if [ ! -e /pkg/$CONFIGURATION/busybox/$BUSYBOX_VERSION ]
 then
     echo 'This doesn'\''t seem to be a functioning Snowflake setup, bailing.'
     exit 1
 fi
 rm -rf /usr/*
 
-for pkg in core/1.0 `/pkg/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/pkgresolve -s "$@"`
+for pkg in core/core/1.0 `/pkg/$CONFIGURATION/pkgresolve/$PKGRESOLVE_VERSION/usr/bin/pkgresolve -s "$@"`
 do
     echo 'Linking '"$pkg"
     cd /pkg/$pkg/usr || continue

@@ -39,4 +39,4 @@ export SNPS_PKG
 SNPS_PKG_VER="`echo $SNPS_PKGNAME | sed 's/^.*-//'`"
 export SNPS_PKG_VER
 
-exec with -r minimal pkgsrc $SNPS_DEPENDS $SNPS_BUILD_DEPENDS -q $SNPS_PKG/a.$SNPS_PKG_VER -- env "$@"
+exec with -r minimal pkgsrc $SNPS_DEPENDS $SNPS_BUILD_DEPENDS -q $PKGCONFIGURATION/$SNPS_PKG/a.$SNPS_PKG_VER -- env "$@"

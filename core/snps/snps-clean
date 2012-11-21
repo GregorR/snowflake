@@ -1,9 +1,9 @@
 #!/bin/sh
-for pkg in /pkg/*/a.*
+for pkg in /pkg/*/*/a.*
 do
     # Skip our builtin ncurses
     if [ -e "$pkg/usr/lib/libncurses.a" ] ; then continue ; fi
-    
+
     rm -rf "$pkg"
     pkgd=`dirname "$pkg"`
     rmdir "$pkgd" 2> /dev/null

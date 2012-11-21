@@ -7,12 +7,12 @@ die() {
 [ -z "$SNPS_PKG" ] && exit 1
 
 set -ex
-[ ! -e /pkg/$SNPS_PKG/$SNPS_PKG_VER ]
-echo $SNPS_DEPENDS > /pkg/$SNPS_PKG/a.$SNPS_PKG_VER/deps
-mv /pkg/$SNPS_PKG/a.$SNPS_PKG_VER /pkg/$SNPS_PKG/$SNPS_PKG_VER
-if [ -e "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr" ]
+[ ! -e /pkg/$PKGCONFIGURATION/$SNPS_PKG/$SNPS_PKG_VER ]
+echo $SNPS_DEPENDS > /pkg/$PKGCONFIGURATION/$SNPS_PKG/a.$SNPS_PKG_VER/deps
+mv /pkg/$PKGCONFIGURATION/$SNPS_PKG/a.$SNPS_PKG_VER /pkg/$PKGCONFIGURATION/$SNPS_PKG/$SNPS_PKG_VER
+if [ -e "/pkg/$PKGCONFIGURATION/$SNPS_PKG/$SNPS_PKG_VER/usr" ]
 then
-    chmod -R a-w "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr"
-    [ -e "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr/etc" ] && chmod -R u+w "/pkg/$SNPS_PKG/$SNPS_PKG_VER/usr/etc"
+    chmod -R a-w "/pkg/$PKGCONFIGURATION/$SNPS_PKG/$SNPS_PKG_VER/usr"
+    [ -e "/pkg/$PKGCONFIGURATION/$SNPS_PKG/$SNPS_PKG_VER/usr/etc" ] && chmod -R u+w "/pkg/$PKGCONFIGURATION/$SNPS_PKG/$SNPS_PKG_VER/usr/etc"
 fi
 snps-update-tools-list

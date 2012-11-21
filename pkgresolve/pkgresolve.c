@@ -30,7 +30,9 @@
 #include "buffer.h"
 
 #define PKGENV      "PKGS"
+#define CONFIGENV   "PKGCONFIGURATION"
 #define PKGBASE     "/pkg"
+#define DEFAULTPATH "/default"
 #define OKFILE      "/.usr_ok"
 #define DEPSFILE    "/deps"
 
@@ -39,6 +41,10 @@ const char *whitespace = WHITESPACE;
 
 #define COMPARATORS "=><"
 const char *comparators = COMPARATORS;
+
+#define CONFIGURATIONER ':'
+#define CONFIGURATIONERS ":"
+const char *configurationers = CONFIGURATIONERS;
 
 /* bitflags for comparators */
 #define EQ      1
@@ -58,7 +64,7 @@ struct VersionRequest {
 
 /* a package request */
 struct PackageRequest {
-    char *name, *version;
+    char *name, *version, *configuration;
     struct VersionRequest verreqs[3]; /* =, >, < */
     int resolving;
 
@@ -74,16 +80,16 @@ static struct PackageRequest *packageHM[HM_SIZE];
 static struct PackageRequest *packageHead, *packageTail;
 
 /* read in a list of package requests */
-void readPackages(const char *packages, void (*foreach)(struct PackageRequest *));
+void readPackages(const char *packages, const char *configuration, int configurationlen, void (*foreach)(struct PackageRequest *));
 
 /* convert a string comparator into an int comparator */
 int comparatorToInt(const char *cmp, int cmplen);
 
 /* create a request for a package version */
-struct PackageRequest *newRequest(const char *name, int namelen, int cmp, const char *version, int versionlen);
+struct PackageRequest *newRequest(const char *name, int namelen, int cmp, const char *version, int versionlen, const char *configuration, int configurationlen);
 
 /* get a package by name */
-struct PackageRequest *getPackage(const char *name);
+struct PackageRequest *getPackage(const char *name, const char *configuration);
 
 /* comparator for versions */
 int versionCmp(int cmp, const char *vera, const char *verb);
@@ -109,11 +115,18 @@ int main(int argc, char **argv)
     struct Buffer_char packages, path;
     struct Buffer_charp usrviewArgs;
     char *arg, *wpath = NULL, *qpath = NULL;
+    char *defConfiguration;
     int argi, i;
     int execing = 1, nocommand = 0;
     struct PackageRequest *pkg;
 
     INIT_BUFFER(packages);
+
+    /* find our configuration */
+    defConfiguration = getenv(CONFIGENV);
+    if (!defConfiguration) {
+        defConfiguration = DEFAULT_CONFIGURATION;
+    }
 
     /* read in all the various things that can request packages */
 
@@ -134,6 +147,12 @@ int main(int argc, char **argv)
             ARG(-r) {
                 /* reset! */
                 packages.bufused = 0;
+
+            } else ARG(-c) {
+                if (argi < argc - 1) {
+                    argi++;
+                    defConfiguration = argv[argi];
+                }
 
             } else ARG(-m) {
                 execing = 1;
@@ -191,9 +210,10 @@ int main(int argc, char **argv)
 
     /* store it back in the environment */
     setenv(PKGENV, packages.buf, 1);
+    setenv(CONFIGENV, defConfiguration, 1);
 
     /* now, feed it into our packages list */
-    readPackages(packages.buf, NULL);
+    readPackages(packages.buf, defConfiguration, strlen(defConfiguration), NULL);
 
     /* reverse the list so that explicitly-stated dependencies are highest-prio
      * (last-listed) first */
@@ -227,6 +247,8 @@ int main(int argc, char **argv)
             if (execing) {
                 WRITE_STR_BUFFER(path, PKGBASE "/");
             }
+            WRITE_BUFFER(path, pkg->configuration, strlen(pkg->configuration));
+            WRITE_STR_BUFFER(path, "/");
             WRITE_BUFFER(path, pkg->name, strlen(pkg->name));
             WRITE_STR_BUFFER(path, "/");
             WRITE_BUFFER(path, pkg->version, strlen(pkg->version));
@@ -308,18 +330,24 @@ int main(int argc, char **argv)
 #endif
 
 /* read in a list of package requests; note: destroys the string */
-void readPackages(const char *packages, void (*foreach)(struct PackageRequest *))
+void readPackages(const char *packages, const char *defConfiguration, int defConfigurationlen, void (*foreach)(struct PackageRequest *))
 {
     struct PackageRequest *pkg;
     const char *name, *nameend;
     const char *cmp, *cmpend;
     const char *version, *versionend;
+    const char *reqConfiguration, *reqConfigurationend;
+    const char *configuration;
+    int configurationlen;
 
     while (packages && packages[0]) {
         name = nameend =
             cmp = cmpend =
             version = versionend =
+            reqConfiguration = reqConfigurationend =
+            configuration =
             NULL;
+        configurationlen = 0;
 
         /* cut off any leading spaces */
         while (*packages && strchr(whitespace, *packages)) packages++;
@@ -327,37 +355,62 @@ void readPackages(const char *packages, void (*foreach)(struct PackageRequest *)
 
         /* got the name part */
         name = packages;
-        nameend = strpbrk(packages, WHITESPACE COMPARATORS);
+        nameend = strpbrk(packages, WHITESPACE COMPARATORS CONFIGURATIONERS);
         if (nameend == NULL) nameend = name + strlen(name);
 
         /* find the beginning of the comparator */
         cmp = nameend;
-        while (*cmp && strchr(whitespace, *cmp)) cmp++;
-        if (!*cmp || !strchr(comparators, *cmp)) cmp = NULL;
+        while (cmp) {
+            while (*cmp && strchr(whitespace, *cmp)) cmp++;
+            packages = cmp;
 
-        /* if we have a comparator, get that info out */
-        if (cmp) {
-            /* we have a comparator, find the end of it */
-            cmpend = cmp;
-            while (*cmpend && strchr(comparators, *cmpend)) cmpend++;
+            /* if we're at the end of the string, we're done */
+            if (!*cmp) {
+                cmp = NULL;
 
-            /* find the beginning of the version string */
-            version = cmpend;
-            while (*version && strchr(whitespace, *version)) version++;
+            /* if we have a comparator, get that info out */
+            } else if (strchr(comparators, *cmp)) {
+                /* we have a comparator, find the end of it */
+                cmpend = cmp;
+                while (*cmpend && strchr(comparators, *cmpend)) cmpend++;
+    
+                /* find the beginning of the version string */
+                version = cmpend;
+                while (*version && strchr(whitespace, *version)) version++;
+    
+                /* and the end of the version string */
+                versionend = strpbrk(version, WHITESPACE COMPARATORS CONFIGURATIONERS);
+                cmp = versionend;
 
-            /* and the end of the version string */
-            versionend = version;
-            while (*versionend && !strchr(whitespace, *versionend)) versionend++;
+            /* if we have a configurationer, get that info out */
+            } else if (*cmp == CONFIGURATIONER) {
+                cmpend = cmp + 1;
 
-            packages = versionend;
+                /* find the beginning of the configuration string */
+                reqConfiguration = cmpend;
+                while (*reqConfiguration && strchr(whitespace, *reqConfiguration)) reqConfiguration++;
 
+                /* and the end of the configuration string */
+                reqConfigurationend = strpbrk(reqConfiguration, WHITESPACE COMPARATORS CONFIGURATIONERS);
+                cmp = reqConfigurationend;
+    
+            } else {
+                cmp = NULL;
+    
+            }
+        }
+
+        /* figure out the configuration */
+        if (reqConfiguration) {
+            configuration = reqConfiguration;
+            configurationlen = reqConfigurationend - reqConfiguration;
         } else {
-            packages = nameend;
-
+            configuration = defConfiguration;
+            configurationlen = defConfigurationlen;
         }
 
         /* now create the package/version request */
-        pkg = newRequest(name, nameend - name, comparatorToInt(cmp, cmpend - cmp), version, versionend - version);
+        pkg = newRequest(name, nameend - name, comparatorToInt(cmp, cmpend - cmp), version, versionend - version, configuration, configurationlen);
         if (foreach) foreach(pkg);
     }
 }
@@ -401,18 +454,19 @@ static unsigned long strhash(const unsigned char *str)
 }
 
 /* create a request for a package version */
-struct PackageRequest *newRequest(const char *nameo, int namelen, int cmp, const char *versiono, int versionlen)
+struct PackageRequest *newRequest(const char *nameo, int namelen, int cmp, const char *versiono, int versionlen, const char *configurationo, int configurationlen)
 {
-    char *name, *version;
+    char *name, *version, *configuration;
     struct PackageRequest *pkg;
     struct VersionRequest *ver;
     unsigned long hash;
     int verslot;
 
-    /* allocate name and version locally */
+    /* allocate name, version and configuration locally */
     SF(name, malloc, NULL, (namelen + 1));
     strncpy(name, nameo, namelen);
     name[namelen] = '\0';
+
     version = NULL;
     if (versiono) {
         SF(version, malloc, NULL, (versionlen + 1));
@@ -420,14 +474,20 @@ struct PackageRequest *newRequest(const char *nameo, int namelen, int cmp, const
         version[versionlen] = '\0';
     }
 
+    SF(configuration, malloc, NULL, (configurationlen + 1));
+    strncpy(configuration, configurationo, configurationlen);
+    configuration[configurationlen] = '\0';
+
     /* check if it's already there */
-    pkg = getPackage(name);
+    pkg = getPackage(name, configuration);
     if (pkg) {
         free(name);
+        free(configuration);
     } else {
         /* create it */
         SF(pkg, calloc, NULL, (1, sizeof(struct PackageRequest)));
         pkg->name = name;
+        pkg->configuration = configuration;
 
         /* add it to the hashmap */
         hash = strhash((const unsigned char *) name) % HM_SIZE;
@@ -498,14 +558,14 @@ struct PackageRequest *newRequest(const char *nameo, int namelen, int cmp, const
 }
 
 /* get a package by name */
-struct PackageRequest *getPackage(const char *name)
+struct PackageRequest *getPackage(const char *name, const char *configuration)
 {
     unsigned long hash = strhash((const unsigned char *) name);
 
     struct PackageRequest *pkg = packageHM[hash % HM_SIZE];
 
     while (pkg) {
-        if (!strcmp(pkg->name, name)) return pkg;
+        if (!strcmp(pkg->name, name) && !strcmp(pkg->configuration, configuration)) return pkg;
         pkg = pkg->hmn;
     }
 
@@ -606,6 +666,8 @@ void resolve(struct PackageRequest *pkg)
     /* package directory */
     INIT_BUFFER(path);
     WRITE_STR_BUFFER(path, PKGBASE "/");
+    WRITE_BUFFER(path, pkg->configuration, strlen(pkg->configuration));
+    WRITE_STR_BUFFER(path, "/");
     WRITE_BUFFER(path, pkg->name, strlen(pkg->name));
     dirlen = path.bufused;
     WRITE_STR_BUFFER(path, "\0");
@@ -659,7 +721,7 @@ void resolve(struct PackageRequest *pkg)
         READ_FILE_BUFFER(deps, depsfile);
         fclose(depsfile);
         WRITE_STR_BUFFER(deps, "\0");
-        readPackages(deps.buf, resolve);
+        readPackages(deps.buf, pkg->configuration, strlen(pkg->configuration), resolve);
     }
 
 done:
@@ -709,7 +771,7 @@ char *setupQuickPath(const char *qpath)
 {
     struct Buffer_char wpath;
     int i;
-    const char *slash = NULL;
+    const char *slash1 = NULL, *slash2 = NULL;
     size_t wpathlen;
 
     /* make sure it's in the right format */
@@ -719,15 +781,19 @@ char *setupQuickPath(const char *qpath)
             exit(1);
         }
         if (qpath[i] == '/') {
-            if (slash) {
-                fprintf(stderr, "-q path must contain exactly one slash\n");
+            if (slash2) {
+                fprintf(stderr, "-q path must contain exactly two slashes\n");
                 exit(1);
             }
-            slash = qpath + i;
+            if (slash1) {
+                slash2 = qpath + i;
+            } else {
+                slash1 = qpath + i;
+            }
         }
     }
-    if (slash == NULL) {
-        fprintf(stderr, "-q path must contain exactly one slash\n");
+    if (slash2 == NULL) {
+        fprintf(stderr, "-q path must contain exactly two slashes\n");
         exit(1);
     }
 
@@ -743,11 +809,15 @@ char *setupQuickPath(const char *qpath)
     /* then set it up */
     INIT_BUFFER(wpath);
     WRITE_STR_BUFFER(wpath, PKGBASE "/");
-    WRITE_BUFFER(wpath, qpath, slash - qpath);
+    WRITE_BUFFER(wpath, qpath, slash1 - qpath);
     WRITE_STR_BUFFER(wpath, "\0");
     TRYMKDIR();
     wpath.bufused--;
-    WRITE_BUFFER(wpath, slash, strlen(slash));
+    WRITE_BUFFER(wpath, slash1, slash2 - slash1);
+    WRITE_STR_BUFFER(wpath, "\0");
+    TRYMKDIR();
+    wpath.bufused--;
+    WRITE_BUFFER(wpath, slash2, strlen(slash2));
     WRITE_STR_BUFFER(wpath, "\0");
     TRYMKDIR();
     wpath.bufused--;

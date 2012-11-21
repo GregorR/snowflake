@@ -33,7 +33,7 @@
 #define PATHENV             "USR_DIRS"
 #define WRITEENV            "USR_WRITE_DIR"
 #define OKFILE              "/.usr_ok"
-#define FORCEDIR            "/pkg/core/1.0/usr"
+#define FORCEDIR            "/pkg/core/core/1.0/usr"
 #define DEFAULTWRITEDIR     "/tmp/usr"
 #define WRITE_STR_BUFFER(buf, str) \
     WRITE_BUFFER(buf, str, sizeof(str)-1)

@@ -28,7 +28,7 @@ then
         EXTRA_BOOTSTRAP_ENV="MACHINE_ARCH=mipseb"
     fi
 
-    with gcc make sed gawk -q pkgsrc/PKGSRC_VERSION -- env \
+    with gcc make sed gawk -q DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION -- env \
         CC='gcc -D_GNU_SOURCE -D_BSD_SOURCE' USE_NATIVE_GCC=yes NOGCCERROR=yes \
         $EXTRA_BOOTSTRAP_ENV \
         ./bootstrap --prefix=/usr --varbase=/var

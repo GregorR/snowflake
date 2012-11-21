@@ -55,11 +55,20 @@ Installation will automatically go into separated packages in /pkg.
 The default root password is "snowflake".
 
 
-Snowflake can run on ARM and MIPS, though these ports are considerably less
-tested. A native compile on an ARM or MIPS system should work just like a
-native compile on any other system. To cross-compile Snowflake for ARM or MIPS:
+Snowflake can run on ARM, MIPS and PowerPC, though these ports are considerably
+less tested. Currently pkgsrc does not work on musl+MIPS, but other
+combinations seems to work. A native compile on one of these systems should
+work just like a native compile on any other system. To cross-compile Snowflake
+for them:
 
-* Your config.sh must specify ARCH=arm
+* Your config.sh must specify one of
+  ARCH=arm
+  ARCH=mips
+  ARCH=powerpc
+
+* On PowerPC, config.sh must additionally specify
+  GCC_BOOTSTRAP_CONFFLAGS="--with-long-double-64 --enable-secureplt"
+  GCC_CONFFLAGS="--with-long-double-64 --enable-secureplt"
 
 * Up to buildroot is as normal. After buildroot asks you to sudo, it will have
   some errors. These are normal.
@@ -70,15 +79,18 @@ native compile on any other system. To cross-compile Snowflake for ARM or MIPS:
 * The image is usable in qemu like so:
   ARM: 
   $ qemu-system-arm -M vexpress-a9 -kernel vmlinuz \
-  -append "console=tty0 root=b302 rw" -sd snowflake.img
+    -append "console=tty0 root=b302 rw" -sd snowflake.img
   MIPS:
   $ qemu-system-mips -M malta -kernel vmlinux \
-  -append "console=ttyS0 root=0302 rw" -hda snowflake.img -nographic
+    -append "console=ttyS0 root=0302 rw" -hda snowflake.img -nographic
+  PowerPC:
+  $ qemu-system-ppc -snapshot -M g3beige -kernel vmlinux \
+    -append "console=ttyS0 root=0302 rw" -hda snowflake.vmdk -nographic
 
 * Run /src/bootstrap.sh to finish bootstrapping.
 
-On MIPS, unless you use a kernel/emulator combination that actually supports
-input on the framebuffer properly, you will additionally need to create
-pkg/core/1.0/etc/service/ttyS0 (use tty1 as a guide). Currently MIPS has bugs
-related to input, it seems to buffer three characters at a time. Just hit ^O
-three times when you want a command to execute until the bug is fixed.
+On kernel/emulator combinations that do not support input on the framebuffer
+properly, you will additionally need to create pkg/core/1.0/etc/service/ttyS0
+(use tty1 as a guide). Currently MIPS has bugs related to input, it seems to
+buffer three characters at a time. Just hit ^O three times when you want a
+command to execute until the bug is fixed.

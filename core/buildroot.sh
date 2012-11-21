@@ -53,7 +53,7 @@ if [ ! -e linux-$LINUX_HEADERS_VERSION/configured ]
 then
     (
     cd linux-$LINUX_HEADERS_VERSION
-    make defconfig ARCH=$LINUX_ARCH
+    make $LINUX_DEFCONFIG ARCH=$LINUX_ARCH
     cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
     yes '' | make oldconfig ARCH=$LINUX_ARCH
     touch configured
@@ -230,18 +230,15 @@ if [ ! -e aufs3-linux-$LINUX_VERSION/configured ]
 then
     (
     cd aufs3-linux-$LINUX_VERSION
-    EXTRA_FLAGS=
-    case "$LINUX_ARCH" in
-        arm)
-            EXTRA_FLAGS="KBUILD_DEFCONFIG=vexpress_defconfig"
-            ;;
-
-        mips)
-            EXTRA_FLAGS="KBUILD_DEFCONFIG=malta_defconfig"
-            ;;
-    esac
-    make defconfig ARCH=$LINUX_ARCH $EXTRA_FLAGS
-    unset EXTRA_FLAGS
+    if [ "$LINUX_ARCH" = "powerpc" ]
+    then
+        # Needs stddef.h, which is in the stdinc include path on musl
+        mf=arch/powerpc/boot/Makefile
+        sed 's/-nostdinc//g' $mf > $mf.fix
+        mv $mf.fix $mf
+        unset mf
+    fi
+    make $LINUX_DEFCONFIG ARCH=$LINUX_ARCH $EXTRA_FLAGS
     cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
     [ -e "$SNOWFLAKE_BASE/config/$ARCH/linux.config" ] &&
         cat "$SNOWFLAKE_BASE/config/$ARCH/linux.config" >> .config

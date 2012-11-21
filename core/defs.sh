@@ -42,6 +42,22 @@ USRVIEW_VERSION=0.1
 # Include musl-cross's defs.sh
 . "$MUSL_CC_BASE/defs.sh"
 
+# Use our own defconfigs
+case "$LINUX_ARCH" in
+    arm)
+        LINUX_DEFCONFIG="vexpress_defconfig"
+        ;;
+
+    mips)
+        LINUX_DEFCONFIG="malta_defconfig"
+        ;;
+
+    powerpc)
+        LINUX_DEFCONFIG="pmac32_defconfig"
+        ;;
+esac
+
+
 # Don't need sudo if we're root
 if [ "`id -u`" = "0" ]
 then

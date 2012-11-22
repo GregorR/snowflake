@@ -85,7 +85,7 @@ for them:
     -append "console=ttyS0 root=0302 rw" -hda snowflake.img -nographic
   PowerPC:
   $ qemu-system-ppc -snapshot -M g3beige -kernel vmlinux \
-    -append "console=ttyS0 root=0302 rw" -hda snowflake.vmdk -nographic
+    -append "console=ttyS0 root=0302 rw" -hda snowflake.img -nographic
 
 * Run /src/bootstrap.sh to finish bootstrapping.
 

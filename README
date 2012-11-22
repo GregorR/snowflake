@@ -76,16 +76,8 @@ for them:
 * Use mk-hd-image.sh to create an image, even though it hasn't been finalized
   or bootstrapped.
 
-* The image is usable in qemu like so:
-  ARM: 
-  $ qemu-system-arm -M vexpress-a9 -kernel vmlinuz \
-    -append "console=tty0 root=b302 rw" -sd snowflake.img
-  MIPS:
-  $ qemu-system-mips -M malta -kernel vmlinux \
-    -append "console=ttyS0 root=0302 rw" -hda snowflake.img -nographic
-  PowerPC:
-  $ qemu-system-ppc -snapshot -M g3beige -kernel vmlinux \
-    -append "console=ttyS0 root=0302 rw" -hda snowflake.img -nographic
+* The image should be usable in qemu. Example commands are provided in
+  core/qemu.
 
 * Run /src/bootstrap.sh to finish bootstrapping.
 

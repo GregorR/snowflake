@@ -39,8 +39,6 @@ SED_VERSION=4.2.1
 SNPS_VERSION=0.1
 USRVIEW_VERSION=0.1
 
-WITH_UML=no
-
 # Include musl-cross's defs.sh
 . "$MUSL_CC_BASE/defs.sh"
 

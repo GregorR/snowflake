@@ -224,6 +224,19 @@ then
 fi
 rm -f "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr/lib/gcc/$TRIPLE"/*/include/stddef.h
 
+# perhaps build uml
+LINUX_BUILD_ARCH=$LINUX_ARCH
+LINUX_CROSS_COMPILE=$TRIPLE-
+if [ "$WITH_UML" = "yes" ]
+then
+    LINUX_BUILD_ARCH=um
+    LINUX_CROSS_COMPILE=$UML_CROSS_COMPILE
+    echo '#!/bin/sh
+./vmlinux ubda=snowflake.img root=6202 rw con0=null,fd:2 con1=fd:0,fd:1 "$@"
+reset' > snowflake.sh
+    chmod a+x snowflake.sh
+fi
+
 # kernel
 gitfetchextract 'git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-linux.git' $LINUX_VERSION aufs3-linux-$LINUX_VERSION
 if [ ! -e aufs3-linux-$LINUX_VERSION/configured ]
@@ -238,15 +251,24 @@ then
         mv $mf.fix $mf
         unset mf
     fi
-    make $LINUX_DEFCONFIG ARCH=$LINUX_ARCH $EXTRA_FLAGS
+    make $LINUX_DEFCONFIG ARCH=$LINUX_BUILD_ARCH
     cat "$SNOWFLAKE_BASE/config/linux.config" >> .config
     [ -e "$SNOWFLAKE_BASE/config/$ARCH/linux.config" ] &&
         cat "$SNOWFLAKE_BASE/config/$ARCH/linux.config" >> .config
-    yes '' | make oldconfig ARCH=$LINUX_ARCH
+    yes '' | make oldconfig ARCH=$LINUX_BUILD_ARCH
     touch configured
     )
 fi
-buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE-
+buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_BUILD_ARCH CROSS_COMPILE=$LINUX_CROSS_COMPILE
+
+if [ "$WITH_UML" = "yes" ]
+then
+    if [ ! -e vmlinux -o aufs3-linux-$LINUX_VERSION/vmlinux -nt vmlinux ]
+    then
+        cp -f aufs3-linux-$LINUX_VERSION/vmlinux vmlinux
+    fi
+fi
+
 if [ ! -e "$SNOWFLAKE_PREFIX/boot/vmlinuz" ]
 then
     cp -L aufs3-linux-$LINUX_VERSION/arch/$LINUX_ARCH/boot/*zImage "$SNOWFLAKE_PREFIX/boot/vmlinuz" ||

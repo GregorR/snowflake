@@ -16,8 +16,9 @@ $ gcc test.c
 $ ./a.out
 Hello, world!
 
-To build snowflake, make a config.sh (or use the existing one), and use the
-build scripts in core/, in this order:
+To build snowflake, make a config.sh (or use the existing one), and run
+build.sh (in core/). Building a Snowflake root filesystem does not require
+root. It runs the following sub-scripts, in this order:
 
 * ./buildcc.sh: Builds a cross-compiler targeting linux-musl. Due to a
   confluence of bugs, including possibly a bug in my GCC patch (which I'm
@@ -35,22 +36,37 @@ build scripts in core/, in this order:
 
 * ./buildroot.sh: Builds a Snowflake root filesystem.
 
-* ./bootstraproot.sh: Builds the last few packages from within Snowflake. Note
-  that this will only work if your host kernel supports the necessary modules,
-  otherwise you will need to run Snowflake in a VM and bootstrap with
-  /src/bootstrap.sh.
-
-* ./enter-chroot.sh: chroots into a Snowflake root filesystem.
-
-* ./mk-hd-image.sh: Builds a Snowflake HD image from a root filesystem.
-
 It is possible to build out-of-source. To do so, set the environment variable
 SNOWFLAKE_BASE to the absolute path of core/, then run the scripts as usual.
+
+Once you have the root filesystem set up, write it to an HD image:
+
+* ./mk-hd-image.sh: Builds a Snowflake HD image from a root filesystem. This
+  requires root, but for very silly reasons (it needs fdisk and loop mounting).
+  If you don't have root, you can work around that requirement with, e.g.,
+  https://bitbucket.org/GregorR/umlbox . In that case, run it as `umlbox -fw /
+  -s ./mk-hd-image.sh`.
+
+You may also chroot directly into the root filesystem, if your host kernel has
+aufs. The first time you do so, you will have to run the init script, which
+does in-tree configuration:
+
+$ chroot root /usr/bin/init
+
+That step is done automatically if you run Snowflake in a VM or a real machine,
+it is only necessary if you use chroot.
+
+Once you're in the Snowflake filesystem, the final step is to bootstrap the
+last few packages.
+
+$ /src/bootstrap.sh
+
 
 Snowflake supports the NetBSD pkgsrc as a source of packages. The integration
 is imperfect but working. To include pkgsrc, set WITH_PKGSRC=yes in your
 config.sh. To use it, just `with pkgsrc` then build in /var/pkgsrc.
 Installation will automatically go into separated packages in /pkg.
+
 
 The default root password is "snowflake".
 

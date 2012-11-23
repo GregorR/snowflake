@@ -58,12 +58,6 @@ case "$LINUX_ARCH" in
 esac
 
 
-# Don't need sudo if we're root
-if [ "`id -u`" = "0" ]
-then
-    SUDO=
-fi
-
 nolib64() {
     if [ ! -e "$1"/lib64 ]
     then

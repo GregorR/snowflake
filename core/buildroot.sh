@@ -307,40 +307,30 @@ then
     chmod 0755 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/bin"/*
 fi
 
-# make usrview setuid-root
-$SUDO chown 0:0 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/usrview/$USRVIEW_VERSION/usr/bin/usrview"
-$SUDO chmod 4755 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/usrview/$USRVIEW_VERSION/usr/bin/usrview"
-
 # make everything mountable
-$SUDO touch "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/.usr_ok"
+touch "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/.usr_ok"
 for pkg in minimal/1.0 default/1.0 \
     linux-headers/$LINUX_HEADERS_VERSION musl/$MUSL_VERSION \
     busybox/$BUSYBOX_VERSION quicklink/$QUICKLINK_VERSION \
     usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION \
     binutils/$BINUTILS_VERSION gcc/$GCC_VERSION libgcc/$GCC_VERSION
 do
-    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/$pkg/usr/.usr_ok"
+    touch "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/$pkg/usr/.usr_ok"
 done
 if [ "$WITH_PKGSRC" = "yes" ]
 then
-    $SUDO touch "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/.usr_ok"
+    touch "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/snps/$SNPS_VERSION/usr/.usr_ok"
 fi
 
-# actually perform the linking (do this in multiple steps so we can cross-setup)
+# make a script to perform the linking
+mkdir -p "$SNOWFLAKE_PREFIX"/usr/bin
 echo '#!/pkg/'$TRIPLE'/busybox/'$BUSYBOX_VERSION'/usr/bin/sh
 /pkg/'$TRIPLE'/busybox/'$BUSYBOX_VERSION'/usr/bin/sh /pkg/'$TRIPLE'/quicklink/'$QUICKLINK_VERSION'/usr/bin/snowflake-quicklink '$TRIPLE'
+/bin/chmod 4755 /pkg/'$TRIPLE'/usrview/'$USRVIEW_VERSION'/usr/bin/usrview
 if [ "$$" = "1" ]
 then
     /bin/sync
     /bin/reboot -f
 fi' \
-    > "$SNOWFLAKE_PREFIX/setup_usr.sh"
-chmod a+x "$SNOWFLAKE_PREFIX/setup_usr.sh"
-if ! $SUDO chroot "$SNOWFLAKE_PREFIX" /setup_usr.sh
-then
-    # failed to setup usr, so run it as init
-    mkdir -p "$SNOWFLAKE_PREFIX"/usr/bin
-    mv "$SNOWFLAKE_PREFIX"/setup_usr.sh "$SNOWFLAKE_PREFIX"/usr/bin/init
-else
-    rm -f "$SNOWFLAKE_PREFIX/setup_usr.sh"
-fi
+    > "$SNOWFLAKE_PREFIX/usr/bin/init"
+chmod a+x "$SNOWFLAKE_PREFIX/usr/bin/init"

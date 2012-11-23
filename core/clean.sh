@@ -25,9 +25,4 @@ fi
 rm -rf \
     binutils-$BINUTILS_VERSION/ busybox-$BUSYBOX_VERSION/ mpc-$MPC_VERSION/ \
     mpfr-$MPFR_VERSION/ gcc-$GCC_VERSION/ gmp-$GMP_VERSION/ \
-    aufs3-linux-$LINUX_VERSION/ musl-$MUSL_VERSION/
-
-if [ -e root ]
-then
-    $SUDO rm -rf root/
-fi
+    aufs3-linux-$LINUX_VERSION/ musl-$MUSL_VERSION/ root/

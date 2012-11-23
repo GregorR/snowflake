@@ -1,5 +1,5 @@
-#!/bin/bash -x
-# Enter a chroot
+#!/bin/sh
+# Build a cross-compiler
 # 
 # Copyright (C) 2012 Gregor Richards
 # 
@@ -20,7 +20,9 @@ then
     SNOWFLAKE_BASE=`dirname "$0"`
 fi
 
-. "$SNOWFLAKE_BASE"/defs.sh
+# Fail on any command failing, show commands:
+set -ex
 
-$SUDO unshare -m env SNOWFLAKE_BASE="$SNOWFLAKE_BASE" \
-    "$SNOWFLAKE_BASE"/enter-chroot-prime.sh "$@"
+"$SNOWFLAKE_BASE"/buildcc.sh &&
+"$SNOWFLAKE_BASE"/build-gcc-deps.sh &&
+"$SNOWFLAKE_BASE"/buildroot.sh

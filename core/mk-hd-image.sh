@@ -35,6 +35,8 @@ if [ -z "$UID" ] ; then
 	UID="`id -u`"
 fi
 [ "$UID" = "0" ] || die "must be root"
+PATH="/sbin:/usr/sbin:$PATH"
+export PATH
 
 imagefile="$1"
 [ -z "$imagefile" ] && usage
@@ -88,7 +90,7 @@ mkfs.ext3 "$loopdev" || die_unloop 'Failed to mkfs.ext3 loop for /boot'
 mount "$loopdev" "$mountdir" || die_unloop 'Failed to mount loop for /boot'
 
 if [ -d "$contents" ] ; then
-	cp -a "$contents"/boot/* "$mountdir"/ || die_unmount 'Failed to copy boot'
+	cp -dr "$contents"/boot/* "$mountdir"/ || die_unmount 'Failed to copy boot'
 else
 	tar -C "$mountdir" -xf "$contents" boot || die_unmount 'Failed to extract boot'
 	mv "$mountdir"/boot/* "$mountdir"/ || die_unmount 'Failed to move /boot content to root of boot partition'
@@ -109,7 +111,7 @@ mount "$loopdev" "$mountdir" || die_unloop 'Failed to mount loop for /'
 echo "copying contents, this will take a while"
 if [ -d "$contents" ]
 then
-	cp -a "$contents"/* "$mountdir"/ || die_unmount 'Failed to copy /'
+	cp -dr "$contents"/* "$mountdir"/ || die_unmount 'Failed to copy /'
 else
 	tar -C "$mountdir" -zxf "$contents" || die_unmount 'Failed to extract /'
 fi

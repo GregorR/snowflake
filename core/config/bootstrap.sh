@@ -9,6 +9,7 @@ cd ..
 
 # sed
 cd /src/sed-SED_VERSION
+touch doc/*.1
 with gcc make -q DEFAULT_CONFIGURATION/sed/SED_VERSION -- sh -c './configure --prefix=/usr && make && make install'
 
 # gawk

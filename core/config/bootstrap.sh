@@ -1,43 +1,17 @@
 #!/bin/sh
 set -e
 
-# make
-cd /src/make-MAKE_VERSION
-with gcc -q DEFAULT_CONFIGURATION/make/MAKE_VERSION -- env CFLAGS='-O2 -g -D__BEOS__' \
-    sh -c './configure --prefix=/usr && ./build.sh && ./make && ./make install'
-cd ..
-
-# sed
-cd /src/sed-SED_VERSION
-touch doc/*.1
-with gcc make -q DEFAULT_CONFIGURATION/sed/SED_VERSION -- sh -c './configure --prefix=/usr && make && make install'
-
-# gawk
-cd /src/gawk-GAWK_VERSION
-with gcc make -q DEFAULT_CONFIGURATION/gawk/GAWK_VERSION -- sh -c './configure --prefix=/usr && make && make install && ln -fs gawk /usr/bin/awk'
-
 # pkgsrc
 [ -e /src/pkgsrc ] && mv /src/pkgsrc /var/pkgsrc
 if [ -e /var/pkgsrc ]
 then
     cd /var/pkgsrc/bootstrap
 
-    # Set MACHINE_ARCH if we need it
-    EXTRA_BOOTSTRAP_ENV=
-    if [ "`uname -m`" = "mips" ]
-    then
-        EXTRA_BOOTSTRAP_ENV="MACHINE_ARCH=mipseb"
-    fi
-
-    with gcc make sed gawk -q DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION -- env \
+    with snps gcc -q DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION -- env \
         CC='gcc -D_GNU_SOURCE -D_BSD_SOURCE' USE_NATIVE_GCC=yes NOGCCERROR=yes \
-        $EXTRA_BOOTSTRAP_ENV \
         ./bootstrap --prefix=/usr --varbase=/var
 
-    # we inject a dependency on gzip, as some packages require gzip (and not
-    # busybox gzip) to extract due to .Z files. This is harmless if gzip
-    # doesn't exist
-    echo snps gcc sed gawk gzip > /pkg/DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION/deps
+    echo snps gcc > /pkg/DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION/deps
 
     # snowflake-ize it
     echo '

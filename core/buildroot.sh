@@ -118,6 +118,14 @@ doinstall '' busybox-$BUSYBOX_VERSION LDFLAGS=-static \
     CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip" \
     CONFIG_PREFIX="$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr"
 
+# gawk
+PREFIX="/usr"
+fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
+cp -f "$SNOWFLAKE_BASE/../musl-cross/extra/config.sub" gawk-$GAWK_VERSION/config.sub
+MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gawk/b.$GAWK_VERSION" \
+    CFLAGS="-O2 -g $CFLAGS" buildinstall root gawk-$GAWK_VERSION --host=$TRIPLE
+unset PREFIX
+
 # quicklink
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/quicklink/$QUICKLINK_VERSION/usr/bin/snowflake-quicklink" ]
 then
@@ -152,6 +160,20 @@ then
     echo usrview > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/pkgresolve/$PKGRESOLVE_VERSION/deps"
 fi
 
+# rename for some g-named things
+if [ -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr/bin/awk" ]
+then
+    rm -f "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr/bin/awk"
+fi
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/grename/0.1/usr/bin/awk" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/grename/0.1/usr/bin"
+    for g in make awk
+    do
+        ln -sf g$g "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/grename/0.1/usr/bin/$g"
+    done
+fi
+
 # core files
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/etc" ]
 then
@@ -172,7 +194,7 @@ fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/minimal/1.0/usr" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/minimal/1.0/usr"
-    echo musl libgcc busybox pkgresolve > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/minimal/1.0/deps"
+    echo musl libgcc busybox gawk pkgresolve grename > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/minimal/1.0/deps"
 fi
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/default/1.0/usr" ]
 then
@@ -257,39 +279,27 @@ then
     cp "$SNOWFLAKE_BASE/config/extlinux.conf" "$SNOWFLAKE_PREFIX/boot/"
 fi
 
-# a few things distributed as source to be built later
-if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/sed/$SED_VERSION/usr" ]
+# pkgsrc will be built within Snowflake
+if [ "$WITH_PKGSRC" = "yes" -a ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/pkgsrc/$PKGSRC_VERSION/usr" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/src"
-    fetchextract http://ftp.gnu.org/gnu/make/ make-$MAKE_VERSION .tar.bz2
-    fetchextract http://ftp.gnu.org/gnu/sed/ sed-$SED_VERSION .tar.bz2
-    fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
-    PKGSRC=
-    if [ "$WITH_PKGSRC" = "yes" ]
+    PKGSRC=pkgsrc
+    fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc-$PKGSRC_VERSION .tar.xz
+    if [ ! -e "pkgsrc/patched" ]
     then
-        PKGSRC=pkgsrc
-        fetchextract ftp://ftp.netbsd.org/pub/pkgsrc/pkgsrc-$PKGSRC_VERSION/ pkgsrc-$PKGSRC_VERSION .tar.xz
-        if [ ! -e "pkgsrc/patched" ]
-        then
-            (
-            cd pkgsrc
-            cat "$SNOWFLAKE_BASE/../pkgsrc-patches"/*.diff | patch -p1
-            touch patched
-            )
-        fi
+        (
+        cd pkgsrc
+        cat "$SNOWFLAKE_BASE/../pkgsrc-patches"/*.diff | patch -p1
+        touch patched
+        )
     fi
-    for pkg in make-$MAKE_VERSION sed-$SED_VERSION gawk-$GAWK_VERSION $PKGSRC
-    do
-        if [ ! -e "$SNOWFLAKE_PREFIX/src/$pkg" ]
-        then
-            cp -a $pkg "$SNOWFLAKE_PREFIX/src/"
-        fi
-    done
+    if [ ! -e "$SNOWFLAKE_PREFIX/src/pkgsrc" ]
+    then
+        cp -a pkgsrc "$SNOWFLAKE_PREFIX/src/"
+    fi
     if [ ! -e "$SNOWFLAKE_PREFIX/src/bootstrap.sh" ]
     then
         sed 's/DEFAULT_CONFIGURATION/'$TRIPLE'/g ;
-        s/MAKE_VERSION/'$MAKE_VERSION'/g ; s/SED_VERSION/'$SED_VERSION'/ ;
-        s/GAWK_VERSION/'$GAWK_VERSION'/g ;
         s/PKGSRC_VERSION/'$PKGSRC_VERSION'/g' \
             "$SNOWFLAKE_BASE/config/bootstrap.sh" > "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
         chmod 0755 "$SNOWFLAKE_PREFIX/src/bootstrap.sh"
@@ -310,8 +320,9 @@ fi
 # make everything mountable
 touch "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/.usr_ok"
 for pkg in minimal/1.0 default/1.0 \
+    grename/0.1 \
     linux-headers/$LINUX_HEADERS_VERSION musl/$MUSL_VERSION \
-    busybox/$BUSYBOX_VERSION quicklink/$QUICKLINK_VERSION \
+    busybox/$BUSYBOX_VERSION gawk/b.$GAWK_VERSION quicklink/$QUICKLINK_VERSION \
     usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION \
     binutils/$BINUTILS_VERSION gcc/$GCC_VERSION libgcc/$GCC_VERSION
 do

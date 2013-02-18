@@ -11,7 +11,7 @@ then
         CC='gcc -D_GNU_SOURCE -D_BSD_SOURCE' USE_NATIVE_GCC=yes NOGCCERROR=yes \
         ./bootstrap --prefix=/usr --varbase=/var
 
-    echo snps gcc > /pkg/DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION/deps
+    echo snps gcc gzip > /pkg/DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION/deps
 
     # snowflake-ize it
     echo '

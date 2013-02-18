@@ -1,6 +1,6 @@
 # Definitions for build scripts
 # 
-# Copyright (C) 2012 Gregor Richards
+# Copyright (C) 2012, 2013 Gregor Richards
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -32,7 +32,7 @@ GAWK_VERSION=4.0.1
 GMP_VERSION=5.0.5
 LINUX_VERSION=24cb14d6769e19c18e3926d0ea1fd2f1bbdc0f30
 PKGRESOLVE_VERSION=0.1
-PKGSRC_VERSION=2012Q3
+PKGSRC_VERSION=2012Q4
 QUICKLINK_VERSION=0.1
 SNPS_VERSION=0.1
 USRVIEW_VERSION=0.1

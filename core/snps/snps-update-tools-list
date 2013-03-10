@@ -7,11 +7,19 @@ do
     for pkg in *
     do
         [ "$pkg" = "busybox" ] && continue
-    
-        for tool in $pkg/*/usr/bin/*
+
+        for ver in $pkg/*/
         do
-            tool=`basename "$tool"`
-            [ "$tool" != "*" -a "$tool" != "busybox" ] && echo "$tool:$pkg"
+            if [ ! -e $ver/.tools ]
+            then
+                for tool in $ver/usr/bin/*
+                do
+                    tool=`basename "$tool"`
+                    [ "$tool" != "*" -a "$tool" != "busybox" ] && echo "$tool:$pkg"
+                done > $ver/.tools
+            fi
+
+            cat $ver/.tools
         done
     done
 done > .tools

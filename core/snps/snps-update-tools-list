@@ -10,6 +10,7 @@ do
 
         for ver in $pkg/*/
         do
+            ( echo "$ver" | grep '\/a' ) && continue
             if [ ! -e $ver/.tools ]
             then
                 for tool in $ver/usr/bin/*

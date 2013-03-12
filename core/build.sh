@@ -1,5 +1,5 @@
 #!/bin/sh
-# Build a cross-compiler
+# Build Snowflake
 # 
 # Copyright (C) 2012 Gregor Richards
 # 
@@ -23,6 +23,6 @@ fi
 # Fail on any command failing, show commands:
 set -ex
 
-"$SNOWFLAKE_BASE"/buildcc.sh &&
-"$SNOWFLAKE_BASE"/build-gcc-deps.sh &&
+"$SNOWFLAKE_BASE"/buildcc.sh
+"$SNOWFLAKE_BASE"/build-gcc-deps.sh
 "$SNOWFLAKE_BASE"/buildroot.sh

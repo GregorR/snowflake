@@ -290,6 +290,7 @@ then
         (
         cd pkgsrc
         cat "$SNOWFLAKE_BASE/../pkgsrc-patches"/*.diff | patch -p1
+        find . -name 'config.sub' -exec cp mk/gnu-config/config.sub '{}' ';'
         touch patched
         )
     fi

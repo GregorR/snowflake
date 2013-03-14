@@ -16,7 +16,7 @@ then
     # snowflake-ize it
     echo '
 # We'\''re on musl, thank you
-LOWER_OPSYS=linux-musl
+#LOWER_OPSYS=linux-musl
 
 # snps-setenv cleverly translates pkgsrc packages to Snowflake usrviews
 SETENV=snps-setenv "${PKGNAME}" "${DEPENDS}" "${BUILD_DEPENDS} ${BOOTSTRAP_DEPENDS}" "${USE_TOOLS}"

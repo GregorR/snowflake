@@ -79,6 +79,9 @@ static struct PackageRequest *packageHM[HM_SIZE];
 /* as well as a list for a global order */
 static struct PackageRequest *packageHead, *packageTail;
 
+/* usage statement */
+void usage(char *argvz);
+
 /* read in a list of package requests */
 void readPackages(const char *packages, const char *configuration, int configurationlen, void (*foreach)(struct PackageRequest *));
 
@@ -139,22 +142,23 @@ int main(int argc, char **argv)
     }
     WRITE_STR_BUFFER(packages, " ");
 
+#define ARGL(l, s) if (!strcmp(arg, #l) || !strcmp(arg, #s))
 #define ARG(s) if (!strcmp(arg, #s))
     /* then, arguments */
     for (argi = 1; argi < argc; argi++) {
         arg = argv[argi];
         if (arg[0] == '-') {
-            ARG(-r) {
+            ARGL(--reset, -r) {
                 /* reset! */
                 packages.bufused = 0;
 
-            } else ARG(-c) {
+            } else ARGL(--configuration, -c) {
                 if (argi < argc - 1) {
                     argi++;
                     defConfiguration = argv[argi];
                 }
 
-            } else ARG(-f) {
+            } else ARGL(--file, -f) {
                 if (argi < argc - 1) {
                     FILE *pkgFile;
                     struct Buffer_char fbuf;
@@ -190,20 +194,20 @@ int main(int argc, char **argv)
                     }
                 }
 
-            } else ARG(-m) {
+            } else ARGL(--remount, -m) {
                 execing = 1;
                 nocommand = 1;
 
-            } else ARG(-s) {
+            } else ARGL(--show, -s) {
                 execing = 0;
 
-            } else ARG(-w) {
+            } else ARGL(--write-to, -w) {
                 if (argi < argc - 1) {
                     argi++;
                     wpath = argv[argi];
                 }
 
-            } else ARG(-q) {
+            } else ARGL(--quick-write-to, -q) {
                 if (argi < argc - 1) {
                     argi++;
                     qpath = argv[argi];
@@ -230,6 +234,10 @@ int main(int argc, char **argv)
                 execing = 1;
                 nocommand = 0;
                 break;
+
+            } else {
+                usage(argv[0]);
+                exit(1);
 
             }
 
@@ -342,6 +350,30 @@ int main(int argc, char **argv)
 #endif
 
     return 0;
+}
+
+void usage(char *argvz)
+{
+    fprintf(stderr, "Use: %s [options] [packages] [-- command]\n"
+                    "Options:\n"
+                    "\t--reset|-r:\n"
+                    "\t\tReset to default package selection.\n"
+                    "\t--configuration|-c <configuration>:\n"
+                    "\t\tUse the specified package configuration (/pkg/<cfg>)\n"
+                    "\t--file|-f <file>:\n"
+                    "\t\tLoad package list from the specified file. Any further options are interpreted\n"
+                    "\t\tas the command to execute. This option is intended to be used in #! lines of\n"
+                    "\t\tscripts.\n"
+                    "\t--remount|-m:\n"
+                    "\t\tRemount the current package selection instead of making a new one. Only usable\n"
+                    "\t\tby root, only intended for the boot sequence.\n"
+                    "\t--show|-s:\n"
+                    "\t\tInstead of executing anything, show the list of mounts.\n"
+                    "\t--write-to|-w <dir>:\n"
+                    "\t\tWrite to the given directory.\n"
+                    "\t--quick-write-to|-q <dir>:\n"
+                    "\t\tSet up the given directory as a package under /pkg, and write to its usr/.\n"
+                    , argvz);
 }
 
 #elif defined(TEST_VERSION)

@@ -154,6 +154,42 @@ int main(int argc, char **argv)
                     defConfiguration = argv[argi];
                 }
 
+            } else ARG(-f) {
+                if (argi < argc - 1) {
+                    FILE *pkgFile;
+                    struct Buffer_char fbuf;
+                    argi++;
+
+                    /* read it in */
+                    SF(pkgFile, fopen, NULL, (argv[argi], "r"));
+                    INIT_BUFFER(fbuf);
+                    READ_FILE_BUFFER(fbuf, pkgFile);
+                    fclose(pkgFile);
+
+                    /* skip the #! line */
+                    if (fbuf.buf[0] == '#') {
+                        size_t i;
+                        for (i = 1; i < fbuf.bufused && fbuf.buf[i] && fbuf.buf[i] != '\n'; i++);
+                        i++;
+                        if (i < fbuf.bufused) {
+                            memmove(fbuf.buf, fbuf.buf + i, fbuf.bufused - i);
+                            fbuf.bufused -= i;
+                        }
+                    }
+
+                    /* copy them in */
+                    WRITE_BUFFER(packages, fbuf.buf, fbuf.bufused);
+                    WRITE_STR_BUFFER(packages, " ");
+
+                    /* if anything remains, it's the command */
+                    argi++;
+                    if (argi < argc) {
+                        execing = 1;
+                        nocommand = 0;
+                        break;
+                    }
+                }
+
             } else ARG(-m) {
                 execing = 1;
                 nocommand = 1;

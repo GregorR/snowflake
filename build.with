@@ -1,0 +1,2 @@
+#!/usr/bin/pkgresolve -f
+gcc gmake wget perl sedrename bashrename gmp mpfr mpcomplex scmgit

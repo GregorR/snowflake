@@ -1,7 +1,7 @@
 #!/bin/sh
 # Build a root filesystem
 # 
-# Copyright (C) 2012 Gregor Richards
+# Copyright (C) 2012, 2013 Gregor Richards
 # 
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -27,6 +27,20 @@ MUSL_ROOT_CONFFLAGS=
 BINUTILS_ROOT_CONFFLAGS=
 GCC_ROOT_CONFFLAGS=
 . "$SNOWFLAKE_BASE"/defs.sh
+
+# figure out our compilers based on whether we're cross-compiling
+if [ "$NATIVE" = "yes" ]
+then
+    TARGET_CC="gcc"
+    TARGET_STRIP="strip"
+    TARGET_CONFFLAGS="--build=$TRIPLE --host=$TRIPLE"
+    TARGET_CROSS_COMPILE=
+else
+    TARGET_CC="$TRIPLE-gcc"
+    TARGET_STRIP="$TRIPLE-strip"
+    TARGET_CONFFLAGS="--host=$TRIPLE"
+    TARGET_CROSS_COMPILE=$TRIPLE-
+fi
 
 # use SNOWFLAKE_BASE for all builds now
 MUSL_CC_BASE="$SNOWFLAKE_BASE"
@@ -77,7 +91,7 @@ PREFIX="$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr"
 export PREFIX
 muslfetchextract
 buildinstall '' musl-$MUSL_VERSION \
-    --enable-debug CC="$TRIPLE-gcc" $MUSL_ROOT_CONFFLAGS
+    --enable-debug CC="$TARGET_CC" $MUSL_ROOT_CONFFLAGS
 rm -f "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/bin/musl-gcc" # No musl-gcc needed or wanted
 if [ -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/musl/$MUSL_VERSION/usr/lib/libc.so" ]
 then
@@ -102,20 +116,20 @@ then
     cd busybox-$BUSYBOX_VERSION
     cp "$SNOWFLAKE_BASE/config/busybox.config" .config
     yes '' | make LDFLAGS=-static \
-        CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip" \
+        CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TARGET_CC" STRIP="$TARGET_STRIP" \
         oldconfig
     touch configured
     )
 fi
 buildmake busybox-$BUSYBOX_VERSION LDFLAGS=-static \
-    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip"
+    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TARGET_CC" STRIP="$TARGET_STRIP"
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr/sbin" ]
 then
     mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr"
     ln -s bin "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr/sbin"
 fi
 doinstall '' busybox-$BUSYBOX_VERSION LDFLAGS=-static \
-    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TRIPLE-gcc" STRIP="$TRIPLE-strip" \
+    CFLAGS_busybox="-Wl,-z,muldefs" HOSTCC=gcc CC="$TARGET_CC" STRIP="$TARGET_STRIP" \
     CONFIG_PREFIX="$SNOWFLAKE_PREFIX/pkg/$TRIPLE/busybox/$BUSYBOX_VERSION/usr"
 
 # gawk
@@ -123,7 +137,7 @@ PREFIX="/usr"
 fetchextract http://ftp.gnu.org/gnu/gawk/ gawk-$GAWK_VERSION .tar.xz
 cp -f "$SNOWFLAKE_BASE/../musl-cross/extra/config.sub" gawk-$GAWK_VERSION/config.sub
 MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gawk/b.$GAWK_VERSION" \
-    CFLAGS="-O2 -g $CFLAGS" buildinstall root gawk-$GAWK_VERSION --host=$TRIPLE
+    CFLAGS="-O2 -g $CFLAGS" buildinstall root gawk-$GAWK_VERSION $TARGET_CONFFLAGS
 unset PREFIX
 
 # quicklink
@@ -173,6 +187,18 @@ then
         ln -sf g$g "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/grename/0.1/usr/bin/$g"
     done
 fi
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/bashrename/0.1/usr/bin/sh" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/bashrename/0.1/usr/bin"
+    ln -sf bash "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/bashrename/0.1/usr/bin/sh"
+    echo bash > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/bashrename/0.1/deps"
+fi
+if [ ! -e "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/sedrename/0.1/usr/bin/sed" ]
+then
+    mkdir -p "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/sedrename/0.1/usr/bin"
+    ln -sf gsed "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/sedrename/0.1/usr/bin/sed"
+    echo gsed > "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/sedrename/0.1/deps"
+fi
 
 # core files
 if [ ! -e "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/etc" ]
@@ -208,7 +234,7 @@ fetchextract http://ftp.gnu.org/gnu/binutils/ binutils-$BINUTILS_VERSION .tar.bz
 nolib64 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/binutils/$BINUTILS_VERSION/usr"
 # FIXME: In musl 0.9.2 this may be fixed, or alternately, may need to change to _GNU_SOURCE
 MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/$TRIPLE/binutils/$BINUTILS_VERSION" \
-    CFLAGS="-O2 -g $CFLAGS -D_LARGEFILE64_SOURCE" buildinstall root binutils-$BINUTILS_VERSION --host=$TRIPLE --target=$TRIPLE \
+    CFLAGS="-O2 -g $CFLAGS -D_LARGEFILE64_SOURCE" buildinstall root binutils-$BINUTILS_VERSION $TARGET_CONFFLAGS --target=$TRIPLE \
         --disable-werror $BINUTILS_ROOT_CONFFLAGS
 nolib64end "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/binutils/$BINUTILS_VERSION/usr"
 unset PREFIX
@@ -218,7 +244,7 @@ PREFIX="/usr"
 fetchextract http://ftp.gnu.org/gnu/gcc/gcc-$GCC_VERSION/ gcc-$GCC_VERSION .tar.bz2
 nolib64 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr"
 MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION" \
-    buildinstall root gcc-$GCC_VERSION --host=$TRIPLE --target=$TRIPLE \
+    buildinstall root gcc-$GCC_VERSION $TARGET_CONFFLAGS --target=$TRIPLE \
     --enable-languages=$LANGUAGES --disable-multilib --disable-libmudflap \
     $GCC_ROOT_CONFFLAGS
 nolib64end "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr"
@@ -268,7 +294,7 @@ then
     touch configured
     )
 fi
-buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TRIPLE-
+buildmake aufs3-linux-$LINUX_VERSION ARCH=$LINUX_ARCH CROSS_COMPILE=$TARGET_CROSS_COMPILE
 if [ ! -e "$SNOWFLAKE_PREFIX/boot/vmlinuz" ]
 then
     cp -L aufs3-linux-$LINUX_VERSION/arch/$LINUX_ARCH/boot/*zImage "$SNOWFLAKE_PREFIX/boot/vmlinuz" ||
@@ -321,7 +347,7 @@ fi
 # make everything mountable
 touch "$SNOWFLAKE_PREFIX/pkg/core/core/1.0/usr/.usr_ok"
 for pkg in minimal/1.0 default/1.0 \
-    grename/0.1 \
+    grename/0.1 bashrename/0.1 sedrename/0.1 \
     linux-headers/$LINUX_HEADERS_VERSION musl/$MUSL_VERSION \
     busybox/$BUSYBOX_VERSION gawk/b.$GAWK_VERSION quicklink/$QUICKLINK_VERSION \
     usrview/$USRVIEW_VERSION pkgresolve/$PKGRESOLVE_VERSION \

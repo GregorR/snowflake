@@ -40,6 +40,24 @@ USRVIEW_VERSION=0.1
 # Include musl-cross's defs.sh
 . "$MUSL_CC_BASE/defs.sh"
 
+# Don't allow in-directory builds
+if [ -e buildroot.sh ]
+then
+    echo 'Please copy config.sh to a different directory and run this script from there.'
+    exit 1
+fi
+
+# Try to figure out whether we're native
+if [ -z "$NATIVE" ]
+then
+    if [ "`gcc -dumpmachine 2> /dev/null | grep linux-musl`" ]
+    then
+        NATIVE=yes
+    else
+        NATIVE=no
+    fi
+fi
+
 # Use our own defconfigs
 case "$LINUX_ARCH" in
     arm)

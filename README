@@ -34,10 +34,11 @@ root. It runs the following sub-scripts, in this order:
 * ./build-gcc-deps.sh: Builds prerequisites to build GCC for the guest. This
   needs to be done after buildcc and before buildroot.
 
-* ./buildroot.sh: Builds a Snowflake root filesystem.
+* ./buildroot.sh: Builds a Snowflake root filesystem. This is the only
+  necessary step if building Snowflake on a native musl system.
 
-It is possible to build out-of-source. To do so, set the environment variable
-SNOWFLAKE_BASE to the absolute path of core/, then run the scripts as usual.
+It is mandatory to build out-of-source. To do so, put config.sh in a directory
+of your choosing, then simply run the scripts out of the core/ directory.
 
 Once you have the root filesystem set up, write it to an HD image:
 

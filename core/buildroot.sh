@@ -246,6 +246,7 @@ nolib64 "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr"
 MAKEINSTALLFLAGS="$MAKEINSTALLFLAGS DESTDIR=$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION" \
     buildinstall root gcc-$GCC_VERSION $TARGET_CONFFLAGS --target=$TRIPLE \
     --enable-languages=$LANGUAGES --disable-multilib --disable-libmudflap \
+    --disable-libsanitizer \
     $GCC_ROOT_CONFFLAGS
 nolib64end "$SNOWFLAKE_PREFIX/pkg/$TRIPLE/gcc/$GCC_VERSION/usr"
 # get the libs into their own path

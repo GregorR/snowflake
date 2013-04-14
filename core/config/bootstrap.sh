@@ -38,6 +38,7 @@ FAM_DEFAULT=gamin
 PAM_DEFAULT=openpam
 PKG_OPTIONS.xfce4-exo=-hal
 PKG_OPTIONS.xfce4-thunar=-hal
+PKG_OPTIONS.MesaLib=dri
 ' >> \
         /pkg/DEFAULT_CONFIGURATION/pkgsrc/PKGSRC_VERSION/usr/etc/mk.conf
     echo -e '\tsnps-pkgsrc-install' >> /var/pkgsrc/mk/pkgformat/pkg/package.mk

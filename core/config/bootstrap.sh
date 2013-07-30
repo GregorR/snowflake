@@ -19,7 +19,7 @@ then
 #LOWER_OPSYS=linux-musl
 
 # snps-setenv cleverly translates pkgsrc packages to Snowflake usrviews
-SETENV=snps-setenv "${PKGNAME}" "${DEPENDS}" "${BUILD_DEPENDS} ${BOOTSTRAP_DEPENDS}" "${USE_TOOLS}"
+SETENV=snps-setenv "${PKGNAME}" "${DEPENDS}" "${BUILD_DEPENDS} ${BOOTSTRAP_DEPENDS} ${TOOL_DEPENDS}" "${USE_TOOLS}"
 
 # Circular depends if you don'\''t have builtin things
 FETCH_USING=fetch

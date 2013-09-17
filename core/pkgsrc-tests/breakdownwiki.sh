@@ -18,7 +18,9 @@ If you have patches to make other packages build, please report them on the [[ht
 ----
 '
 
-printf '%s\n' "||'''Deps'''||'''Builds'''||'''Tests'''||'''Package/patches'''||"
+SCMD='s/^|/ |/ ; s/^/|/ ; s/| /__BAR____BAR__bgcolor="green"__BAR__ /g ; s/|\([X-]\)/__BAR____BAR__bgcolor="red"__BAR__\1/g ; s/__BAR__/|/g ; s/__LINK__/ /g'
+
+printf '%s\n%s\n%s\n%s\n' '{| class="wikitable sortable"' '|-' '! Deps !! Builds !! Tests !! Package/patches' '|-'
 tail -n+4 | while read ln
 do
     [ "$ln" = "" ] && continue
@@ -28,9 +30,9 @@ do
     # Maybe switch it for a link
     if [ -e "$PATCHES/$pkgdiff" ]
     then
-        printf '%s\n' "$ln" | sed 's#^\([^|]*|.|.|\)\(.*\)#\1[[https://bitbucket.org/GregorR/musl-pkgsrc-patches/src/'$PP_REV'/'$pkgdiff'__LINK__\2]]#'
+        printf '%s\n' "$ln" | sed 's#^\([^|]*|.|.|\)\(.*\)#\1[[https://bitbucket.org/GregorR/musl-pkgsrc-patches/src/'$PP_REV'/'$pkgdiff'__LINK__\2]]# ; '"$SCMD"
     else
-        printf '%s\n' "$ln"
+        printf '%s\n' "$ln" | sed "$SCMD"
     fi
-done | \
-    sed 's/^|/ |/ ; s/|/||/g ; s/__LINK__/|/ ; s/^/||/ ; s/$/||/ ; s/|\([X-]\)|/|<class=rbg>\1|/g ; s/| |/|<class=gbg> |/g'
+    printf '%s\n' '|-'
+done

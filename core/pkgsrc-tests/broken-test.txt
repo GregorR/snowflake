@@ -22,3 +22,4 @@ devel/p5-Variable-Magic
 security/p5-Crypt-OpenPGP
 textproc/ruby-pure-hyperstraier
 lang/tcl
+security/lsh

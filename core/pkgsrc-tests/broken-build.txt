@@ -3,3 +3,6 @@ devel/ldapsdk
 lang/moscow_ml
 print/pdvipsk
 lang/gforth
+multimedia/mediainfo
+net/p5-SOAP-Transport-TCP
+security/lsh

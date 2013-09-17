@@ -38,7 +38,12 @@ do
     then
         if try with pkgsrc -- bmake
         then
-            try with pkgsrc -- bmake test
+            if expr "$pkg" : '.*\/p5'
+            then
+                try false
+            else
+                try with pkgsrc -- timeout -t 900 bmake test
+            fi
             with pkgsrc -- bmake install
         else
             echo -n 'X|' >> "$LOG"
